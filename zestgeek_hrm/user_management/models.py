@@ -39,7 +39,15 @@ class CustomUserManager(BaseUserManager):
 
 
 class Role(models.Model):
-    role_name = models.CharField(max_length=100, null=True, blank=True)
+    ROLES_CHOICES = (
+        ('SUPERUSER', 'SUPERUSER'),
+        ('ADMIN', 'ADMIN'),
+        ('PROJECTMANAGER', 'PROJECTMANAGER'),
+        ('TEAMLEADER', 'TEAMLEADER'),
+        ('EMPLOYEE', 'EMPLOYEE'),
+    )
+    role_name = models.CharField(max_length=100, choices=ROLES_CHOICES)
+
 
     def __str__(self):
         return self.role_name
@@ -51,6 +59,8 @@ class CustomUser(AbstractBaseUser):
     first_name = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
+    personal_email = models.EmailField("email address", unique=True)
+    is_active = models.BooleanField(default=True, null=True, blank=True)
     # is_superuser = models.BooleanField(default=False)
     # is_staff = models.BooleanField(default=False)
     # is_admin = models.BooleanField(default=False)
@@ -66,23 +76,59 @@ class CustomUser(AbstractBaseUser):
 
 class Department(models.Model):
     DEPARTMENT_CHOICES = (
-        ('Python', 'Python'),
+        ('PYTHON', 'PYTHON'),
         ('PHP', 'PHP'),
-        ('REACT', 'REACT'),
-        ('PHP', 'UI/UX'),
+        ('JS', 'JS'),
+        ('UI/UX', 'UI/UX'),
+        ('SEO', 'SEO')
     )
     department_name = models.CharField(max_length=100, choices=DEPARTMENT_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+
+
+class BankDetails(models.Model):
+    bank_name = models.CharField(max_length=100, null=True, blank=True)
+    iifc_code = models.CharField(max_length=100, null=True, blank=True)
+    account_number = models.BigIntegerField(null=True, blank=True)
+    salary = models.IntegerField(null=True, blank=True)
+    is_active = models.BooleanField(default=True, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+
+
+class ContactDetails(models.Model):
+    address = models.CharField(max_length=100, null=True, blank=True)
+    phone_number = models.CharField(max_length=100, null=True, blank=True)
+    is_active = models.BooleanField(default=True, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
 
 class Profile(models.Model):
+    GENDER_CHOICES = (
+        ('MALE', 'MALE'),
+        ('FEMALE', 'FEMALE'),
+        ('UNSPECIFIED', 'UNSPECIFIED'),
+    )
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
+    gender = models.CharField(max_length=100, choices=GENDER_CHOICES)
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    image = models.ImageField()
-    temperory_address = models.CharField(max_length=100, null=True, blank=True)
-    permanent_address = models.CharField(max_length=100, null=True, blank=True)
-    phone_number = models.CharField(max_length=100, null=True, blank=True)
-    alternate_phone_number = models.CharField(max_length=100, null=True, blank=True)
+    image = models.CharField(max_length=100, null=True, blank=True)
+    contact = models.ManyToManyField(ContactDetails)
+    # temperory_address = models.CharField(max_length=100, null=True, blank=True)
+    # permanent_address = models.CharField(max_length=100, null=True, blank=True)
+    # phone_number = models.CharField(max_length=100, null=True, blank=True)
+    # alternate_phone_number = models.CharField(max_length=100, null=True, blank=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    bank = models.ForeignKey(BankDetails, on_delete=models.CASCADE)
+    joined_date = models.DateField()
+    is_active = models.BooleanField(default=True, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     def __str__(self):
         return self.user.first_name
+
+
+
