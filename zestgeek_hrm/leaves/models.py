@@ -3,8 +3,6 @@ import uuid
 from zestgeek_hrm.user_management.models import Profile, Department
 # from user_management.models import Department, Profile
 # Create your models here.
-
-
 class Leaves(models.Model):
     leave_id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -26,4 +24,3 @@ class Leaves(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
