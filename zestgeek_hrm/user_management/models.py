@@ -71,8 +71,8 @@ class Department(models.Model):
         ('REACT', 'REACT'),
         ('PHP', 'UI/UX'),
     )
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    department_name = models.CharField(max_length=100, null=True, blank=True)
+    department_name = models.CharField(max_length=100, choices=DEPARTMENT_CHOICES)
+
 
 class Profile(models.Model):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
@@ -82,7 +82,7 @@ class Profile(models.Model):
     permanent_address = models.CharField(max_length=100, null=True, blank=True)
     phone_number = models.CharField(max_length=100, null=True, blank=True)
     alternate_phone_number = models.CharField(max_length=100, null=True, blank=True)
-    department = models.ForeignKey()
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.first_name
