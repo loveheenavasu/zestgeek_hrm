@@ -7,8 +7,7 @@ from .models import *
 # Create your views here.
 class Register(View):
     def get(self, request):
-        pass
-        # return render(request, "register.html")
+        return render(request, "register.html")
     def post(self,request):
         print("abc")
         email = request.POST.get('email')
@@ -29,7 +28,7 @@ class Register(View):
         if CustomUser.objects.filter(email=email).exists():
             print("already exists")
             messages.error(request, "Email already exists")
-            return {"msg": "email already exists"}
+            return render(request, "register.html")
             # return redirect("/")
         else:
             CustomUser.objects.create_user(email=email, password=password, first_name=first_name, last_name=last_name, role=role, personal_email=personal_email
@@ -37,9 +36,8 @@ class Register(View):
                                            alternate_phone_number=alternate_phone_number, department=department, joined_date=joined_date, image=image )
             messages.success(request, "Registeration successful.")
             print("successful")
-            return {"msg": "done."}
 
-            # return redirect("/")
+            return redirect("register")
 
 
 class Employee(View):
