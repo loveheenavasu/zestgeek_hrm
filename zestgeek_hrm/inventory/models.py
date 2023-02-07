@@ -1,5 +1,4 @@
 from django.db import models
-from zestgeek_hrm.user_management.models import CustomUser
 import uuid
 
 

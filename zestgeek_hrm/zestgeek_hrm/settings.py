@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -73,32 +73,32 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'zestgeek_hrm.wsgi.application'
 
-AUTH_USER_MODEL = 'custom_user_app.CustomUser'
+AUTH_USER_MODEL = 'user_management.CustomUser'
 
 
-
+#
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Database
-DATABASES = {
-        'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'zestgeek_hrm',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        }
-}
+# DATABASES = {
+#         'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'zestgeek_hrm',
+#         'USER': 'root',
+#         'PASSWORD': 'root',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#         }
+# }
 
 
 
