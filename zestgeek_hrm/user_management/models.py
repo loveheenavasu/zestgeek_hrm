@@ -75,7 +75,7 @@ class CustomUser(AbstractBaseUser):
     email = models.EmailField("email address", unique=True)
     first_name = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
-    role = models.ForeignKey(Role, on_delete=models.CASCADE)
+    role = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, blank=True)
     personal_email = models.EmailField("email address", unique=True)
     gender = models.CharField(max_length=100, choices=GENDER_CHOICES)
     image = models.CharField(max_length=100, null=True, blank=True)
@@ -83,15 +83,33 @@ class CustomUser(AbstractBaseUser):
     permanent_address = models.CharField(max_length=100, null=True, blank=True)
     phone_number = models.CharField(max_length=100, null=True, blank=True)
     alternate_phone_number = models.CharField(max_length=100, null=True, blank=True)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    joined_date = models.DateField()
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True, blank=True)
+    joined_date = models.DateField(null=True, blank=True)
     is_active = models.BooleanField(default=True, null=True, blank=True)
-    # is_superuser = models.BooleanField(default=False)
-    # is_staff = models.BooleanField(default=False)
-    # is_admin = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
     # last_login = None  (Uncomment this if you dont want last_login in the db table)
     USERNAME_FIELD = "email"  # make the user login with the email
     REQUIRED_FIELDS = []
+
+    @property
+    def is_superuser(self):
+        return self.is_superuser
+
+    @property
+    def is_staff(self):
+        return self.is_staff
+
+    def has_perm(self, perm, obj=None):
+        return self.is_admin
+
+    def has_module_perms(self, app_label):
+        return self.is_admin
+
+    @is_staff.setter
+    def is_staff(self, value):
+        self._is_staff = value
 
     objects = CustomUserManager()
 

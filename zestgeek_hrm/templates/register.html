@@ -32,65 +32,73 @@
 <p class="account-subtitle">Access to our dashboard</p>
 
 <form action="" method="post">
+ 		{% csrf_token%}
+
 <div class="form-group">
 <label for="first_name" class="form-control-label">First Name</label>
-<input type="text" class="form-control" name="first_name">
+<input type="text" class="form-control" name="first_name" placeholder="Enter first name">
 </div>
 <div class="form-group">
 <label for="last_name" class="form-control-label">Last Name</label>
-<input type="text" class="form-control" name="last_name">
+<input type="text" class="form-control" name="last_name" placeholder="Enter last name">
 </div>
 <div class="form-group">
 <label for="email" class="form-control-label">Email Address</label>
-<input type="text" class="form-control" name="email">
+<input type="text" class="form-control" name="email" placeholder="Enter email address">
 </div>
 <div class="form-group">
 <label for="personal_email" class="form-control-label">Personal Email Address</label>
-<input type="text" class="form-control" name="personal_email">
+<input type="text" class="form-control" name="personal_email" placeholder="Enter personal email address">
 </div>
 <div class="form-group">
-<label for="gender" class="form-control-label">Gender</label>
-<input type="text" class="form-control" name="gender">
+    <select name="gender" required>
+    <option disabled="disabled" selected="selected">Select Gender</option>
+    <option>Male</option>
+    <option>Female</option>
+    <option>Unspecified</option>
+    </select>
+<!--<label for="gender" class="form-control-label">Gender</label>-->
+<!--<input type="text" class="form-control" name="gender" placeholder="Select gender">-->
 </div>
 <div class="form-group">
 <label for="image" class="form-control-label">Profile Picture</label>
-<input type="file" class="form-control" name="image">
+<input type="file" class="form-control" name="image" placeholder="Select profile picture">
 </div>
 <div class="form-group">
 <label for="temperory_address" class="form-control-label">Temporary Address</label>
-<input type="text" class="form-control" name="text">
+<input type="text" class="form-control" name="text" placeholder="Enter temporary address">
 </div>
 <div class="form-group">
 <label for="permanent_address" class="form-control-label">Permanent Address</label>
-<input type="text" class="form-control" name="permanent_address">
+<input type="text" class="form-control" name="permanent_address" placeholder="Enter permanent address">
 </div>
 <div class="form-group">
 <label for="phone_number" class="form-control-label">Phone Number</label>
-<input type="tel" class="form-control" name="phone_number">
+<input type="tel" class="form-control" name="phone_number" placeholder="Enter phone number">
 </div>
 <div class="form-group">
 <label for="alternate_phone_number" class="form-control-label">Alternate Phone Number</label>
-<input type="tel" class="form-control" name="alternate_phone_number">
+<input type="tel" class="form-control" name="alternate_phone_number" placeholder="Enter alternate phone number">
 </div>
 <div class="form-group">
-<label for="role" class="form-control-label">Role</label>
-<input type="text" class="form-control" name="role">
+<label for="role" class="form-control-label">Designation</label>
+<input type="text" class="form-control" name="role" placeholder="Select designation">
 </div>
 <div class="form-group">
-<label for="department" class="form-control-label">Department Name</label>
-<input type="text" class="form-control" name="department">
+<label for="department" class="form-control-label">Department</label>
+<input type="text" class="form-control" name="department" placeholder="Select department">
 </div>
 <div class="form-group">
 <label for="joined_date" class="form-control-label">Joined Date</label>
-<input type="date" class="form-control" name="joined_date">
+<input type="date" class="form-control" name="joined_date" placeholder="Select joined date">
 </div>
 <div class="form-group">
 <label for="password" class="form-control-label">Password</label>
-<input type="password" class="form-control" name="password">
+<input type="password" class="form-control" name="password" placeholder="Enter password">
 </div>
 <div class="form-group">
-<label class="form-control-label">Confirm Password</label>
-<input class="form-control" type="password">
+<label for="confirm_password" class="form-control-label">Confirm Password</label>
+<input type="password" class="form-control" name="confirm_password" placeholder="Enter confirm-password">
 </div>
 <div class="form-group mb-0">
 <button class="btn btn-lg btn-block btn-primary" type="submit">Register</button>
