@@ -11,7 +11,7 @@ class Inventory(models.Model):
     inventory_id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     user = models.OneToOneField(CustomUser, on_delete=models.DO_NOTHING)
     item = models.CharField(max_length=100)
-    item_number = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
     remarks = models.CharField(max_length=100, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
