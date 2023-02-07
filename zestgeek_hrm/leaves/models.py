@@ -15,7 +15,7 @@ class Leaves(models.Model):
         ("ACCEPTED", "ACCEPTED"), ("PENDING", "PENDING"), ("CANCELLED", "CANCELLED")
     )
     status = models.CharField(max_length=12, choices=STATUS_CHOICE, default="PENDING")
-    start_date = models.DatField()
+    start_date = models.DateField()
     end_date = models.DateField()
     reason = models.CharField(max_length=200)
     remaining_leaves = models.IntegerField()
