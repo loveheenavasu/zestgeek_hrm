@@ -262,11 +262,12 @@
 <a class="btn-add" data-toggle="modal" data-target="#addteam"><i data-feather="plus"></i> Add Department</a>
 </div>
 </div>
-    {%for dept in department%}
+
 <div class="col-xl-12 col-sm-12 col-12 ">
 <div class="card m-0">
 <div class="card-body pb-0">
 <div class="row">
+    {%for dept in department%}
 <div class="col-xl-6">
 <div class="card">
 <div class="card-header">
@@ -295,7 +296,7 @@
  </div>
 </div>
 </div>
-
+    {% endfor %}
 
 </div>
 
@@ -319,13 +320,13 @@
 <input type="text" placeholder="Name" name="department_name">
 </div>
 </div>
-  </form>
 </div>
 
 <div class="modal-footer">
 <button type="submit" class="btn btn-primary">Add</button>
 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 </div>
+      </form>
 </div>
 </div>
 </div>
@@ -390,6 +391,6 @@
 <script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
 
 <script src="{% static 'assets/js/script.js' %}"></script>
-    {%endfor%}
+
 </body>
 </html>

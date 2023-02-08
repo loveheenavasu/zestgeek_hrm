@@ -28,13 +28,13 @@
 <div class="top-nav-search">
 <form>
        {% csrf_token %}
-     {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <p  style="color:red" {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
-    {% endfor %}
-</ul>
-{% endif %}
+<!--     {% if messages %}-->
+<!--<ul class="messages">-->
+<!--    {% for message in messages %}-->
+<!--    <p  style="color:red" {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>-->
+<!--    {% endfor %}-->
+<!--</ul>-->
+<!--{% endif %}-->
 <input type="text" class="form-control" placeholder="">
 <button class="btn" type="submit"><i class="fas fa-search"></i></button>
 </form>
@@ -248,7 +248,7 @@
 <li><a href="/department">Teams</a></li>
 <!--<li><a href="employee-office.html">Offices</a></li>-->
 </ul>
-<a class="btn-add" href="add-employee.html"><i data-feather="plus"></i> Add Employee</a>
+<a class="btn-add" href="/"><i data-feather="plus"></i> Add Employee</a>
 </div>
 </div>
 <div class="col-xl-12 col-sm-12 col-12 mb-4">
