@@ -52,7 +52,7 @@ class Register(View):
             messages.success(request, "Registration successful.")
             print("successful")
 
-            return redirect("/")
+            return redirect("/employee")
 
 
 class LoginView(View):
