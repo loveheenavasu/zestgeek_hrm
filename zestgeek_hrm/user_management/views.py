@@ -91,3 +91,7 @@ class DepartmentView(View):
             Department.objects.create(department_name=department_name)
             messages.success(request, "Department created successful.")
             return redirect("department")
+
+class EmployeeView(View):
+    def get(self, request):
+        return render(request, 'employee.html')

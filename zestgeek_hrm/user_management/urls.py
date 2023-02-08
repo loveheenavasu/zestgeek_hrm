@@ -6,6 +6,7 @@ urlpatterns = [
     path('roles', Roles.as_view()),
     path('login', LoginView.as_view()),
     path('department', DepartmentView.as_view()),
+    path('employee', EmployeeView.as_view())
 
 
 

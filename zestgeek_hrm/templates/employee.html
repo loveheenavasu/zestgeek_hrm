@@ -1,26 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-<title>Dleohr - Bootstrap Admin HTML Template</title>
-
-<link rel="shortcut icon" href="assets/img/favicon.png">
-
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-
-<link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
-
-<link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-<link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
-
-<link rel="stylesheet" href="assets/css/style.css">
-<!--[if lt IE 9]>
-			<script src="assets/js/html5shiv.min.js"></script>
-			<script src="assets/js/respond.min.js"></script>
-		<![endif]-->
-</head>
-<body>
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
 
 <div class="main-wrapper">
 
@@ -28,10 +8,10 @@
 
 <div class="header-left">
 <a href="index.html" class="logo">
-<img src="assets/img/logo.png" alt="Logo">
+<img src="{% static 'assets/img/logo.png' %}" alt="Logo">
 </a>
 <a href="index.html" class="logo logo-small">
-<img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
+<img src="{% static 'assets/img/logo-small.png' %}" alt="Logo" width="30" height="30">
 </a>
 <a href="javascript:void(0);" id="toggle_btn">
 <span class="bar-icon">
@@ -75,7 +55,7 @@
 <a href="activities.html">
 <div class="media">
 <span class="avatar avatar-sm">
-<img class="avatar-img rounded-circle" alt="" src="assets/img/profiles/avatar-02.jpg">
+<img class="avatar-img rounded-circle" alt="" src="{% static 'assets/img/profiles/avatar-02.jpg' %}">
 </span>
 <div class="media-body">
 <p class="noti-details"><span class="noti-title">Brian Johnson</span> paid the invoice <span class="noti-title">#DF65485</span></p>
@@ -88,7 +68,7 @@
 <a href="activities.html">
 <div class="media">
 <span class="avatar avatar-sm">
-<img class="avatar-img rounded-circle" alt="" src="assets/img/profiles/avatar-03.jpg">
+<img class="avatar-img rounded-circle" alt="" src="{% static 'assets/img/profiles/avatar-03.jpg' %}">
 </span>
 <div class="media-body">
 <p class="noti-details"><span class="noti-title">Marie Canales</span> has accepted your estimate <span class="noti-title">#GTR458789</span></p>
@@ -114,7 +94,7 @@
 <a href="activities.html">
 <div class="media">
 <span class="avatar avatar-sm">
-<img class="avatar-img rounded-circle" alt="" src="assets/img/profiles/avatar-04.jpg">
+<img class="avatar-img rounded-circle" alt="" src="{% static 'assets/img/profiles/avatar-04.jpg' %}">
 </span>
 <div class="media-body">
 <p class="noti-details"><span class="noti-title">Barbara Moore</span> declined the invoice <span class="noti-title">#RDW026896</span></p>
@@ -148,7 +128,7 @@
 <li class="nav-item dropdown has-arrow main-drop">
 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
 <span class="user-img">
-<img src="assets/img/profile.jpg" alt="">
+<img src="{% static 'assets/img/profile.jpg' %}" alt="">
 <span class="status online"></span>
 </span>
 <span>Kavin Hansen</span>
@@ -183,7 +163,7 @@
 <span class="lnr lnr-cross  text-white" id="mobile_btn_close">X</span>
 <a href="javascript:void(0)" class="d-block menu-style text-white">
 <div class="user-avatar d-inline-block mr-3">
-<img src="assets/img/profiles/avatar-18.jpg" alt="user avatar" class="rounded-circle" width="50">
+<img src="{% static 'assets/img/profiles/avatar-18.jpg' %}" alt="user avatar" class="rounded-circle" width="50">
 </div>
 </a>
 </div>
@@ -199,10 +179,10 @@
 </div>
 <ul>
 <li>
-<a href="index.html"><img src="assets/img/home.svg" alt="sidebar_img"> <span>Dashboard</span></a>
+<a href="index.html"><img src="{% static 'assets/img/home.svg' %}" alt="sidebar_img"> <span>Dashboard</span></a>
 </li>
 <li class="active">
-<a href="#"><img src="assets/img/employee.svg" alt="sidebar_img"><span> Employees</span></a>
+<a href="#"><img src="{% static 'assets/img/employee.svg' %}" alt="sidebar_img"><span> Employees</span></a>
 </li>
 <!--<li>-->
 <!--<a href="company.html"><img src="assets/img/company.svg" alt="sidebar_img"> <span> Company</span></a>-->
@@ -211,7 +191,7 @@
 <!--<a href="calendar.html"><img src="assets/img/calendar.svg" alt="sidebar_img"> <span>Calendar</span></a>-->
 <!--</li>-->
 <li>
-<a href="leave.html"><img src="assets/img/leave.svg" alt="sidebar_img"> <span>Leave</span></a>
+<a href="leave.html"><img src="{% static 'assets/img/leave.svg' %}" alt="sidebar_img"> <span>Leave</span></a>
 </li>
 <!--<li>-->
 <!--<a href="review.html"><img src="assets/img/review.svg" alt="sidebar_img"><span>Review</span></a>-->
@@ -223,15 +203,15 @@
 <!--<a href="manage.html"><img src="assets/img/manage.svg" alt="sidebar_img"> <span>Manage</span></a>-->
 <!--</li>-->
 <li>
-<a href="settings.html"><img src="assets/img/settings.svg" alt="sidebar_img"><span>Settings</span></a>
+<a href="settings.html"><img src="{% static 'assets/img/settings.svg' %}" alt="sidebar_img"><span>Settings</span></a>
 </li>
 <li>
-<a href="profile.html"><img src="assets/img/profile.svg" alt="sidebar_img"> <span>Profile</span></a>
+<a href="profile.html"><img src="{% static 'assets/img/profile.svg' %}" alt="sidebar_img"> <span>Profile</span></a>
 </li>
 </ul>
 <ul class="logout">
 <li>
-<a href="profile.html"><img src="assets/img/logout.svg" alt="sidebar_img"><span>Log out</span></a>
+<a href="profile.html"><img src="{% static 'assets/img/logout.svg' %}" alt="sidebar_img"><span>Log out</span></a>
 </li>
 </ul>
 </div>
@@ -298,7 +278,7 @@
 <td>
 <div class="table-img">
 <a href="profile.html">
-<img src="assets/img/profiles/avatar-13.jpg" alt="profile" class="img-table" /><label>Sean Black</label>
+<img src="{% static 'assets/img/profiles/avatar-13.jpg' %}" alt="profile" class="img-table" /><label>Sean Black</label>
 </a>
  </div>
 </td>
@@ -321,7 +301,7 @@
 <td>
 <div class="table-img">
 <a href="profile.html">
-<img src="assets/img/profiles/avatar-16.jpg" alt="profile" class="img-table" /><label>Linda Craver</label>
+<img src="{% static 'assets/img/profiles/avatar-16.jpg' %}" alt="profile" class="img-table" /><label>Linda Craver</label>
 </a>
 </div>
 </td>
@@ -344,7 +324,7 @@
 <td>
 <div class="table-img">
 <a href="profile.html">
-<img src="assets/img/profiles/avatar-17.jpg" alt="profile" class="img-table" />
+<img src="{% static 'assets/img/profiles/avatar-17.jpg' %}" alt="profile" class="img-table" />
 </a>
 <label>Jenni Sims</label>
 </div>
@@ -368,7 +348,7 @@
 <td>
 <div class="table-img">
 <a href="profile.html">
-<img src="assets/img/profiles/avatar-19.jpg" alt="profile" class="img-table" />
+<img src="{% static 'assets/img/profiles/avatar-19.jpg' %}" alt="profile" class="img-table" />
 </a>
 <label>Stacey Linville</label>
 </div>
@@ -392,7 +372,7 @@
 <td>
 <div class="table-img">
 <a href="profile.html">
-<img src="assets/img/profiles/avatar-14.jpg" alt="profile" class="img-table" />
+<img src="{% static 'assets/img/profiles/avatar-14.jpg' %}" alt="profile" class="img-table" />
 </a>
 <label>Maria Cotton</label>
 </div>
@@ -416,7 +396,7 @@
 <td>
 <div class="table-img">
  <a href="profile.html">
-<img src="assets/img/profiles/avatar-18.jpg" alt="profile" class="img-table" />
+<img src="{% static 'assets/img/profiles/avatar-18.jpg' %}" alt="profile" class="img-table" />
 </a>
 <label>John Gibbs</label>
 </div>
@@ -440,7 +420,7 @@
 <td>
 <div class="table-img">
 <a href="profile.html">
-<img src="assets/img/profiles/avatar-10.jpg" alt="profile" class="img-table" />
+<img src="{% static 'assets/img/profiles/avatar-10.jpg' %}" alt="profile" class="img-table" />
 </a>
 <label>Richard Wilson</label>
 </div>
@@ -471,18 +451,4 @@
 
 </div>
 
-
-<script src="assets/js/jquery-3.6.0.min.js"></script>
-
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-
-<script src="assets/js/feather.min.js"></script>
-
-<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-<script src="assets/plugins/select2/js/select2.min.js"></script>
-
-<script src="assets/js/script.js"></script>
-</body>
-</html>
+    {% endblock %}
