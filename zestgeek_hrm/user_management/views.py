@@ -21,7 +21,7 @@ class Register(View):
         role = request.POST.get('role')
         personal_email = request.POST.get('personal_email')
         gender = request.POST.get('gender')
-        temperory_address = request.POST.get('temperory_address')
+        temporary_address = request.POST.get('temporary_address')
         permanent_address = request.POST.get('permanent_address')
         phone_number = request.POST.get('phone_number')
         alternate_phone_number = request.POST.get('alternate_phone_number')
@@ -42,7 +42,7 @@ class Register(View):
             dep = Department.objects.get(department_name=department)
             print(roles, "---------------------")
             CustomUser.objects.create_user(email=email, password=password1, role=roles, first_name=first_name, last_name=last_name, personal_email=personal_email
-                                           , gender=gender, temperory_address=temperory_address, permanent_address=permanent_address, phone_number=phone_number,
+                                           , gender=gender, temporary_address=temporary_address, permanent_address=permanent_address, phone_number=phone_number,
                                            alternate_phone_number=alternate_phone_number, department=dep, joined_date=joined_date, image=image )
 
             messages.success(request, "Registeration successful.")

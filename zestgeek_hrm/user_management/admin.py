@@ -5,7 +5,7 @@ from .models import *
 
 class CustomUserAdmin(admin.ModelAdmin):
     list_display = ('id', 'first_name', 'last_name', 'email', 'password', 'designation', 'inventory', 'personal_email',
-                    'gender', 'temperory_address', 'permanent_address', 'phone_number', 'alternate_phone_number',
+                    'gender', 'temporary_address', 'permanent_address', 'phone_number', 'alternate_phone_number',
                     'department', 'joined_date', 'image', 'created_at', 'updated_at')
 
 
