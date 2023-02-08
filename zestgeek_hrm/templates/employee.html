@@ -139,7 +139,7 @@
 <img src="{% static 'assets/img/profile.jpg' %}" alt="">
 <span class="status online"></span>
 </span>
-<span>Kavin Hansen</span>
+<span>{{current_user}}</span>
 </a>
 <div class="dropdown-menu">
 <a class="dropdown-item" href="profile.html"><i data-feather="user" class="mr-1"></i> Profile</a>
@@ -254,7 +254,7 @@
 <div class="col-xl-12 col-sm-12 col-12 mb-4">
 <div class="row">
 <div class="col-xl-10 col-sm-8 col-12 ">
-<label class="employee_count">7 People</label>
+<label class="employee_count">{{total_employee}} Employees</label>
 </div>
 <div class="col-xl-1 col-sm-2 col-12 ">
 <a href="employee-grid.html" class="btn-view "><i data-feather="grid"></i> </a>
