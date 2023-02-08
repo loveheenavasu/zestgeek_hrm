@@ -70,7 +70,7 @@
 <!--<input class="form-control" name="role" placeholder="Select desiganition">-->
 <select id="role" name="role">
  {% for role in role%}
-  <option value="">{{role.role_name}}</option>
+  <option value="{{role.role_name}}">{{role.role_name}}</option>
  {% endfor %}
 
 
@@ -81,7 +81,7 @@
 <!--<input class="form-control" name="department" placeholder="Select department">-->
 <select id="department" name="department">
     {% for dep in department%}
-  <option value="">{{dep.department_name}}</option>
+  <option value="{{dep.department_name}}">{{dep.department_name}}</option>
  {% endfor %}
 </select>
 </div>
