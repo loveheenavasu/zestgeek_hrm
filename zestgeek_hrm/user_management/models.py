@@ -81,7 +81,7 @@ class CustomUser(AbstractBaseUser, BaseModel):
     email = models.EmailField("email address", unique=True)
     first_name = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
-    designation = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, blank=True)
+    role = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, blank=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True, blank=True)
     inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE, null=True, blank=True)
     personal_email = models.EmailField("email address", unique=True, null=True, blank=True)
