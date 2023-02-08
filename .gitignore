@@ -11,3 +11,4 @@ inventory/__pycache__/
 inventory/migrations/
 db.sqlite3
 zestgeek_hrm/__pycache__/settings.cpython-37.pyc
+__pychache__/
