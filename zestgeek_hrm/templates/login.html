@@ -12,15 +12,16 @@
 <div class="login-right-wrap">
 <h1>Login</h1>
 <p class="account-subtitle">Access to our dashboard</p>
-<form action="index.html">
+<form action="/login" method="post">
+       {% csrf_token %}
 <div class="form-group">
 <label class="form-control-label">Email Address</label>
-<input type="email" class="form-control">
+<input type="email" class="form-control" name="email">
 </div>
 <div class="form-group">
 <label class="form-control-label">Password</label>
 <div class="pass-group">
-<input type="password" class="form-control pass-input">
+<input type="password" class="form-control pass-input" name="password">
 <span class="fas fa-eye toggle-password"></span>
 </div>
 </div>

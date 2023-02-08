@@ -65,7 +65,7 @@ class LoginView(View):
         user = authenticate(email=email, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/register')
+            return redirect('/employee')
         else:
             messages.info(request, 'Invalid Username or Password')
             return redirect('/login')
@@ -112,7 +112,7 @@ class DeleteRole(View):
 class DepartmentView(View):
     def get(self, request):
         department = Department.objects.all()
-        return render(request, 'department.html', {"department": department})
+        return render(request, 'employee-team.html', {"department": department})
 
     def post(self, request):
         department_name = request.POST.get('department_name')
@@ -128,7 +128,7 @@ class DepartmentView(View):
 class UpdateDepartment(View):
     def get(self, request, id):
         department = Department.objects.get(id=id)
-        return render(request, 'department.html', {"department": department})
+        return render(request, 'employee-team.html', {"department": department})
 
     def post(self, request, id):
         name = request.POST.get("department_name")
@@ -150,3 +150,8 @@ class DeleteDepartment(View):
 class EmployeeView(View):
     def get(self, request):
         return render(request, 'employee.html')
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/home')
