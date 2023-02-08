@@ -11,7 +11,7 @@ class Inventory(BaseModel):
     ITEM_CHOICE = (
         ("Laptop", "LAPTOP"), ("Mobile", "MOBILE")
     )
-    item = MultiSelectField(choices=ITEM_CHOICE, max_choices=3, max_length=10)
+    item = MultiSelectField(choices=ITEM_CHOICE, max_choices=3, max_length=20)
     LAPTOP_CHOICE = (
         ("Mac", "MAC"), ("Window", "WINDOW")
     )
@@ -24,4 +24,4 @@ class Inventory(BaseModel):
     remarks = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
-        return self.item
+        return self.title
