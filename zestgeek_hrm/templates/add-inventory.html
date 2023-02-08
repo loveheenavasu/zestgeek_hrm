@@ -25,7 +25,7 @@
 
 
 <div class="top-nav-search">
-<form>
+<form method="post" action="">
 <input type="text" class="form-control" placeholder="">
 <button class="btn" type="submit"><i class="fas fa-search"></i></button>
 </form>
@@ -169,7 +169,7 @@
 </div>
 <div class="sidebar-input">
 <div class="top-nav-search">
-<form>
+<form method="post" action="">
 <input type="text" class="form-control" placeholder="Search here">
 <button class="btn" type="submit"><i class="fas fa-search"></i></button>
 </form>
@@ -221,6 +221,15 @@
 
 <div class="page-wrapper">
 <div class="content container-fluid">
+       <form method="post" action="">
+              {% csrf_token %}
+     {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <p  style="color:red" {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
+    {% endfor %}
+</ul>
+{% endif %}
 <div class="row">
 <div class="col-xl-12 col-sm-12 col-12 ">
 <div class="breadcrumb-path mb-4">
@@ -232,6 +241,7 @@
 <h3>Create Inventory</h3>
 </div>
 </div>
+
 <div class="col-xl-12 col-sm-12 col-12 ">
 <div class="card">
 <div class="card-header">
@@ -241,19 +251,19 @@
 <div class="row">
 <div class="col-xl-6 col-sm-12 col-12 ">
 <div class="form-group">
-<input type="text" placeholder="First Name">
+<input type="text" placeholder="First Name" value="{{employee.first_name}}">
 </div>
 </div>
 <div class="col-xl-6 col-sm-12 col-12 ">
 <div class="form-group">
-<input type="text" placeholder="Last Name">
+<input type="text" placeholder="Last Name" value="{{employee.last_name}}">
 </div>
 </div>
 </div>
 <div class="row">
 <div class="col-xl-6 col-sm-12 col-12 ">
 <div class="form-group">
-<input type="text" placeholder="Email">
+<input type="text" placeholder="Email" value="{{employee.email}}">
 </div>
 </div>
 </div>
@@ -269,7 +279,7 @@
 <div class="row">
 <div class="col-xl-6 col-sm-12 col-12 ">
 <div class="form-group">
-<input type="text" placeholder="Title">
+<input type="text" placeholder="Title" name="title">
 </div>
  </div>
 </div>
@@ -278,7 +288,7 @@
 <div class="form-group">
 <!--<input type="text" placeholder="Item">-->
 <label for="item" class="form-control-label">Select Item:</label>
-<select id="item" name="item">
+<select id="item" name="item" multiple>
   <option value="Laptop">Laptop</option>
   <option value="Mobile">Mobile</option>
 </select>
@@ -289,8 +299,8 @@
 <div class="col-xl-6 col-sm-12 col-12 ">
 <div class="form-group">
 <!--<input type="text" placeholder="Laptop">-->
-<label for="laptop" class="form-control-label">Select Laptop:</label>
-<select id="laptop" name="laptop">
+<label for="is_laptop" class="form-control-label">Select Laptop:</label>
+<select id="laptop" name="is_laptop">
   <option value="Windows">Windows</option>
   <option value="Mac">Mac</option>
 </select>
@@ -301,10 +311,10 @@
 <div class="col-xl-6 col-sm-12 col-12 ">
 <div class="form-group">
 <!--<input type="text" placeholder="Mobile">-->
-<label for="mobile" class="form-control-label">Select Laptop:</label>
-<select id="mobile" name="mobile">
+<label for="mobile" class="form-control-label">Select Mobile:</label>
+<select id="mobile" name="is_mobile">
   <option value="Android">Android</option>
-  <option value="iPhone">iPhone</option>
+  <option value="IPhone">IPhone</option>
 </select>
 </div>
 </div>
@@ -312,7 +322,7 @@
 <div class="row">
 <div class="col-xl-6 col-sm-12 col-12 ">
 <div class="form-group">
-<input type="text" placeholder="Remarks">
+<input type="text" placeholder="Remarks" name="remarks">
 </div>
 </div>
 </div>
@@ -322,12 +332,14 @@
 <div class="row">
 <div class="col-xl-12 col-sm-12 col-12 ">
 <div class="form-btn">
-<a href="#" class="btn btn-apply w-auto">Add Inventory</a>
-<a href="#" class="btn btn-secondary">Cancel</a>
+    <button class="btn btn-apply w-auto" type="submit">Add Inventory</button>
+<!--<a class="btn btn-apply w-auto">Add Inventory</a>-->
+<!--<a href="#" class="btn btn-secondary">Cancel</a>-->
 </div>
 </div>
 </div>
 </div>
+       </form>
 </div>
 </div>
 </div>
