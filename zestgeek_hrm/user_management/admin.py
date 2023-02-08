@@ -1,15 +1,21 @@
 from django.contrib import admin
 
 from .models import *
-class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email', 'password','role', 'personal_email','gender', 'temperory_address','permanent_address','phone_number','alternate_phone_number','department', 'joined_date', 'image')
 
-# Register your models here.
+
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = ('id', 'first_name', 'last_name', 'email', 'password', 'designation', 'inventory', 'personal_email',
+                    'gender', 'temperory_address', 'permanent_address', 'phone_number', 'alternate_phone_number',
+                    'department', 'joined_date', 'image', 'created_at', 'updated_at')
+
+
 class RoleAdmin(admin.ModelAdmin):
-    list_display = ('role_name',)
+    list_display = ('id', 'role_name', 'created_at', 'updated_at')
+
 
 class DepartmentAdmin(admin.ModelAdmin):
-    list_display = ('department_name',)
+    list_display = ('id', 'department_name', 'created_at', 'updated_at')
+
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Role, RoleAdmin)

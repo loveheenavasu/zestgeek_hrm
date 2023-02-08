@@ -1,7 +1,8 @@
 # users/models.py
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, AbstractBaseUser, BaseUserManager
-
+from user_management.base import BaseModel
+from inventory.models import Inventory
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 import uuid
 
 
@@ -16,8 +17,6 @@ class UserManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email), **extra_fields
         )
-
-
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -48,14 +47,14 @@ class UserManager(BaseUserManager):
         return user
 
 
-class Role(models.Model):
+class Role(BaseModel):
     role_name = models.CharField(max_length=100)
-
 
     def __str__(self):
         return self.role_name
 
-class Department(models.Model):
+
+class Department(BaseModel):
     # DEPARTMENT_CHOICES = (
     #     ('PYTHON', 'PYTHON'),
     #     ('PHP', 'PHP'),
@@ -64,34 +63,37 @@ class Department(models.Model):
     #     ('SEO', 'SEO')
     # )
     department_name = models.CharField(max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+
     def __str__(self):
         return self.department_name
 
-class CustomUser(AbstractBaseUser):
+
+class CustomUser(AbstractBaseUser, BaseModel):
     GENDER_CHOICES = (
         ('male', 'MALE'),
         ('female', 'FEMALE'),
         ('unspecified', 'UNSPECIFIED'),
     )
+    id = models.UUIDField(
+        default=uuid.uuid4, unique=True, editable=False, db_index=True, primary_key=True
+    )
     username = None
     email = models.EmailField("email address", unique=True)
     first_name = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
-    role = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, blank=True)
-    personal_email = models.EmailField("email address", unique=True,null=True, blank=True)
+    designation = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, blank=True)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True, blank=True)
+    inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE, null=True, blank=True)
+    personal_email = models.EmailField("email address", unique=True, null=True, blank=True)
     gender = models.CharField(max_length=100, choices=GENDER_CHOICES)
     image = models.CharField(max_length=100, null=True, blank=True)
     temperory_address = models.CharField(max_length=100, null=True, blank=True)
     permanent_address = models.CharField(max_length=100, null=True, blank=True)
     phone_number = models.CharField(max_length=100, null=True, blank=True)
     alternate_phone_number = models.CharField(max_length=100, null=True, blank=True)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True, blank=True)
     joined_date = models.DateField(null=True, blank=True)
-    is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     # last_login = None  (Uncomment this if you dont want last_login in the db table)
     USERNAME_FIELD = "email"  # make the user login with the email
@@ -102,10 +104,8 @@ class CustomUser(AbstractBaseUser):
     def has_perm(self, perm, obj=None):
         return self.is_admin
 
-
     def has_module_perms(self, app_label):
         return self.is_admin
-
 
     def is_staff(self):
         "Is the user a member of staff?"
@@ -113,8 +113,6 @@ class CustomUser(AbstractBaseUser):
 
     def __str__(self):
         return self.first_name
-
-
 
 
 
