@@ -12,6 +12,4 @@ urlpatterns = [
     path('delete_department/<id>', DeleteDepartment.as_view()),
     path('employee', EmployeeView.as_view())
 
-
-
 ]
