@@ -116,6 +116,7 @@ class DepartmentView(View):
 
     def post(self, request):
         department_name = request.POST.get('department_name')
+        print(department_name, "---------------------------------")
         if Department.objects.filter(department_name=department_name).exists():
             messages.error(request, "Department already exists.")
             return redirect("department")

@@ -309,21 +309,27 @@
 <span aria-hidden="true">×</span>
 </button>
 </div>
+
 <div class="modal-body">
+<form method="post" action="">
+ {% csrf_token %}
 <div class=" col-md-12 p-0">
 <div class=" form-popup m-0">
-<input type="text" placeholder="Name">
+<input type="text" placeholder="Name" name="department_name">
 </div>
 </div>
+  </form>
 </div>
+
 <div class="modal-footer">
-<button type="button" class="btn btn-primary">Add</button>
+<button type="submit" class="btn btn-primary">Add</button>
 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 </div>
 </div>
 </div>
 </div>
 </div>
+
 <div class="customize_popup">
 <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="staticBackdropLa" aria-hidden="true">
 <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -334,15 +340,20 @@
 <span aria-hidden="true">×</span>
 </button>
 </div>
+
 <div class="modal-body">
+ <form method="post" action="">
+   {% csrf_token %}
 <div class=" col-md-12 p-0">
 <div class=" form-popup m-0">
-<input type="text" placeholder="Name">
+<input type="text" placeholder="Name" name="department_name">
 </div>
 </div>
+   </form>
 </div>
+
 <div class="modal-footer">
-<button type="button" class="btn btn-primary">Add</button>
+<button type="submit" class="btn btn-primary">Add</button>
 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 </div>
 </div>
