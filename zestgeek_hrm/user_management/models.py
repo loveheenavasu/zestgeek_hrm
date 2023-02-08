@@ -86,7 +86,7 @@ class CustomUser(AbstractBaseUser, BaseModel):
     inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE, null=True, blank=True)
     personal_email = models.EmailField("email address", unique=True, null=True, blank=True)
     gender = models.CharField(max_length=100, choices=GENDER_CHOICES)
-    image = models.ImageField(upload_to='/img')
+    image = models.ImageField(upload_to='img')
     temporary_address = models.CharField(max_length=100, null=True, blank=True)
     permanent_address = models.CharField(max_length=100, null=True, blank=True)
     phone_number = models.CharField(max_length=100, null=True, blank=True)
@@ -112,7 +112,7 @@ class CustomUser(AbstractBaseUser, BaseModel):
         return self.is_staff
 
     def __str__(self):
-        return self.first_name
+        return self.email
 
 
 

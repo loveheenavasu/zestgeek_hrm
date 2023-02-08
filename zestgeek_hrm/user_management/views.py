@@ -149,10 +149,12 @@ class DeleteDepartment(View):
 
 class EmployeeView(View):
     def get(self, request):
+        current_user = request.user.first_name
         user = CustomUser.objects.all()
-        return render(request, 'employee.html', {"user": user})
+        total_employee = user.count()
+        return render(request, 'employee.html', {"user": user, "total_employee": total_employee, "current_user":current_user})
 
 
 def logout(request):
-    auth.logout(request)
-    return redirect('/home')
+    logout(request)
+    return redirect('/login')
