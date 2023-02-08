@@ -48,7 +48,7 @@ class Register(View):
             messages.success(request, "Registeration successful.")
             print("successful")
 
-            return redirect("/")
+            return redirect("/login")
 
 class LoginView(View):
     def get(self, request):
@@ -59,7 +59,7 @@ class LoginView(View):
         user = authenticate(email=email, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/register')
+            return redirect('/employee')
         else:
             messages.info(request, 'Invalid Username or Password')
             return redirect('/login')
