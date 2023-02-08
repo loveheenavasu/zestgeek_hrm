@@ -9,7 +9,7 @@ class Inventory(BaseModel):
     Items inventory model
     """
     ITEM_CHOICE = (
-        ("Laptop", "LAPTOP"), ("Monile", "MOBILE")
+        ("Laptop", "LAPTOP"), ("Mobile", "MOBILE")
     )
     item = MultiSelectField(choices=ITEM_CHOICE, max_choices=3, max_length=10)
     LAPTOP_CHOICE = (
