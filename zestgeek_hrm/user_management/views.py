@@ -149,4 +149,5 @@ class DeleteDepartment(View):
 
 class EmployeeView(View):
     def get(self, request):
-        return render(request, 'employee.html')
+        user = CustomUser.objects.all()
+        return render(request, 'employee.html', {"user": user})

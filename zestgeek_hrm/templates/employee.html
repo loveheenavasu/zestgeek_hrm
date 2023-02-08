@@ -27,6 +27,14 @@
 
 <div class="top-nav-search">
 <form>
+       {% csrf_token %}
+     {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <p  style="color:red" {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
+    {% endfor %}
+</ul>
+{% endif %}
 <input type="text" class="form-control" placeholder="">
 <button class="btn" type="submit"><i class="fas fa-search"></i></button>
 </form>
@@ -275,6 +283,7 @@
 </tr>
 </thead>
 <tbody>
+{% for i in user %}
 <tr>
 <td>
 <div class="table-img">
@@ -284,20 +293,21 @@
  </div>
 </td>
 <td>
-<label class="action_lab">Richard Wilson </label>
+<label class="action_lab">{{i.first_name}} {{i.last_name}} </label>
 </td>
 <td>
-<label class="action_labe">Design </label>
+<label class="action_labe">{{i.email}} </label>
 </td>
-<td><label>Zestgeek Solutions	</label></td>
-<td><label>Team Lead</label></td>
+<td><label>{{i.role}}	</label></td>
+<td><label>{{i.department}}</label></td>
 <td class="tab-select">
-<label>987657788	</label>
+<label>{{i.phone_number}}</label>
 </td>
     <td>
-  <a href="#">Inventory</a>
+  <a href="{% url 'inventory' i.id %}">Inventory</a>
 </td>
 </tr>
+{%endfor%}
 </tbody>
 </table>
 </div>
