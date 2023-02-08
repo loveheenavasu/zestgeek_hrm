@@ -184,9 +184,9 @@
 <li class="active">
 <a href="#"><img src="{% static 'assets/img/employee.svg' %}" alt="sidebar_img"><span> Employees</span></a>
 </li>
-<!--<li>-->
-<!--<a href="company.html"><img src="assets/img/company.svg" alt="sidebar_img"> <span> Company</span></a>-->
-<!--</li>-->
+<li>
+<a href="inventory.html"><img src="{% static 'assets/img/company.svg' %}" alt="sidebar_img"> <span> Inventory</span></a>
+</li>
 <!--<li>-->
 <!--<a href="calendar.html"><img src="assets/img/calendar.svg" alt="sidebar_img"> <span>Calendar</span></a>-->
 <!--</li>-->
@@ -226,7 +226,7 @@
 <div class="col-xl-12 col-sm-12 col-12">
 <div class="breadcrumb-path mb-4">
 <ul class="breadcrumb">
-<li class="breadcrumb-item"><a href="index.html"><img src="{% static assets/img/dash.png %}" class="mr-2" alt="breadcrumb" />Home</a>
+<li class="breadcrumb-item"><a href="index.html"><img src="{% static 'assets/img/dash.png' %}" class="mr-2" alt="breadcrumb" />Home</a>
 </li>
 <li class="breadcrumb-item active"> Employees</li>
 </ul>
@@ -271,6 +271,7 @@
 <th>Office</th>
 <th>Permissions</th>
 <th>Status</th>
+<th>Inventory</th>
 </tr>
 </thead>
 <tbody>
@@ -296,148 +297,8 @@
 <option value="inactive">Inactive</option>
 </select>
 </td>
-</tr>
-<tr>
-<td>
-<div class="table-img">
-<a href="profile.html">
-<img src="{% static 'assets/img/profiles/avatar-16.jpg' %}" alt="profile" class="img-table" /><label>Linda Craver</label>
-</a>
-</div>
-</td>
-<td>
-<label class="action_label">Richard Wilson </label>
-</td>
-<td>
-<label class="action_label2">IOS </label>
-</td>
-<td><label>Zestgeek Solutions	</label></td>
-<td><label>Team Lead</label></td>
-<td class="tab-select">
-<select class="select">
-<option value="active">Active</option>
-<option value="inactive">Inactive</option>
-</select>
-</td>
-</tr>
-<tr>
-<td>
-<div class="table-img">
-<a href="profile.html">
-<img src="{% static 'assets/img/profiles/avatar-17.jpg' %}" alt="profile" class="img-table" />
-</a>
-<label>Jenni Sims</label>
-</div>
-</td>
-<td>
-<label class="action_label">Richard Wilson </label>
-</td>
-<td>
-<label class="action_label2">Android </label>
-</td>
-<td><label>Zestgeek Solutions</label></td>
-<td><label>Team Lead</label></td>
-<td class="tab-select">
-<select class="select">
-<option value="active">Active</option>
-<option value="inactive">Inactive</option>
-</select>
-</td>
-</tr>
-<tr>
-<td>
-<div class="table-img">
-<a href="profile.html">
-<img src="{% static 'assets/img/profiles/avatar-19.jpg' %}" alt="profile" class="img-table" />
-</a>
-<label>Stacey Linville</label>
-</div>
-</td>
-<td>
-<label class="action_label">Richard Wilson </label>
-</td>
-<td>
-<label class="action_label2">Testing </label>
-</td>
-<td><label>Zestgeek Solutions	</label></td>
-<td><label>Team Lead</label></td>
-<td class="tab-select">
-<select class="select">
-<option value="active">Active</option>
-<option value="inactive">Inactive</option>
-</select>
-</td>
-</tr>
-<tr>
-<td>
-<div class="table-img">
-<a href="profile.html">
-<img src="{% static 'assets/img/profiles/avatar-14.jpg' %}" alt="profile" class="img-table" />
-</a>
-<label>Maria Cotton</label>
-</div>
-</td>
-<td>
-<label class="action_label">Richard Wilson </label>
-</td>
-<td>
-<label class="action_label2">PHP </label>
-</td>
-<td><label>Zestgeek Solutions	</label></td>
-<td><label>Team Lead</label></td>
-<td class="tab-select">
-<select class="select">
-<option value="active">Active</option>
-<option value="inactive">Inactive</option>
-</select>
-</td>
-</tr>
-<tr>
-<td>
-<div class="table-img">
- <a href="profile.html">
-<img src="{% static 'assets/img/profiles/avatar-18.jpg' %}" alt="profile" class="img-table" />
-</a>
-<label>John Gibbs</label>
-</div>
-</td>
-<td>
-<label class="action_label">Richard Wilson </label>
-</td>
-<td>
-<label class="action_label2">PHP </label>
-</td>
-<td><label>Zestgeek Solutions	</label></td>
-<td><label>Team Lead</label></td>
-<td class="tab-select">
-<select class="select">
-<option value="active">Active</option>
-<option value="inactive">Inactive</option>
-</select>
-</td>
-</tr>
-<tr>
-<td>
-<div class="table-img">
-<a href="profile.html">
-<img src="{% static 'assets/img/profiles/avatar-10.jpg' %}" alt="profile" class="img-table" />
-</a>
-<label>Richard Wilson</label>
-</div>
-</td>
-<td>
-<label class="action_label in_active">No </label>
-</td>
-<td>
-<label class="action_label2">Business </label>
-</td>
-<td><label>Zestgeek Solutions	</label></td>
-<td><label>Super Admin</label></td>
-<td class="tab-select">
-<select class="select">
-<option value="active">Active</option>
-<option value="inactive">Inactive</option>
-</select>
+    <td>
+  <a href="#">Inventory</a>
 </td>
 </tr>
 </tbody>
