@@ -1,7 +1,6 @@
 {% extends 'layout.html' %}
 {% load static %}
 {% block content %}
-
 <div class="main-wrapper">
 
 <div class="header">
@@ -182,11 +181,11 @@
 <a href="index.html"><img src="{% static 'assets/img/home.svg' %}" alt="sidebar_img"> <span>Dashboard</span></a>
 </li>
 <li class="active">
-<a href="#"><img src="{% static 'assets/img/employee.svg' %}" alt="sidebar_img"><span> Employees</span></a>
+<a href="employee.html"><img src="{% static 'assets/img/employee.svg' %}" alt="sidebar_img"><span> Employees</span></a>
 </li>
-<!--<li>-->
-<!--<a href="company.html"><img src="assets/img/company.svg" alt="sidebar_img"> <span> Company</span></a>-->
-<!--</li>-->
+<li>
+<a href="inventory.html"><img src="{% static 'assets/img/company.svg' %}" alt="sidebar_img"> <span> Inventory</span></a>
+</li>
 <!--<li>-->
 <!--<a href="calendar.html"><img src="assets/img/calendar.svg" alt="sidebar_img"> <span>Calendar</span></a>-->
 <!--</li>-->
@@ -223,225 +222,94 @@
 <div class="page-wrapper">
 <div class="content container-fluid">
 <div class="row">
-<div class="col-xl-12 col-sm-12 col-12">
+<div class="col-xl-12 col-sm-12 col-12 ">
 <div class="breadcrumb-path mb-4">
 <ul class="breadcrumb">
-<li class="breadcrumb-item"><a href="index.html"><img src="{% static assets/img/dash.png %}" class="mr-2" alt="breadcrumb" />Home</a>
+<li class="breadcrumb-item"><a href="index.html">Home</a>
 </li>
-<li class="breadcrumb-item active"> Employees</li>
+<li class="breadcrumb-item active"> Inventory</li>
 </ul>
-<h3>Employees</h3>
+<h3>Create Inventory</h3>
 </div>
 </div>
-<div class="col-xl-12 col-sm-12 col-12 mb-4">
-<div class="head-link-set">
-<ul>
-<li><a class="active" href="#">All</a></li>
-<li><a href="employee-team.html">Teams</a></li>
-<li><a href="employee-office.html">Offices</a></li>
-</ul>
-<a class="btn-add" href="add-employee.html"><i data-feather="plus"></i> Add Employee</a>
-</div>
-</div>
-<div class="col-xl-12 col-sm-12 col-12 mb-4">
-<div class="row">
-<div class="col-xl-10 col-sm-8 col-12 ">
-<label class="employee_count">7 People</label>
-</div>
-<div class="col-xl-1 col-sm-2 col-12 ">
-<a href="employee-grid.html" class="btn-view "><i data-feather="grid"></i> </a>
-</div>
-<div class="col-xl-1 col-sm-2 col-12 ">
-<a href="#" class="btn-view active"><i data-feather="list"></i> </a>
-</div>
-</div>
-</div>
-<div class="col-xl-12 col-sm-12 col-12 mb-4">
+<div class="col-xl-12 col-sm-12 col-12 ">
 <div class="card">
-<div class="table-heading">
-<h2>Project Summery</h2>
+<div class="card-header">
+<h2 class="card-titles">Basic Details <span>Organized and secure.</span></h2>
 </div>
-<div class="table-responsive">
-<table class="table  custom-table no-footer">
-<thead>
-<tr>
-<th>Name</th>
-<th>Line Manager</th>
-<th>Team</th>
-<th>Office</th>
-<th>Permissions</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<div class="table-img">
-<a href="profile.html">
-<img src="{% static 'assets/img/profiles/avatar-13.jpg' %}" alt="profile" class="img-table" /><label>Sean Black</label>
-</a>
+<div class="card-body">
+<div class="row">
+<div class="col-xl-6 col-sm-12 col-12 ">
+<div class="form-group">
+<input type="text" placeholder="First Name">
+</div>
+</div>
+<div class="col-xl-6 col-sm-12 col-12 ">
+<div class="form-group">
+<input type="text" placeholder="Last Name">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-xl-6 col-sm-12 col-12 ">
+<div class="form-group">
+<input type="text" placeholder="Email">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-xl-12 col-sm-12 col-12 ">
+<div class="card ">
+<div class="card-header">
+<h2 class="card-titles">Inventory Details<span>Let everyone know the essentials so they're fully prepared.</span></h2>
+</div>
+<div class="card-body">
+<div class="row">
+<div class="col-xl-6 col-sm-12 col-12 ">
+<div class="form-group">
+<input type="text" placeholder="Title">
+</div>
  </div>
-</td>
-<td>
-<label class="action_label">Richard Wilson </label>
-</td>
-<td>
-<label class="action_label2">Design </label>
-</td>
-<td><label>Zestgeek Solutions	</label></td>
-<td><label>Team Lead</label></td>
-<td class="tab-select">
-<select class="select">
-<option value="active">Active</option>
-<option value="inactive">Inactive</option>
-</select>
-</td>
-</tr>
-<tr>
-<td>
-<div class="table-img">
-<a href="profile.html">
-<img src="{% static 'assets/img/profiles/avatar-16.jpg' %}" alt="profile" class="img-table" /><label>Linda Craver</label>
-</a>
 </div>
-</td>
-<td>
-<label class="action_label">Richard Wilson </label>
-</td>
-<td>
-<label class="action_label2">IOS </label>
-</td>
-<td><label>Zestgeek Solutions	</label></td>
-<td><label>Team Lead</label></td>
-<td class="tab-select">
-<select class="select">
-<option value="active">Active</option>
-<option value="inactive">Inactive</option>
-</select>
-</td>
-</tr>
-<tr>
-<td>
-<div class="table-img">
-<a href="profile.html">
-<img src="{% static 'assets/img/profiles/avatar-17.jpg' %}" alt="profile" class="img-table" />
-</a>
-<label>Jenni Sims</label>
+<div class="row">
+<div class="col-xl-6 col-sm-12 col-12 ">
+<div class="form-group">
+<input type="text" placeholder="Item">
 </div>
-</td>
-<td>
-<label class="action_label">Richard Wilson </label>
-</td>
-<td>
-<label class="action_label2">Android </label>
-</td>
-<td><label>Zestgeek Solutions</label></td>
-<td><label>Team Lead</label></td>
-<td class="tab-select">
-<select class="select">
-<option value="active">Active</option>
-<option value="inactive">Inactive</option>
-</select>
-</td>
-</tr>
-<tr>
-<td>
-<div class="table-img">
-<a href="profile.html">
-<img src="{% static 'assets/img/profiles/avatar-19.jpg' %}" alt="profile" class="img-table" />
-</a>
-<label>Stacey Linville</label>
 </div>
-</td>
-<td>
-<label class="action_label">Richard Wilson </label>
-</td>
-<td>
-<label class="action_label2">Testing </label>
-</td>
-<td><label>Zestgeek Solutions	</label></td>
-<td><label>Team Lead</label></td>
-<td class="tab-select">
-<select class="select">
-<option value="active">Active</option>
-<option value="inactive">Inactive</option>
-</select>
-</td>
-</tr>
-<tr>
-<td>
-<div class="table-img">
-<a href="profile.html">
-<img src="{% static 'assets/img/profiles/avatar-14.jpg' %}" alt="profile" class="img-table" />
-</a>
-<label>Maria Cotton</label>
 </div>
-</td>
-<td>
-<label class="action_label">Richard Wilson </label>
-</td>
-<td>
-<label class="action_label2">PHP </label>
-</td>
-<td><label>Zestgeek Solutions	</label></td>
-<td><label>Team Lead</label></td>
-<td class="tab-select">
-<select class="select">
-<option value="active">Active</option>
-<option value="inactive">Inactive</option>
-</select>
-</td>
-</tr>
-<tr>
-<td>
-<div class="table-img">
- <a href="profile.html">
-<img src="{% static 'assets/img/profiles/avatar-18.jpg' %}" alt="profile" class="img-table" />
-</a>
-<label>John Gibbs</label>
+<div class="row">
+<div class="col-xl-6 col-sm-12 col-12 ">
+<div class="form-group">
+<input type="text" placeholder="Laptop">
 </div>
-</td>
-<td>
-<label class="action_label">Richard Wilson </label>
-</td>
-<td>
-<label class="action_label2">PHP </label>
-</td>
-<td><label>Zestgeek Solutions	</label></td>
-<td><label>Team Lead</label></td>
-<td class="tab-select">
-<select class="select">
-<option value="active">Active</option>
-<option value="inactive">Inactive</option>
-</select>
-</td>
-</tr>
-<tr>
-<td>
-<div class="table-img">
-<a href="profile.html">
-<img src="{% static 'assets/img/profiles/avatar-10.jpg' %}" alt="profile" class="img-table" />
-</a>
-<label>Richard Wilson</label>
 </div>
-</td>
-<td>
-<label class="action_label in_active">No </label>
-</td>
-<td>
-<label class="action_label2">Business </label>
-</td>
-<td><label>Zestgeek Solutions	</label></td>
-<td><label>Super Admin</label></td>
-<td class="tab-select">
-<select class="select">
-<option value="active">Active</option>
-<option value="inactive">Inactive</option>
-</select>
-</td>
-</tr>
-</tbody>
-</table>
+</div>
+<div class="row">
+<div class="col-xl-6 col-sm-12 col-12 ">
+<div class="form-group">
+<input type="text" placeholder="Mobile">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-xl-6 col-sm-12 col-12 ">
+<div class="form-group">
+<input type="text" placeholder="Remarks">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-xl-12 col-sm-12 col-12 ">
+<div class="form-btn">
+<a href="#" class="btn btn-apply w-auto">Add Inventory</a>
+<a href="#" class="btn btn-secondary">Cancel</a>
+</div>
 </div>
 </div>
 </div>
@@ -450,5 +318,6 @@
 </div>
 
 </div>
+
 
     {% endblock %}
