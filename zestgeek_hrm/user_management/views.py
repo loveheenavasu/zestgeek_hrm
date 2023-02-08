@@ -2,13 +2,15 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib import messages
 from .models import *
+from django.contrib.auth import authenticate, login
 
 
 # Create your views here.
 class Register(View):
     def get(self, request):
         role = Role.objects.all()
-        return render(request, "register.html", {"role":role})
+        department = Department.objects.all()
+        return render(request, "register.html", {"role": role, "department": department})
     def post(self,request):
         print("abc")
         email = request.POST.get('email')
@@ -37,7 +39,7 @@ class Register(View):
             return redirect('/')
         else:
             roles = Role.objects.get(role_name=role)
-            dep = Department.objects.create(department_name=department)
+            dep = Department.objects.get(department_name=department)
             print(roles, "---------------------")
             CustomUser.objects.create_user(email=email, password=password1, role=roles, first_name=first_name, last_name=last_name, personal_email=personal_email
                                            , gender=gender, temperory_address=temperory_address, permanent_address=permanent_address, phone_number=phone_number,
@@ -47,19 +49,20 @@ class Register(View):
             print("successful")
 
             return redirect("/")
-def login_user(request, *args, **kwargs):
-    if request.method == 'POST':
+
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'login.html')
+    def post(self, request):
         email = request.POST['email']
         password = request.POST['password']
-        user = auth.authenticate(email=email, password=password)
+        user = authenticate(email=email, password=password)
         if user is not None:
-            auth.login(request, user)
+            login(request, user)
             return redirect('/register')
         else:
             messages.info(request, 'Invalid Username or Password')
             return redirect('/login')
-    else:
-        return render(request, 'login.html')
 
 
 
@@ -75,3 +78,16 @@ class Roles(View):
             Role.objects.create(role_name=role_name)
             messages.success(request, "Role created successful.")
             return redirect("roles")
+
+class DepartmentView(View):
+    def get(self, request):
+        return render(request, 'department.html')
+    def post(self,request):
+        department_name = request.POST.get('department_name')
+        if Department.objects.filter(department_name=department_name).exists():
+            messages.error(request, "Department already exists.")
+            return redirect("department")
+        else:
+            Department.objects.create(department_name=department_name)
+            messages.success(request, "Department created successful.")
+            return redirect("department")
