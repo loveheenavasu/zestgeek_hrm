@@ -1,10 +1,11 @@
 from django.db import models
-import uuid
 from user_management.models import Department
-# from user_management.models import Department, Profile
+from user_management.base import BaseModel
+
 # Create your models here.
-class Leaves(models.Model):
-    leave_id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
+
+
+class Leaves(BaseModel):
     dept_name = models.ForeignKey(Department, on_delete=models.DO_NOTHING)
 
     STATUS_CHOICE = (
@@ -17,14 +18,11 @@ class Leaves(models.Model):
     remaining_leaves = models.IntegerField()
     attachments = models.CharField(max_length=200, null=True, blank=True)
     comments = models.CharField(max_length=200, null=True, blank=True)
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     approval_by = models.CharField(max_length=200, null=True, blank=True)
     approval_date = models.DateTimeField(null=True, blank=True)
 
-class LeavesDetails(models.Model):
-    leave_details_id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
+
+class LeavesDetails(BaseModel):
     leave = models.ForeignKey(Leaves, on_delete=models.DO_NOTHING)
     TYPE_CHOICE = (
         ("FULLDAY", "FULLDAY"), ("HALFDDAY", "HALFDAY"), ("SHORTLEAVE", "SHORTLEAVE")
