@@ -11,7 +11,7 @@ class Inventory(BaseModel):
     ITEM_CHOICE = (
         ("Laptop", "LAPTOP"), ("Monile", "MOBILE")
     )
-    item = MultiSelectField(choices=ITEM_CHOICE, max_choices=3)
+    item = MultiSelectField(choices=ITEM_CHOICE, max_choices=3, max_length=10)
     LAPTOP_CHOICE = (
         ("Mac", "MAC"), ("Window", "WINDOW")
     )
