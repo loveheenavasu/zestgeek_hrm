@@ -87,7 +87,7 @@ class CustomUser(AbstractBaseUser, BaseModel):
     personal_email = models.EmailField("email address", unique=True, null=True, blank=True)
     gender = models.CharField(max_length=100, choices=GENDER_CHOICES)
     image = models.CharField(max_length=100, null=True, blank=True)
-    temperory_address = models.CharField(max_length=100, null=True, blank=True)
+    temporary_address = models.CharField(max_length=100, null=True, blank=True)
     permanent_address = models.CharField(max_length=100, null=True, blank=True)
     phone_number = models.CharField(max_length=100, null=True, blank=True)
     alternate_phone_number = models.CharField(max_length=100, null=True, blank=True)
