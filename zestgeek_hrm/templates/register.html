@@ -67,11 +67,23 @@
 </div>
 <div class="form-group">
 <label for="role" class="form-control-label">Desiganition</label>
-<input class="form-control" name="role" placeholder="Select desiganition">
+<!--<input class="form-control" name="role" placeholder="Select desiganition">-->
+<select id="role" name="role">
+ {% for role in role%}
+  <option value="">{{role.role_name}}</option>
+ {% endfor %}
+
+
+</select>
 </div>
 <div class="form-group">
 <label for="department" class="form-control-label">Department</label>
-<input class="form-control" name="department" placeholder="Select department">
+<!--<input class="form-control" name="department" placeholder="Select department">-->
+<select id="department" name="department">
+    {% for dep in department%}
+  <option value="">{{dep.department_name}}</option>
+ {% endfor %}
+</select>
 </div>
 <div class="form-group">
 <label for="joined_date" class="form-control-label">Joined Date</label>
