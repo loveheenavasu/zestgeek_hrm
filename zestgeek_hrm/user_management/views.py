@@ -68,7 +68,8 @@ class LoginView(View):
 
 class Roles(View):
     def get(self, request):
-        return render(request, 'roles.html')
+        role = Role.objects.all()
+        return render(request, 'roles.html', {"role": role})
     def post(self,request):
         role_name = request.POST.get('role_name')
         if Role.objects.filter(role_name=role_name).exists():
@@ -78,10 +79,28 @@ class Roles(View):
             Role.objects.create(role_name=role_name)
             messages.success(request, "Role created successful.")
             return redirect("roles")
+class UpdateRole(View):
+    def get(self, request, id):
+        role = Role.objects.get(id=id)
+        return render(request, 'roles.html', {"role": role})
+    def post(self, request, id):
+        name = request.POST.get("role_name")
+        role = Role.objects.get(id=id)
+        role.role_name = name
+        role.save()
+        messages.success(request, "Role updated successful.")
+        return redirect("roles")
 
+class DeleteRole(View):
+    def get(self, request, id):
+        role = Role.objects.get(id=id)
+        role.delete()
+        messages.success(request, "role deleted successful.")
+        return redirect("roles")
 class DepartmentView(View):
     def get(self, request):
-        return render(request, 'department.html')
+        department = Department.objects.all()
+        return render(request, 'department.html', {"department": department})
     def post(self,request):
         department_name = request.POST.get('department_name')
         if Department.objects.filter(department_name=department_name).exists():
@@ -91,6 +110,24 @@ class DepartmentView(View):
             Department.objects.create(department_name=department_name)
             messages.success(request, "Department created successful.")
             return redirect("department")
+class UpdateDepartment(View):
+    def get(self, request, id):
+        department = Department.objects.get(id=id)
+        return render(request, 'department.html', {"department": department})
+    def post(self, request, id):
+        name = request.POST.get("department_name")
+        department = Department.objects.get(id=id)
+        department.department_name = name
+        department.save()
+        messages.success(request, "Department updated successful.")
+        return redirect("department")
+
+class DeleteDepartment(View):
+    def get(self, request, id):
+        department = Department.objects.get(id=id)
+        department.delete()
+        messages.success(request, "Department deleted successful.")
+        return redirect("department")
 
 class EmployeeView(View):
     def get(self, request):
