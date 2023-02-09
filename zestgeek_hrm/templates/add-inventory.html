@@ -122,13 +122,13 @@
       <div class="content container-fluid">
          <form method="post" action="">
             {% csrf_token %}
-            {% if messages %}
-            <ul class="messages">
-               {% for message in messages %}
-               <p  style="color:red" {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
-               {% endfor %}
-            </ul>
-            {% endif %}
+<!--            {% if messages %}-->
+<!--            <ul class="messages">-->
+<!--               {% for message in messages %}-->
+<!--               <p  style="color:red" {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>-->
+<!--               {% endfor %}-->
+<!--            </ul>-->
+<!--            {% endif %}-->
             <div class="row">
                <div class="col-xl-12 col-sm-12 col-12 ">
                   <div class="breadcrumb-path mb-4">
