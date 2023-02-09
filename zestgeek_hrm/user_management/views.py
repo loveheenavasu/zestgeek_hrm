@@ -3,7 +3,7 @@ from django.views import View
 from django.contrib import messages
 from .models import *
 from django.contrib.auth import authenticate, login
-
+from .forms import RegisterForm
 
 # Create your views here.
 class Register(View):
@@ -153,9 +153,57 @@ class EmployeeView(View):
         current_user = request.user.first_name
         user = CustomUser.objects.all()
         total_employee = user.count()
-        return render(request, 'employee.html', {"user": user, "total_employee": total_employee, "current_user":current_user})
+        role = Role.objects.all()
+        department = Department.objects.all()
+        return render(request, 'employee.html', {"user": user, "total_employee": total_employee, "current_user":current_user, "role": role, "department": department})
+
+    def post(self, request):
+        print("post---------------")
+        current_user = request.user.first_name
+        user = CustomUser.objects.all()
+        total_employee = user.count()
+        role = Role.objects.all()
+        department = Department.objects.all()
+        form = RegisterForm(request.POST, request.FILES)
+        print(form, "dvdfhfvfdhh-------------------")
+        if form.is_valid():
+            print("valid--------------------------")
+
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            confirm_password = form.cleaned_data['confirm_password']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            role = form.cleaned_data['role']
+            personal_email = form.cleaned_data['personal_email']
+            gender = form.cleaned_data['gender']
+            temporary_address = form.cleaned_data['temporary_address']
+            permanent_address = form.cleaned_data['permanent_address']
+            phone_number = form.cleaned_data['phone_number']
+            alternate_phone_number = form.cleaned_data['alternate_phone_number']
+            department = form.cleaned_data['department']
+            joined_date = form.cleaned_data['joined_date']
+            image = form.cleaned_data['image']
 
 
+            roles = Role.objects.get(role_name=role)
+            dep = Department.objects.get(department_name=department)
+            print(roles, "---------------------")
+            obj = CustomUser.objects.create_user(email=email, password=password, role=roles, first_name=first_name,
+                                           last_name=last_name, personal_email=personal_email
+                                           , gender=gender, temporary_address=temporary_address,
+                                           permanent_address=permanent_address, phone_number=phone_number,
+                                           alternate_phone_number=alternate_phone_number, department=dep,
+                                           joined_date=joined_date, image=image)
+
+            obj.save()
+            messages.success(request, "Registration successful.")
+            print("successful")
+
+            return redirect("/employee" )
+        else:
+            print("not")
+            return render(request, "employee.html", {'form': form, "user": user, "total_employee": total_employee, "current_user":current_user, "role": role, "department": department})
 def logout(request):
     logout(request)
     return redirect('/login')

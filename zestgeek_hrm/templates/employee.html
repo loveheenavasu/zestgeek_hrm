@@ -149,6 +149,7 @@
 </li>
 
 </ul>
+
 <div class="dropdown mobile-user-menu show">
 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
 <div class="dropdown-menu dropdown-menu-right ">
@@ -248,13 +249,17 @@
 <li><a href="/department">Teams</a></li>
 <!--<li><a href="employee-office.html">Offices</a></li>-->
 </ul>
-<a class="btn-add" href="/"><i data-feather="plus"></i> Add Employee</a>
+    <a class="btn-add" data-toggle="modal" data-target="#addteam"><i data-feather="plus"></i> Add Employee</a>
+<!--<a class="btn-add" href="/add-employee"><i data-feather="plus"></i> Add Employee</a>-->
 </div>
 </div>
 <div class="col-xl-12 col-sm-12 col-12 mb-4">
 <div class="row">
 <div class="col-xl-10 col-sm-8 col-12 ">
-<label class="employee_count">{{total_employee}} Employees</label>
+<label class="employee_count">{{total_employee}} Employees
+
+</label>
+
 </div>
 <div class="col-xl-1 col-sm-2 col-12 ">
 <a href="employee-grid.html" class="btn-view "><i data-feather="grid"></i> </a>
@@ -318,5 +323,135 @@
 </div>
 
 </div>
+<div class="customize_popup">
+<div class="modal fade" id="addteam" tabindex="-1" aria-labelledby="staticBackdropLabela" aria-hidden="true">
+<div class="modal-dialog modal-lg modal-dialog-centered">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="staticBackdropLabela">Create New Employee</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+</div>
 
+<div class="modal-body" id="add-agent-modal">
+    {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <p> {{ error }} </p>
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+<form method="post" action="" enctype="multipart/form-data">
+ {% csrf_token %}
+
+<div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="first_name" class="form-control-label">First Name</label>
+        <input class="form-control" name="first_name" placeholder="Enter first name">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="last_name" class="form-control-label">Last Name</label>
+    <input class="form-control" name="last_name" placeholder="Enter last name">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="email" class="form-control-label">Email Address</label>
+<input type="email" class="form-control" name="email" placeholder="Enter email">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="personal_email" class="form-control-label">Personal Email Address</label>
+<input type="email" class="form-control" name="personal_email" placeholder="Enter personal email">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="gender" class="form-control-label">Select Gender</label>
+<select class="form-control"  id="gender" name="gender">
+  <option value="male">Male</option>
+  <option value="female">Female</option>
+  <option value="unspecified">Unspecified</option>
+</select>
+    </div>
+    <div class="form-group col-md-6">
+     <label for="image" class="form-control-label">Profile Picture</label>
+<input type="file" class="form-control" name="image" placeholder="Select Image">
+    </div>
+  </div>
+
+    <div class="form-group">
+     <label for="temporary_address" class="form-control-label">Temporary Address</label>
+<textarea  class="form-control" name="temporary_address"  rows="1" placeholder="Enter temporary address"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="permanent_address" class="form-control-label">Permanent Address</label>
+<textarea class="form-control" rows="1" name="permanent_address" placeholder="Enter permanent address"></textarea>
+    </div>
+
+      <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="phone_number" class="form-control-label">Phone Number</label>
+<input type="tel" class="form-control" name="phone_number" placeholder="Enter phone number">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="alternate_phone_number" class="form-control-label">Alternate Phone Number</label>
+<input type="tel" class="form-control" name="alternate_phone_number" placeholder="Enter alternate phone number">
+    </div>
+  </div>
+      <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="role" class="form-control-label">Desiganition</label>
+<!--<input class="form-control" name="role" placeholder="Select desiganition">-->
+<select id="role" name="role">
+ {% for role in role%}
+  <option value="{{role.role_name}}">{{role.role_name}}</option>
+ {% endfor %}
+
+
+</select>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="department" class="form-control-label">Department</label>
+<!--<input class="form-control" name="department" placeholder="Select department">-->
+<select id="department" name="department" class="form-control">
+    {% for dep in department%}
+  <option value="{{dep.department_name}}">{{dep.department_name}}</option>
+ {% endfor %}
+</select>
+    </div>
+  </div>
+      <div class="form-row">
+    <div class="form-group col-md-6">
+<label for="password" class="form-control-label">Password</label>
+<input type="password" class="form-control" name="password" placeholder="Enter password">
+    </div>
+    <div class="form-group col-md-6">
+      <label class="form-control-label">Confirm Password</label>
+<input class="form-control" type="password" name="confirm_password" placeholder="Enter confirm-password">
+    </div>
+  </div>
+
+    <div class="form-group">
+<label for="joined_date" class="form-control-label">Joined Date</label>
+<input type="date" class="form-control" name="joined_date" placeholder="Select joined date">
+    </div>
+
+<!--<div class="modal-footer">-->
+<button type="submit" class="btn btn-primary">Submit</button>
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+<!--</div>-->
+      </form>
+</div>
+</div>
+</div>
+</div>
+    <script>
+    $( document ).ready(function() {
+       if (document.formHasErrors) {
+           $('#add-agent-modal').modal('toggle');
+       }
+    });
+</script>
     {% endblock %}
