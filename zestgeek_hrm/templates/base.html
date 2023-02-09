@@ -51,7 +51,7 @@
 <img src="{% static 'assets/img/profile.jpg' %}" alt="">
 <span class="status online"></span>
 </span>
-<span>{{current_user}}</span>
+<span>{{request.user.first_name}}</span>
 </a>
 <div class="dropdown-menu">
 <a class="dropdown-item" href="profile.html"><i data-feather="user" class="mr-1"></i> Profile</a>
