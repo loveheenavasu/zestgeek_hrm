@@ -14,5 +14,5 @@ urlpatterns = [
     path('update_department/<id>', UpdateDepartment.as_view(), name="update_department"),
     path('delete_department/<id>', DeleteDepartment.as_view(), name="delete_department"),
     path('employee', EmployeeView.as_view()),
-    path('logout', views.logout)
+    path('logout', views.logout_view)
 ]
