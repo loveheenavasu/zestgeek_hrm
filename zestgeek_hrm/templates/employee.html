@@ -3,14 +3,12 @@
 {% block content %}
 
 <div class="main-wrapper">
-
 <div class="header">
-
 <div class="header-left">
-<a href="index.html" class="logo">
+<a href="/home" class="logo">
 <img src="{% static 'assets/img/logo.png' %}" alt="Logo">
 </a>
-<a href="index.html" class="logo logo-small">
+<a href="/home" class="logo logo-small">
 <img src="{% static 'assets/img/logo-small.png' %}" alt="Logo" width="30" height="30">
 </a>
 <a href="javascript:void(0);" id="toggle_btn">
@@ -21,9 +19,6 @@
 </span>
 </a>
 </div>
-
-
-
 
 <div class="top-nav-search">
 <form>
@@ -60,7 +55,7 @@
 <div class="dropdown-menu">
 <a class="dropdown-item" href="profile.html"><i data-feather="user" class="mr-1"></i> Profile</a>
 <a class="dropdown-item" href="settings.html"><i data-feather="settings" class="mr-1"></i> Settings</a>
-<a class="dropdown-item" href="login.html"><i data-feather="log-out" class="mr-1"></i> Logout</a>
+<a class="dropdown-item" href="/"><i data-feather="log-out" class="mr-1"></i> Logout</a>
 </div>
 </li>
 
@@ -70,7 +65,7 @@
 <div class="dropdown-menu dropdown-menu-right ">
 <a class="dropdown-item" href="profile.html">My Profile</a>
 <a class="dropdown-item" href="settings.html">Settings</a>
-<a class="dropdown-item" href="login.html">Logout</a>
+<a class="dropdown-item" href="/">Logout</a>
 </div>
 </div>
 
@@ -103,14 +98,14 @@
 </div>
 <ul>
 <li>
-<a href="index.html"><img src="{% static 'assets/img/home.svg' %}" alt="sidebar_img"> <span>Dashboard</span></a>
+<a href="/home"><img src="{% static 'assets/img/home.svg' %}" alt="sidebar_img"> <span>Dashboard</span></a>
 </li>
 <li class="active">
-<a href="#"><img src="{% static 'assets/img/employee.svg' %}" alt="sidebar_img"><span> Employees</span></a>
+<a href="/employee"><img src="{% static 'assets/img/employee.svg' %}" alt="sidebar_img"><span> Employees</span></a>
 </li>
-<!--<li>-->
-<!--<a href="inventory.html"><img src="{% static 'assets/img/company.svg' %}" alt="sidebar_img"> <span> Inventory</span></a>-->
-<!--</li>-->
+<li>
+<a href="inventory.html"><img src="{% static 'assets/img/company.svg' %}" alt="sidebar_img"> <span> Inventory</span></a>
+</li>
 <!--<li>-->
 <!--<a href="calendar.html"><img src="assets/img/calendar.svg" alt="sidebar_img"> <span>Calendar</span></a>-->
 <!--</li>-->
@@ -150,7 +145,7 @@
 <div class="col-xl-12 col-sm-12 col-12">
 <div class="breadcrumb-path mb-4">
 <ul class="breadcrumb">
-<li class="breadcrumb-item"><a href="index.html"><img src="{% static 'assets/img/dash.png' %}" class="mr-2" alt="breadcrumb" />Home</a>
+<li class="breadcrumb-item"><a href="/home"><img src="{% static 'assets/img/dash.png' %}" class="mr-2" alt="breadcrumb" />Home</a>
 </li>
 <li class="breadcrumb-item active"> Employees</li>
 </ul>
@@ -162,9 +157,8 @@
 <ul>
 <li><a class="active" href="/employee">All</a></li>
 <li><a href="/department">Teams</a></li>
-<!--<li><a href="employee-office.html">Offices</a></li>-->
 </ul>
-<a class="btn-add" href="/"><i data-feather="plus"></i> Add Employee</a>
+<a class="btn-add" href="/register"><i data-feather="plus"></i> Add Employee</a>
 </div>
 </div>
 <div class="col-xl-12 col-sm-12 col-12 mb-4">

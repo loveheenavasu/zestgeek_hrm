@@ -1,35 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layout.html' %}
 {% load static %}
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-<title>Dleohr - Bootstrap Admin HTML Template</title>
-
-<link rel="shortcut icon" href="{% static 'assets/img/favicon.png' %}">
-
-<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
-
-<link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}">
-<link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}">
-
-<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-<!--[if lt IE 9]>
-			<script src="{% static 'assets/js/html5shiv.min.js' %}"></script>
-			<script src="{% static 'assets/js/respond.min.js' %}"></script>
-		<![endif]-->
-</head>
-<body>
-
+{% block content %}
 <div class="main-wrapper">
 
 <div class="header">
 
 <div class="header-left">
-<a href="index.html" class="logo">
+<a href="/home" class="logo">
 <img src="{% static 'assets/img/logo.png' %}" alt="Logo">
 </a>
-<a href="index.html" class="logo logo-small">
+<a href="/home" class="logo logo-small">
 <img src="{% static 'assets/img/logo-small.png' %}" alt="Logo" width="30" height="30">
 </a>
 <a href="javascript:void(0);" id="toggle_btn">
@@ -155,7 +135,7 @@
 <div class="dropdown-menu">
 <a class="dropdown-item" href="profile.html"><i data-feather="user" class="mr-1"></i> Profile</a>
 <a class="dropdown-item" href="settings.html"><i data-feather="settings" class="mr-1"></i> Settings</a>
-<a class="dropdown-item" href="login.html"><i data-feather="log-out" class="mr-1"></i> Logout</a>
+<a class="dropdown-item" href="/"><i data-feather="log-out" class="mr-1"></i> Logout</a>
 </div>
 </li>
 
@@ -165,7 +145,7 @@
 <div class="dropdown-menu dropdown-menu-right ">
 <a class="dropdown-item" href="profile.html">My Profile</a>
 <a class="dropdown-item" href="settings.html">Settings</a>
-<a class="dropdown-item" href="login.html">Logout</a>
+<a class="dropdown-item" href="/">Logout</a>
 </div>
 </div>
 
@@ -198,7 +178,7 @@
 </div>
 <ul>
 <li>
-<a href="index.html"><img src="{% static 'assets/img/home.svg' %}" alt="sidebar_img"> <span>Dashboard</span></a>
+<a href="/home"><img src="{% static 'assets/img/home.svg' %}" alt="sidebar_img"> <span>Dashboard</span></a>
 </li>
 <li class="active">
 <a href="/employee"><img src="{% static 'assets/img/employee.svg' %}" alt="sidebar_img"><span> Employees</span></a>
@@ -245,7 +225,7 @@
 <div class="col-xl-12 col-sm-12 col-12 mb-4">
 <div class="breadcrumb-path ">
 <ul class="breadcrumb">
-<li class="breadcrumb-item"><a href="index.html"><img src="{% static 'assets/img/dash.png' %}" class="mr-2" alt="breadcrumb" />Home</a>
+<li class="breadcrumb-item"><a href="/home"><img src="{% static 'assets/img/dash.png' %}" class="mr-2" alt="breadcrumb" />Home</a>
 </li>
 <li class="breadcrumb-item active"> Employees</li>
 </ul>
@@ -378,16 +358,4 @@
 
 </div>
 
-
-<script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
-
-<script src="{% static 'assets/js/popper.min.js' %}"></script>
-<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
-
-<script src="{% static 'assets/js/feather.min.js' %}"></script>
-
-<script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
-
-<script src="{% static 'assets/js/script.js' %}"></script>
-</body>
-</html>
+    {% endblock %}

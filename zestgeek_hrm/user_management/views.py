@@ -52,7 +52,7 @@ class Register(View):
             messages.success(request, "Registration successful.")
             print("successful")
 
-            return redirect("/employee")
+            return redirect("/home")
 
 
 class LoginView(View):
@@ -65,10 +65,10 @@ class LoginView(View):
         user = authenticate(email=email, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/employee')
+            return redirect('/home')
         else:
             messages.info(request, 'Invalid Username or Password')
-            return redirect('/login')
+            return redirect('/')
 
 
 class Roles(View):
@@ -159,3 +159,10 @@ class EmployeeView(View):
 def logout(request):
     logout(request)
     return redirect('/login')
+
+def home(request):
+    return render(request, 'index.html')
+
+
+def employee_index(request):
+    return render(request, 'index-employee.html')
