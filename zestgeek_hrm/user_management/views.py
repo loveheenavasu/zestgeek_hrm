@@ -33,11 +33,11 @@ class Register(View):
         if CustomUser.objects.filter(email=email).exists():
             print("already exists")
             messages.error(request, "Email already exists")
-            return redirect('/')
+            return redirect('/register')
 
         elif password != confirm_password:
             messages.error(request, "Passwords do not match.")
-            return redirect('/')
+            return redirect('/register')
         else:
             roles = Role.objects.get(role_name=role)
             dep = Department.objects.get(department_name=department)
@@ -52,7 +52,7 @@ class Register(View):
             messages.success(request, "Registration successful.")
             print("successful")
 
-            return redirect("/employee")
+            return redirect("/home")
 
 
 class LoginView(View):
@@ -65,10 +65,10 @@ class LoginView(View):
         user = authenticate(email=email, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/employee')
+            return redirect('/home')
         else:
             messages.info(request, 'Invalid Username or Password')
-            return redirect('/login')
+            return redirect('/')
 
 
 class Roles(View):
@@ -207,3 +207,10 @@ class EmployeeView(View):
 def logout(request):
     logout(request)
     return redirect('/login')
+
+def home(request):
+    return render(request, 'index.html')
+
+
+def employee_index(request):
+    return render(request, 'index-employee.html')
