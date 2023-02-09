@@ -1,232 +1,216 @@
 {% extends 'layout.html' %}
 {% load static %}
 {% block content %}
-
 <div class="main-wrapper">
-<div class="header">
-<div class="header-left">
-<a href="/home" class="logo">
-<img src="{% static 'assets/img/logo.png' %}" alt="Logo">
-</a>
-<a href="/home" class="logo logo-small">
-<img src="{% static 'assets/img/logo-small.png' %}" alt="Logo" width="30" height="30">
-</a>
-<a href="javascript:void(0);" id="toggle_btn">
-<span class="bar-icon">
-<span></span>
-<span></span>
-<span></span>
-</span>
-</a>
+   <div class="header">
+      <div class="header-left">
+         <a href="/home" class="logo">
+         <img src="{% static 'assets/img/logo.png' %}" alt="Logo">
+         </a>
+         <a href="/home" class="logo logo-small">
+         <img src="{% static 'assets/img/logo-small.png' %}" alt="Logo" width="30" height="30">
+         </a>
+         <a href="javascript:void(0);" id="toggle_btn">
+         <span class="bar-icon">
+         <span></span>
+         <span></span>
+         <span></span>
+         </span>
+         </a>
+      </div>
+      <div class="top-nav-search">
+         <form>
+            {% csrf_token %}
+            {% if messages %}
+            <ul class="messages">
+               {% for message in messages %}
+               <p  style="color:red" {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
+               {% endfor %}
+            </ul>
+            {% endif %}
+            <input type="text" class="form-control" placeholder="">
+            <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+         </form>
+      </div>
+      <a class="mobile_btn" id="mobile_btn">
+      <i class="fas fa-bars"></i>
+      </a>
+      <ul class="nav user-menu">
+         <li class="nav-item dropdown">
+         <li class="nav-item dropdown has-arrow main-drop">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+            <span class="user-img">
+            <img src="{% static 'assets/img/profile.jpg' %}" alt="">
+            <span class="status online"></span>
+            </span>
+            <span>{{current_user}}</span>
+            </a>
+            <div class="dropdown-menu">
+               <a class="dropdown-item" href="profile.html"><i data-feather="user" class="mr-1"></i> Profile</a>
+               <a class="dropdown-item" href="settings.html"><i data-feather="settings" class="mr-1"></i> Settings</a>
+               <a class="dropdown-item" href="/"><i data-feather="log-out" class="mr-1"></i> Logout</a>
+            </div>
+         </li>
+      </ul>
+      <div class="dropdown mobile-user-menu show">
+         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+         <div class="dropdown-menu dropdown-menu-right ">
+            <a class="dropdown-item" href="profile.html">My Profile</a>
+            <a class="dropdown-item" href="settings.html">Settings</a>
+            <a class="dropdown-item" href="/">Logout</a>
+         </div>
+      </div>
+   </div>
+   <div class="sidebar" id="sidebar">
+      <div class="sidebar-inner slimscroll">
+         <div class="sidebar-contents">
+            <div id="sidebar-menu" class="sidebar-menu">
+               <div class="mobile-show">
+                  <div class="offcanvas-menu">
+                     <div class="user-info align-center bg-theme text-center">
+                        <span class="lnr lnr-cross  text-white" id="mobile_btn_close">X</span>
+                        <a href="javascript:void(0)" class="d-block menu-style text-white">
+                           <div class="user-avatar d-inline-block mr-3">
+                              <img src="{% static 'assets/img/profiles/avatar-18.jpg' %}" alt="user avatar" class="rounded-circle" width="50">
+                           </div>
+                        </a>
+                     </div>
+                  </div>
+                  <div class="sidebar-input">
+                     <div class="top-nav-search">
+                        <form>
+                           <input type="text" class="form-control" placeholder="Search here">
+                           <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+               <ul>
+                  <li>
+                     <a href="/home"><img src="{% static 'assets/img/home.svg' %}" alt="sidebar_img"> <span>Dashboard</span></a>
+                  </li>
+                  <li class="active">
+                     <a href="/employee"><img src="{% static 'assets/img/employee.svg' %}" alt="sidebar_img"><span> Employees</span></a>
+                  </li>
+                  <li>
+                     <a href="inventory.html"><img src="{% static 'assets/img/company.svg' %}" alt="sidebar_img"> <span> Inventory</span></a>
+                  </li>
+                  <li>
+                     <a href="/department"><img src="{% static 'assets/img/calendar.svg' %}" alt="sidebar_img"> <span>Department</span></a>
+                  </li>
+                  <li>
+                     <a href="leave.html"><img src="{% static 'assets/img/leave.svg' %}" alt="sidebar_img"> <span>Leave</span></a>
+                  </li>
+                  <!--<li>-->
+                  <!--<a href="review.html"><img src="assets/img/review.svg" alt="sidebar_img"><span>Review</span></a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="report.html"><img src="assets/img/report.svg" alt="sidebar_img"><span>Report</span></a>-->
+                  <!--</li>-->
+                  <!--<li>-->
+                  <!--<a href="manage.html"><img src="assets/img/manage.svg" alt="sidebar_img"> <span>Manage</span></a>-->
+                  <!--</li>-->
+                  <li>
+                     <a href="settings.html"><img src="{% static 'assets/img/settings.svg' %}" alt="sidebar_img"><span>Settings</span></a>
+                  </li>
+                  <li>
+                     <a href="profile.html"><img src="{% static 'assets/img/profile.svg' %}" alt="sidebar_img"> <span>Profile</span></a>
+                  </li>
+               </ul>
+               <ul class="logout">
+                  <li>
+                     <a href="profile.html"><img src="{% static 'assets/img/logout.svg' %}" alt="sidebar_img"><span>Log out</span></a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="page-wrapper">
+      <div class="content container-fluid">
+         <div class="row">
+            <div class="col-xl-12 col-sm-12 col-12">
+               <div class="breadcrumb-path mb-4">
+                  <ul class="breadcrumb">
+                     <li class="breadcrumb-item"><a href="/home"><img src="{% static 'assets/img/dash.png' %}" class="mr-2" alt="breadcrumb" />Home</a></li>
+                     <li class="breadcrumb-item active"> Employees</li>
+                  </ul>
+                  <h3>Employees</h3>
+               </div>
+            </div>
+            <div class="col-xl-12 col-sm-12 col-12 mb-4">
+               <div class="head-link-set">
+                  <ul>
+                     <li><a class="active" href="/employee">All</a></li>
+                     <li><a href="/department">Teams</a></li>
+                  </ul>
+                  <a class="btn-add" href="/register"><i data-feather="plus"></i> Add Employee</a>
+               </div>
+            </div>
+            <div class="col-xl-12 col-sm-12 col-12 mb-4">
+               <div class="row">
+                  <div class="col-xl-10 col-sm-8 col-12 ">
+                     <label class="employee_count">{{total_employee}} Employees</label>
+                  </div>
+                  <div class="col-xl-1 col-sm-2 col-12 ">
+                     <a href="employee-grid.html" class="btn-view "><i data-feather="grid"></i> </a>
+                  </div>
+                  <div class="col-xl-1 col-sm-2 col-12 ">
+                     <a href="#" class="btn-view active"><i data-feather="list"></i> </a>
+                  </div>
+               </div>
+            </div>
+            <div class="col-xl-12 col-sm-12 col-12 mb-4">
+               <div class="card">
+                  <div class="table-heading">
+                     <h2>Project Summery</h2>
+                  </div>
+                  <div class="table-responsive">
+                     <table class="table  custom-table no-footer">
+                        <thead>
+                           <tr>
+                              <th>Image</th>
+                              <th>Employee Name</th>
+                              <th>Email</th>
+                              <th>Designation</th>
+                              <th>Department</th>
+                              <th>Phone Number</th>
+                              <th>Inventory</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           {% for i in user %}
+                           <tr>
+                              <td>
+                                 <div class="table-img">
+                                    <a href="profile.html">
+                                    <img src="{% static 'assets/img/profiles/avatar-13.jpg' %}" alt="profile" class="img-table" />
+                                    </a>
+                                 </div>
+                              </td>
+                              <td>
+                                 <label class="action_lab">{{i.first_name}} {{i.last_name}} </label>
+                              </td>
+                              <td>
+                                 <label class="action_labe">{{i.email}} </label>
+                              </td>
+                              <td><label>{{i.role}}	</label></td>
+                              <td><label>{{i.department}}</label></td>
+                              <td class="tab-select">
+                                 <label>{{i.phone_number}}</label>
+                              </td>
+                              <td>
+                                 <a href="{% url 'inventory' i.id %}">Inventory</a>
+                              </td>
+                           </tr>
+                           {%endfor%}
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 </div>
-
-<div class="top-nav-search">
-<form>
-       {% csrf_token %}
-     {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <p  style="color:red" {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
-    {% endfor %}
-</ul>
-{% endif %}
-<input type="text" class="form-control" placeholder="">
-<button class="btn" type="submit"><i class="fas fa-search"></i></button>
-</form>
-</div>
-
-
-<a class="mobile_btn" id="mobile_btn">
-<i class="fas fa-bars"></i>
-</a>
-
-
-<ul class="nav user-menu">
-
-<li class="nav-item dropdown">
-<li class="nav-item dropdown has-arrow main-drop">
-<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-<span class="user-img">
-<img src="{% static 'assets/img/profile.jpg' %}" alt="">
-<span class="status online"></span>
-</span>
-<span>{{current_user}}</span>
-</a>
-<div class="dropdown-menu">
-<a class="dropdown-item" href="profile.html"><i data-feather="user" class="mr-1"></i> Profile</a>
-<a class="dropdown-item" href="settings.html"><i data-feather="settings" class="mr-1"></i> Settings</a>
-<a class="dropdown-item" href="/"><i data-feather="log-out" class="mr-1"></i> Logout</a>
-</div>
-</li>
-
-</ul>
-<div class="dropdown mobile-user-menu show">
-<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-<div class="dropdown-menu dropdown-menu-right ">
-<a class="dropdown-item" href="profile.html">My Profile</a>
-<a class="dropdown-item" href="settings.html">Settings</a>
-<a class="dropdown-item" href="/">Logout</a>
-</div>
-</div>
-
-</div>
-
-
-<div class="sidebar" id="sidebar">
-<div class="sidebar-inner slimscroll">
-<div class="sidebar-contents">
-<div id="sidebar-menu" class="sidebar-menu">
-<div class="mobile-show">
-<div class="offcanvas-menu">
-<div class="user-info align-center bg-theme text-center">
-<span class="lnr lnr-cross  text-white" id="mobile_btn_close">X</span>
-<a href="javascript:void(0)" class="d-block menu-style text-white">
-<div class="user-avatar d-inline-block mr-3">
-<img src="{% static 'assets/img/profiles/avatar-18.jpg' %}" alt="user avatar" class="rounded-circle" width="50">
-</div>
-</a>
-</div>
-</div>
-<div class="sidebar-input">
-<div class="top-nav-search">
-<form>
-<input type="text" class="form-control" placeholder="Search here">
-<button class="btn" type="submit"><i class="fas fa-search"></i></button>
-</form>
-</div>
-</div>
-</div>
-<ul>
-<li>
-<a href="/home"><img src="{% static 'assets/img/home.svg' %}" alt="sidebar_img"> <span>Dashboard</span></a>
-</li>
-<li class="active">
-<a href="/employee"><img src="{% static 'assets/img/employee.svg' %}" alt="sidebar_img"><span> Employees</span></a>
-</li>
-<li>
-<a href="inventory.html"><img src="{% static 'assets/img/company.svg' %}" alt="sidebar_img"> <span> Inventory</span></a>
-</li>
-<li>
-<a href="/department"><img src="{% static 'assets/img/calendar.svg' %}" alt="sidebar_img"> <span>Department</span></a>
-</li>
-<li>
-<a href="leave.html"><img src="{% static 'assets/img/leave.svg' %}" alt="sidebar_img"> <span>Leave</span></a>
-</li>
-<!--<li>-->
-<!--<a href="review.html"><img src="assets/img/review.svg" alt="sidebar_img"><span>Review</span></a>-->
-<!--</li>-->
-<!--<li>-->
-<!--<a href="report.html"><img src="assets/img/report.svg" alt="sidebar_img"><span>Report</span></a>-->
-<!--</li>-->
-<!--<li>-->
-<!--<a href="manage.html"><img src="assets/img/manage.svg" alt="sidebar_img"> <span>Manage</span></a>-->
-<!--</li>-->
-<li>
-<a href="settings.html"><img src="{% static 'assets/img/settings.svg' %}" alt="sidebar_img"><span>Settings</span></a>
-</li>
-<li>
-<a href="profile.html"><img src="{% static 'assets/img/profile.svg' %}" alt="sidebar_img"> <span>Profile</span></a>
-</li>
-</ul>
-<ul class="logout">
-<li>
-<a href="profile.html"><img src="{% static 'assets/img/logout.svg' %}" alt="sidebar_img"><span>Log out</span></a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-
-
-<div class="page-wrapper">
-<div class="content container-fluid">
-<div class="row">
-<div class="col-xl-12 col-sm-12 col-12">
-<div class="breadcrumb-path mb-4">
-<ul class="breadcrumb">
-<li class="breadcrumb-item"><a href="/home"><img src="{% static 'assets/img/dash.png' %}" class="mr-2" alt="breadcrumb" />Home</a>
-</li>
-<li class="breadcrumb-item active"> Employees</li>
-</ul>
-<h3>Employees</h3>
-</div>
-</div>
-<div class="col-xl-12 col-sm-12 col-12 mb-4">
-<div class="head-link-set">
-<ul>
-<li><a class="active" href="/employee">All</a></li>
-<li><a href="/department">Teams</a></li>
-</ul>
-<a class="btn-add" href="/register"><i data-feather="plus"></i> Add Employee</a>
-</div>
-</div>
-<div class="col-xl-12 col-sm-12 col-12 mb-4">
-<div class="row">
-<div class="col-xl-10 col-sm-8 col-12 ">
-<label class="employee_count">{{total_employee}} Employees</label>
-</div>
-<div class="col-xl-1 col-sm-2 col-12 ">
-<a href="employee-grid.html" class="btn-view "><i data-feather="grid"></i> </a>
-</div>
-<div class="col-xl-1 col-sm-2 col-12 ">
-<a href="#" class="btn-view active"><i data-feather="list"></i> </a>
-</div>
-</div>
-</div>
-<div class="col-xl-12 col-sm-12 col-12 mb-4">
-<div class="card">
-<div class="table-heading">
-<h2>Project Summery</h2>
-</div>
-<div class="table-responsive">
-<table class="table  custom-table no-footer">
-<thead>
-<tr>
-<th>Image</th>
-<th>Employee Name</th>
-<th>Email</th>
-<th>Designation</th>
-<th>Department</th>
-<th>Phone Number</th>
-<th>Inventory</th>
-</tr>
-</thead>
-<tbody>
-{% for i in user %}
-<tr>
-<td>
-<div class="table-img">
-<a href="profile.html">
-<img src="{% static 'assets/img/profiles/avatar-13.jpg' %}" alt="profile" class="img-table" />
-</a>
- </div>
-</td>
-<td>
-<label class="action_lab">{{i.first_name}} {{i.last_name}} </label>
-</td>
-<td>
-<label class="action_labe">{{i.email}} </label>
-</td>
-<td><label>{{i.role}}	</label></td>
-<td><label>{{i.department}}</label></td>
-<td class="tab-select">
-<label>{{i.phone_number}}</label>
-</td>
-    <td>
-  <a href="{% url 'inventory' i.id %}">Inventory</a>
-</td>
-</tr>
-{%endfor%}
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-</div>
-
-    {% endblock %}
+{% endblock %}
