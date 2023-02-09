@@ -4,9 +4,13 @@ from django.contrib import messages
 from .models import *
 from django.contrib.auth import authenticate, login
 from .forms import RegisterForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+
+
 
 # Create your views here.
-class Register(View):
+class Register(LoginRequiredMixin, View):
     def get(self, request):
         role = Role.objects.all()
         department = Department.objects.all()
@@ -57,6 +61,8 @@ class Register(View):
 
 class LoginView(View):
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('/home')
         return render(request, 'login.html')
 
     def post(self, request):
@@ -71,7 +77,7 @@ class LoginView(View):
             return redirect('/')
 
 
-class Roles(View):
+class Roles(LoginRequiredMixin, View):
     def get(self, request):
         role = Role.objects.all()
         return render(request, 'roles.html', {"role": role})
@@ -87,7 +93,7 @@ class Roles(View):
             return redirect("roles")
 
 
-class UpdateRole(View):
+class UpdateRole(LoginRequiredMixin, View):
     def get(self, request, id):
         role = Role.objects.get(id=id)
         return render(request, 'roles.html', {"role": role})
@@ -101,7 +107,7 @@ class UpdateRole(View):
         return redirect("roles")
 
 
-class DeleteRole(View):
+class DeleteRole(LoginRequiredMixin, View):
     def get(self, request, id):
         role = Role.objects.get(id=id)
         role.delete()
@@ -109,7 +115,7 @@ class DeleteRole(View):
         return redirect("roles")
 
 
-class DepartmentView(View):
+class DepartmentView(LoginRequiredMixin, View):
     def get(self, request):
         department = Department.objects.all()
         return render(request, 'employee-team.html', {"department": department})
@@ -126,7 +132,7 @@ class DepartmentView(View):
             return redirect("department")
 
 
-class UpdateDepartment(View):
+class UpdateDepartment(LoginRequiredMixin, View):
     def get(self, request, id):
         department = Department.objects.get(id=id)
         return render(request, 'employee-team.html', {"department": department})
@@ -140,7 +146,7 @@ class UpdateDepartment(View):
         return redirect("department")
 
 
-class DeleteDepartment(View):
+class DeleteDepartment(LoginRequiredMixin, View):
     def get(self, request, id):
         department = Department.objects.get(id=id)
         department.delete()
@@ -148,7 +154,7 @@ class DeleteDepartment(View):
         return redirect("department")
 
 
-class EmployeeView(View):
+class EmployeeView(LoginRequiredMixin, View):
     def get(self, request):
         current_user = request.user.first_name
         user = CustomUser.objects.all()
@@ -204,13 +210,19 @@ class EmployeeView(View):
         else:
             print("not")
             return render(request, "employee.html", {'form': form, "user": user, "total_employee": total_employee, "current_user":current_user, "role": role, "department": department})
+
+
+@login_required
 def logout(request):
     logout(request)
     return redirect('/login')
 
+
+@login_required
 def home(request):
     return render(request, 'index.html')
 
 
+@login_required
 def employee_index(request):
     return render(request, 'index-employee.html')
