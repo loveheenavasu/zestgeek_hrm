@@ -29,3 +29,8 @@ class InventoryView(View):
         messages.success(request, "Inventory created successfully.")
         print("successful")
         return redirect("/employee")
+
+class ListingInventory(View):
+    def get(self, request):
+        user_inventory = CustomUser.objects.all()
+        return render(request, "inventory.html", {"data": user_inventory})

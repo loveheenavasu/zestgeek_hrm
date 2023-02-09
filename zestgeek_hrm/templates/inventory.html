@@ -121,79 +121,43 @@
    <div class="page-wrapper">
       <div class="content container-fluid">
          <div class="row">
-            <div class="col-xl-12 col-sm-12 col-12">
-               <div class="breadcrumb-path mb-4">
-                  <ul class="breadcrumb">
-                     <li class="breadcrumb-item"><a href="/home"><img src="{% static assets/img/dash.png %}" class="mr-2" alt="breadcrumb" />Home</a></li>
-                     <li class="breadcrumb-item active"> Inventory</li>
-                  </ul>
-                  <h3>Inventory</h3>
-               </div>
-            </div>
-            <div class="col-xl-12 col-sm-12 col-12 mb-4">
-               <div class="head-link-set">
-                  <ul>
-                     <li><a class="active" href="#">All</a></li>
-                     <li><a href="employee-team.html">Teams</a></li>
-                     <li><a href="employee-office.html">Offices</a></li>
-                  </ul>
-                  <a class="btn-add" href="add-inventory.html"><i data-feather="plus"></i> Add Inventory</a>
-               </div>
-            </div>
-            <div class="col-xl-12 col-sm-12 col-12 mb-4">
-               <div class="row">
-                  <div class="col-xl-10 col-sm-8 col-12 ">
-                     <label class="employee_count">7 People</label>
-                  </div>
-                  <div class="col-xl-1 col-sm-2 col-12 ">
-                     <a href="employee-grid.html" class="btn-view "><i data-feather="grid"></i> </a>
-                  </div>
-                  <div class="col-xl-1 col-sm-2 col-12 ">
-                     <a href="#" class="btn-view active"><i data-feather="list"></i> </a>
-                  </div>
-               </div>
-            </div>
+
+
             <div class="col-xl-12 col-sm-12 col-12 mb-4">
                <div class="card">
                   <div class="table-heading">
-                     <h2>Project Summery</h2>
+                     <h2>Inventory</h2>
                   </div>
                   <div class="table-responsive">
                      <table class="table  custom-table no-footer">
                         <thead>
                            <tr>
                               <th>Name</th>
+                              <th>Title</th>
                               <th>Item</th>
-                              <th>Team</th>
-                              <th>Office</th>
-                              <th>Permissions</th>
-                              <th>Status</th>
+                              <th>Laptop</th>
+                              <th>Mobile</th>
+                              <th>Remarks</th>
                            </tr>
                         </thead>
+
                         <tbody>
+                           {% for i in data %}
                            <tr>
+
                               <td>
-                                 <div class="table-img">
-                                    <a href="profile.html">
-                                    <img src="{% static 'assets/img/profiles/avatar-13.jpg' %}" alt="profile" class="img-table" /><label>Sean Black</label>
-                                    </a>
-                                 </div>
+                                 <label>{{i.first_name}} </label>
                               </td>
                               <td>
-                                 <label class="action_label">Richard Wilson </label>
+                                 <label>{{i.inventory.title}} </label>
                               </td>
-                              <td>
-                                 <label class="action_label2">Design </label>
-                              </td>
-                              <td><label>Zestgeek Solutions	</label></td>
-                              <td><label>Team Lead</label></td>
-                              <td class="tab-select">
-                                 <select class="select">
-                                    <option value="active">Active</option>
-                                    <option value="inactive">Inactive</option>
-                                 </select>
-                              </td>
+                              <td><label>{{i.inventory.item}}</label></td>
+                              <td><label>{{i.inventory.is_laptop}}</label></td>
+                              <td><label>{{i.inventory.is_mobile}}</label></td>
+                              <td><label>{{i.inventory.remarks}}</label></td>
+
                            </tr>
+                        {% endfor %}
                         </tbody>
                      </table>
                   </div>
