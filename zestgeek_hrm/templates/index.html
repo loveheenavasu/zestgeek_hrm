@@ -52,7 +52,7 @@
 <div class="dropdown-menu">
 <a class="dropdown-item" href="profile.html"><i data-feather="user" class="mr-1"></i> Profile</a>
 <a class="dropdown-item" href="settings.html"><i data-feather="settings" class="mr-1"></i> Settings</a>
-<a class="dropdown-item" href="login.html"><i data-feather="log-out" class="mr-1"></i> Logout</a>
+<a class="dropdown-item" href="/"><i data-feather="log-out" class="mr-1"></i> Logout</a>
 </div>
 </li>
 
@@ -62,7 +62,7 @@
 <div class="dropdown-menu dropdown-menu-right ">
 <a class="dropdown-item" href="profile.html">My Profile</a>
 <a class="dropdown-item" href="settings.html">Settings</a>
-<a class="dropdown-item" href="login.html">Logout</a>
+<a class="dropdown-item" href="/">Logout</a>
 </div>
 </div>
 
@@ -103,9 +103,9 @@
 <li>
 <a href="inventory.html"><img src="{% static 'assets/img/company.svg' %}" alt="sidebar_img"> <span> Inventory</span></a>
 </li>
-<!--<li>-->
-<!--<a href="calendar.html"><img src="assets/img/calendar.svg" alt="sidebar_img"> <span>Calendar</span></a>-->
-<!--</li>-->
+<li>
+<a href="/department"><img src="{% static 'assets/img/calendar.svg' %}" alt="sidebar_img"> <span>Department</span></a>
+</li>
 <li>
 <a href="leave.html"><img src="{% static 'assets/img/leave.svg' %}" alt="sidebar_img"> <span>Leave</span></a>
 </li>
@@ -379,33 +379,6 @@
 </div>
 <div class="activity-set">
 <div class="activity-img">
-<img src="{% static 'assets/img/profiles/avatar-08.jpg' %}" alt="avatar">
-</div>
-<div class="activity-content">
-<label>Lorem ipsum dolor sit amet,</label>
-<span>5 hours ago</span>
-</div>
-</div>
-<div class="activity-set">
-<div class="activity-img">
-<img src="{% static 'assets/img/profiles/avatar-09.jpg' %}" alt="avatar">
-</div>
-<div class="activity-content">
-<label>Lorem ipsum dolor sit amet,</label>
-<span>6 hours ago</span>
-</div>
-</div>
-<div class="activity-set">
-<div class="activity-img">
-<img src="{% static 'assets/img/profiles/avatar-10.jpg' %}" alt="avatar">
-</div>
-<div class="activity-content">
-<label>Lorem ipsum dolor sit amet,</label>
-<span>2 hours ago</span>
-</div>
-</div>
-<div class="activity-set">
-<div class="activity-img">
 <img src="{% static 'assets/img/profiles/avatar-12.jpg' %}" alt="avatar">
 </div>
 <div class="activity-content">
@@ -424,7 +397,7 @@
 </div>
 </div>
 <div class="leave-viewall activit">
-<a>View all <img src="{% static 'assets/img/right-arrow.png' %}" class="ml-2" alt="arrow"></a>
+<a> View all <img src="{% static 'assets/img/right-arrow.png' %}" class="ml-2" alt="arrow"></a>
 </div>
 </div>
 </div>

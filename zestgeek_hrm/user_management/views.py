@@ -33,11 +33,11 @@ class Register(View):
         if CustomUser.objects.filter(email=email).exists():
             print("already exists")
             messages.error(request, "Email already exists")
-            return redirect('/')
+            return redirect('/register')
 
         elif password != confirm_password:
             messages.error(request, "Passwords do not match.")
-            return redirect('/')
+            return redirect('/register')
         else:
             roles = Role.objects.get(role_name=role)
             dep = Department.objects.get(department_name=department)
