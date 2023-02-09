@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib import messages
 from .models import *
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import RegisterForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -212,10 +212,9 @@ class EmployeeView(LoginRequiredMixin, View):
             return render(request, "employee.html", {'form': form, "user": user, "total_employee": total_employee, "current_user":current_user, "role": role, "department": department})
 
 
-@login_required
-def logout(request):
+def logout_view(request):
     logout(request)
-    return redirect('/login')
+    return redirect('/')
 
 
 @login_required

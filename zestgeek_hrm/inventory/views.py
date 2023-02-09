@@ -3,10 +3,10 @@ from django.views import View
 from django.contrib import messages
 from .models import *
 from user_management.models import CustomUser
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
-class InventoryView(View):
+class InventoryView(LoginRequiredMixin, View):
     def get(self, request, id):
         employee = CustomUser.objects.get(id=id)
         return render(request, 'add-inventory.html', {"employee": employee})
@@ -30,7 +30,7 @@ class InventoryView(View):
         print("successful")
         return redirect("/employee")
 
-class ListingInventory(View):
+class ListingInventory(LoginRequiredMixin, View):
     def get(self, request):
         user_inventory = CustomUser.objects.all()
         return render(request, "inventory.html", {"data": user_inventory})
