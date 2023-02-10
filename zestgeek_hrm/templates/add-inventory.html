@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block content %}
 <div class="main-wrapper">
@@ -40,7 +40,7 @@
             <div class="dropdown-menu">
                <a class="dropdown-item" href="profile.html"><i data-feather="user" class="mr-1"></i> Profile</a>
                <a class="dropdown-item" href="settings.html"><i data-feather="settings" class="mr-1"></i> Settings</a>
-               <a class="dropdown-item" href="login.html"><i data-feather="log-out" class="mr-1"></i> Logout</a>
+               <a class="dropdown-item" href="/logout"><i data-feather="log-out" class="mr-1"></i> Logout</a>
             </div>
          </li>
       </ul>
@@ -49,7 +49,7 @@
          <div class="dropdown-menu dropdown-menu-right ">
             <a class="dropdown-item" href="profile.html">My Profile</a>
             <a class="dropdown-item" href="settings.html">Settings</a>
-            <a class="dropdown-item" href="login.html">Logout</a>
+            <a class="dropdown-item" href="/logout">Logout</a>
          </div>
       </div>
    </div>
@@ -136,13 +136,12 @@
                         <li class="breadcrumb-item"><a href="/home">Home</a></li>
                         <li class="breadcrumb-item active"> Inventory</li>
                      </ul>
-                     <h3>Create Inventory</h3>
                   </div>
                </div>
                <div class="col-xl-12 col-sm-12 col-12 ">
                   <div class="card">
                      <div class="card-header">
-                        <h2 class="card-titles">Basic Details <span>Organized and secure.</span></h2>
+                        <h2 class="card-titles">Employee Basic Details</h2>
                      </div>
                      <div class="card-body">
                         <div class="row">
@@ -170,17 +169,18 @@
                <div class="col-xl-12 col-sm-12 col-12 ">
                   <div class="card ">
                      <div class="card-header">
-                        <h2 class="card-titles">Inventory Details<span>Let everyone know the essentials so they're fully prepared.</span></h2>
+                        <h2 class="card-titles">Inventory Details</h2>
                      </div>
                      <div class="card-body">
                         <div class="row">
                            <div class="col-xl-6 col-sm-12 col-12 ">
                               <div class="form-group">
+                                 <label  class="form-control-label">Title:</label>
                                  <input type="text" placeholder="Title" name="title">
                               </div>
                            </div>
-                        </div>
-                        <div class="row">
+<!--                        </div>-->
+<!--                        <div class="row">-->
                            <div class="col-xl-6 col-sm-12 col-12 ">
                               <div class="form-group">
                                  <!--<input type="text" placeholder="Item">-->
@@ -203,8 +203,8 @@
                                  </select>
                               </div>
                            </div>
-                        </div>
-                        <div class="row">
+<!--                        </div>-->
+<!--                        <div class="row">-->
                            <div class="col-xl-6 col-sm-12 col-12 ">
                               <div class="form-group">
                                  <!--<input type="text" placeholder="Mobile">-->
@@ -219,6 +219,7 @@
                         <div class="row">
                            <div class="col-xl-6 col-sm-12 col-12 ">
                               <div class="form-group">
+                                 <label  class="form-control-label">Remarks:</label>
                                  <input type="text" placeholder="Remarks" name="remarks">
                               </div>
                            </div>
