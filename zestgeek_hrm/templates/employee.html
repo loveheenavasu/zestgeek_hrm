@@ -15,7 +15,6 @@
 </li>
 <li class="breadcrumb-item active"> Employees</li>
 </ul>
-<h3>Employees</h3>
 </div>
 </div>
 <div class="col-xl-12 col-sm-12 col-12 mb-4">
@@ -25,30 +24,25 @@
 <li><a href="/department">Departments</a></li>
 <!--<li><a href="employee-office.html">Offices</a></li>-->
 </ul>
-    <a class="btn-add" data-toggle="modal" data-target="#addteam"><i data-feather="plus"></i> Add Employee</a>
+    <a class="btn-add " data-toggle="modal" data-target="#addteam"><i data-feather="plus"></i>Add Employee</a>
 <!--<a class="btn-add" href="/add-employee"><i data-feather="plus"></i> Add Employee</a>-->
 </div>
 </div>
 <div class="col-xl-12 col-sm-12 col-12 mb-4">
 <div class="row">
-<div class="col-xl-10 col-sm-8 col-12 ">
-<label class="employee_count">{{total_employee}} Employees
+<div class="col-xl-12 col-sm-12 col-12 ">
+<label class="employee_count">Total Employees - {{total_employee}}
 
 </label>
 
 </div>
-<div class="col-xl-1 col-sm-2 col-12 ">
-<a href="employee-grid.html" class="btn-view "><i data-feather="grid"></i> </a>
-</div>
-<div class="col-xl-1 col-sm-2 col-12 ">
-<a href="#" class="btn-view active"><i data-feather="list"></i> </a>
-</div>
+
 </div>
 </div>
 <div class="col-xl-12 col-sm-12 col-12 mb-4">
 <div class="card">
 <div class="table-heading">
-<h2>Project Summery</h2>
+<h5>Employee's Details</h5>
 </div>
 <div class="table-responsive">
 <table class="table  custom-table no-footer">
@@ -145,7 +139,7 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="gender" class="form-control-label">Select Gender</label>
-<select class="form-control"  id="gender" name="gender">
+<select class="form-control"  id="gender" name="gender" >
   <option value="male">Male</option>
   <option value="female">Female</option>
   <option value="unspecified">Unspecified</option>
