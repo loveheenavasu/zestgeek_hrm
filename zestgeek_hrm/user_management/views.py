@@ -173,6 +173,11 @@ class EmployeeView(LoginRequiredMixin, View):
         role = Role.objects.all()
         department = Department.objects.all()
         form = RegisterForm(request.POST, request.FILES)
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            email = request.POST['email']
+            print("email","-----")
+            if CustomUser.objects.filter(email=email).exists():
+                return HttpResponse("Email already exists.")
         if form.is_valid():
 
             email = form.cleaned_data['email']

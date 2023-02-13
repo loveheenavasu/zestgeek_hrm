@@ -247,6 +247,28 @@ $(document).ready(function() {
     }
     if (email.length < 1) {
       $('#email').after('<span class="error">This field is required</span>');
+    }else{
+   var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+         console.log(email, "----------")
+         email=email
+         console.log(email)
+         url = "/employee"
+         $.ajax({
+            type: "POST",
+            data: { email: email},
+            url:url,
+            beforeSend: function (xhr){
+              xhr.setRequestHeader('X-CSRFToken', csrftoken);
+            },
+            success: (data) => {
+                console.log(data);
+            console.log(data)
+            $('#email').after('<span class="error">Email already exists</span>');
+              },
+              error: (error) => {
+                console.log(error);
+              }
+        });
     }
     if (password.length < 8) {
       $('#password').after('<span class="error">Password must be at least 8 characters long</span>');
