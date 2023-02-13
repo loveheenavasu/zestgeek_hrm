@@ -123,26 +123,26 @@
             {% endfor %}
             {% endfor %}
             {% endif %}
-            <form method="post" action="" enctype="multipart/form-data">
+            <form id="first_form" method="post" action="" enctype="multipart/form-data">
                {% csrf_token %}
                <div class="form-row">
                   <div class="form-group col-md-6">
                      <label for="first_name" class="form-control-label">First Name</label>
-                     <input class="form-control" name="first_name" placeholder="Enter first name">
+                     <input class="form-control" name="first_name"  id="first_name" placeholder="Enter first name">
                   </div>
                   <div class="form-group col-md-6">
                      <label for="last_name" class="form-control-label">Last Name</label>
-                     <input class="form-control" name="last_name" placeholder="Enter last name">
+                     <input class="form-control" name="last_name" id="last_name" placeholder="Enter last name">
                   </div>
                </div>
                <div class="form-row">
                   <div class="form-group col-md-6">
                      <label for="email" class="form-control-label">Email Address</label>
-                     <input type="email" class="form-control" name="email" placeholder="Enter email">
+                     <input type="email" class="form-control" name="email" id="email" placeholder="Enter email">
                   </div>
                   <div class="form-group col-md-6">
                      <label for="personal_email" class="form-control-label">Personal Email Address</label>
-                     <input type="email" class="form-control" name="personal_email" placeholder="Enter personal email">
+                     <input type="email" class="form-control" name="personal_email" id="personal_email" placeholder="Enter personal email">
                   </div>
                </div>
                <div class="form-row">
@@ -170,11 +170,11 @@
                <div class="form-row">
                   <div class="form-group col-md-6">
                      <label for="phone_number" class="form-control-label">Phone Number</label>
-                     <input type="tel" class="form-control" name="phone_number" placeholder="Enter phone number">
+                     <input type="tel" class="form-control" name="phone_number" id="phone_number" placeholder="Enter phone number">
                   </div>
                   <div class="form-group col-md-6">
                      <label for="alternate_phone_number" class="form-control-label">Alternate Phone Number</label>
-                     <input type="tel" class="form-control" name="alternate_phone_number" placeholder="Enter alternate phone number">
+                     <input type="tel" class="form-control" name="alternate_phone_number" id="alternate_phone_number" placeholder="Enter alternate phone number">
                   </div>
                </div>
                <div class="form-row">
@@ -200,7 +200,7 @@
                <div class="form-row">
                   <div class="form-group col-md-6">
                      <label for="password" class="form-control-label">Password</label>
-                     <input type="password" class="form-control" name="password" placeholder="Enter password">
+                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
                   </div>
                   <div class="form-group col-md-6">
                      <label class="form-control-label">Confirm Password</label>
@@ -212,7 +212,7 @@
                   <input type="date" class="form-control" name="joined_date" placeholder="Select joined date">
                </div>
                <!--<div class="modal-footer">-->
-               <button type="submit" class="btn btn-primary">Submit</button>
+               <button type="submit" value="submit" class="btn btn-primary">Submit</button>
                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                <!--</div>-->
             </form>
@@ -220,11 +220,48 @@
       </div>
    </div>
 </div>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 <script>
-   $( document ).ready(function() {
-      if (document.formHasErrors) {
-          $('#add-agent-modal').modal('toggle');
-      }
-   });
+
+$(document).ready(function() {
+
+  $('#first_form').submit(function(e) {
+  alert("hello")
+    e.preventDefault();
+    var first_name = $('#first_name').val();
+    var last_name = $('#last_name').val();
+    var email = $('#email').val();
+    var password = $('#password').val();
+    var personal_email = $('#personal_email').val();
+    var phone_number = $('#phone_number').val();
+    var alternate_phone_number = $('#alternate_phone_number').val();
+
+    $(".error").remove();
+
+    if (first_name.length < 1) {
+      $('#first_name').after('<span class="error">This field is required</span>');
+    }
+    if (last_name.length < 1) {
+      $('#last_name').after('<span class="error">This field is required</span>');
+    }
+    if (email.length < 1) {
+      $('#email').after('<span class="error">This field is required</span>');
+    }
+    if (password.length < 8) {
+      $('#password').after('<span class="error">Password must be at least 8 characters long</span>');
+    }
+    if (personal_email.length < 1) {
+      $('#personal_email').after('<span class="error">This field is required</span>');
+    }
+    if (phone_number.length < 1) {
+      $('#phone_number').after('<span class="error">This field is required</span>');
+    }
+    if (alternate_phone_number.length < 1) {
+      $('#alternate_phone_number').after('<span class="error">This field is required</span>');
+    }
+  });
+
+});
 </script>
 {% endblock %}

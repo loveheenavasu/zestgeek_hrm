@@ -210,8 +210,12 @@ class EmployeeView(LoginRequiredMixin, View):
                           {'form': form, "user": user, "total_employee": total_employee, "current_user": current_user,
                            "role": role, "department": department})
 
-class Update_employee(View):
-    pass
+class Delete_employee(View):
+    def get(self, request, id):
+        department = CustomUser.objects.get(id=id)
+        department.delete()
+        messages.success(request, "Employee deleted successful.")
+        return redirect("employee")
 def logout_view(request):
     logout(request)
     return redirect('/')
