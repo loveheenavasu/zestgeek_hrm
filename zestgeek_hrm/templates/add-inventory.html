@@ -113,7 +113,9 @@
                <div class="row">
                   <div class="col-xl-12 col-sm-12 col-12 ">
                      <div class="form-btn">
+                        {% if request.user.is_admin or request.user.is_superuser %}
                         <button class="btn btn-apply w-auto" type="submit">Add Inventory</button>
+                        {% endif %}
                         <!--<a class="btn btn-apply w-auto">Add Inventory</a>-->
                         <!--<a href="#" class="btn btn-secondary">Cancel</a>-->
                      </div>
@@ -123,6 +125,4 @@
          </form>
       </div>
    </div>
-</div>
-</div>
 {% endblock %}

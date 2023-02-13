@@ -19,8 +19,9 @@
                   <li><a href="/department">Departments</a></li>
                   <!--<li><a href="employee-office.html">Offices</a></li>-->
                </ul>
+               {% if request.user.is_admin or request.user.is_superuser %}
                <a class="btn-add " data-toggle="modal" data-target="#addteam"><i data-feather="plus"></i>Add Employee</a>
-               <!--<a class="btn-add" href="/add-employee"><i data-feather="plus"></i> Add Employee</a>-->
+               {% endif %}
             </div>
          </div>
          <div class="col-xl-12 col-sm-12 col-12 mb-4">
@@ -47,6 +48,10 @@
                            <th>Department</th>
                            <th>Phone Number</th>
                            <th>Inventory</th>
+                           {% if request.user.is_admin or request.user.is_superuser %}
+                           <th>Edit</th>
+                           <th>Delete</th>
+                           {% endif %}
                         </tr>
                      </thead>
                      <tbody>
@@ -73,6 +78,22 @@
                            <td>
                               <a href="{% url 'inventory' i.id %}">Inventory</a>
                            </td>
+                           {% if request.user.is_admin or request.user.is_superuser %}
+                           <td>
+                              <div class="change_edit_color">
+                                 <a href="#" id={{i.id}} data-toggle="modal" data-target="#addteam">Edit</a>
+                              </div>
+<!--                              <div class="btn btn-info change_link_color">-->
+<!--                                 <a href="#">Edit</a>-->
+<!--                              </div>-->
+                           </td>
+                           <td>
+                              <div class="change_delete_color">
+                                 <a href="#">Delete</a>
+                              </div>
+
+                           </td>
+                           {% endif %}
                         </tr>
                         {%endfor%}
                      </tbody>
