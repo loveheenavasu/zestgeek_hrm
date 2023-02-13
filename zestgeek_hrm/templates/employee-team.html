@@ -33,8 +33,8 @@
                <div class="employee-head">
                   <h2>{{dept.department_name}}</h2>
                   <ul>
-                     <li><a class="edit_employee" data-toggle="modal" data-target="#edit"><i data-feather="edit"></i></a></li>
-                     <li><a class="edit_delete" data-toggle="modal" data-target="#delete"><i data-feather="trash-2"></i></a></li>
+                     <li><a href="{% url 'update_department' dept.id %}" id="{{dept.id}}" class="edit_employee" data-toggle="modal" data-target="#edit"><i data-feather="edit"></i></a></li>
+                     <li><a href="{% url 'delete_department' dept.id %}"><i data-feather="trash-2"></i></a></li>
                   </ul>
                </div>
             </div>
@@ -50,7 +50,6 @@
                         </div>
                      </div>
                   </div>
-                  <!--<a class="btn-addmember" data-toggle="modal" data-target="#addteam">Add Members</a>-->
                </div>
             </div>
          </div>
@@ -72,7 +71,7 @@
                      {% csrf_token %}
                      <div class=" col-md-12 p-0">
                         <div class=" form-popup m-0">
-                           <input type="text" placeholder="Name" name="department_name">
+                           <input type="text" placeholder="Name" name="department_name" value="{{depp}}">{{depp}}
                         </div>
                      </div>
                </div>
@@ -96,37 +95,76 @@
                   </button>
                </div>
                <div class="modal-body">
-                  <form method="post" action="{url update_department id}">
+                  <form method="post" action="">
                      {% csrf_token %}
                      <div class=" col-md-12 p-0">
                         <div class=" form-popup m-0">
-                           <input type="text" placeholder="Name" name="department_name">
+                           <input type="text" id="dep_name" placeholder="Name" name="department_name" value="">
+
                         </div>
                      </div>
-                  </form>
+
                </div>
                <div class="modal-footer">
                   <button type="submit" class="btn btn-primary">Add</button>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                </div>
             </div>
+              </form>
          </div>
       </div>
    </div>
-   <div class="customize_popup">
-      <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="staticBackdropLabels1" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-centered ">
-            <div class="modal-content">
-               <div class="modal-header text-centers border-0">
-                  <h5 class="modal-title text-center" id="staticBackdropLabels1">Are You Sure Want to Delete?</h5>
-               </div>
-               <div class="modal-footer text-centers">
-                  <button type="button" class="btn btn-primary">Delete</button>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
+
 </div>
+   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+   <script type="text/javascript">
+
+$(document).ready(function(){
+    $(".edit_employee").click(function(event){
+      var value = this.id;
+      var url = $(".edit_employee").attr("href");
+      console.log(value,"-===")
+      console.log(url, "-----------------")
+         $.ajax({
+            type: "GET",
+            data: { id: value },
+            url:url,
+            success: (data) => {
+                console.log(data);
+                 $("input:text").val(data);
+              },
+              error: (error) => {
+                console.log(error);
+              }
+        });
+    });
+});
+
+$(document).ready(function(){
+    $(".edit_employee").click(function(event){
+      var emp_id = this.id;
+      $('input[name=department_name]').change(function() {
+      var name = $(this).val()
+      url = "update_department/" + emp_id
+      var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+$.ajax({
+            type: "POST",
+            data: { emp_id: emp_id , name:name},
+            url:url,
+            beforeSend: function (xhr){
+              xhr.setRequestHeader('X-CSRFToken', csrftoken);
+            },
+            success: (data) => {
+                console.log(data);
+            console.log(data)
+              },
+              error: (error) => {
+                console.log(error);
+              }
+        });
+ });
+ });
+ });
+   </script>
 {% endblock %}

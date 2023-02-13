@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.views import View
 from django.contrib import messages
 from .models import *
@@ -6,7 +6,6 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import RegisterForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-
 
 
 # Create your views here.
@@ -117,6 +116,9 @@ class DeleteRole(LoginRequiredMixin, View):
 
 class DepartmentView(LoginRequiredMixin, View):
     def get(self, request):
+        # if self.request.is_ajax():
+        #     department = Department.objects.get(id=request.GET.get("id"))
+        # else:
         department = Department.objects.all()
         return render(request, 'employee-team.html', {"department": department})
 
@@ -133,17 +135,37 @@ class DepartmentView(LoginRequiredMixin, View):
 
 
 class UpdateDepartment(LoginRequiredMixin, View):
-    def get(self, request, id):
-        department = Department.objects.get(id=id)
-        return render(request, 'employee-team.html', {"department": department})
+    def get(self, request,id):
+        if self.request.is_ajax():
+            ids = request.GET['id']
+            print("here", "-----", ids, request.user)
+            depp = Department.objects.get(id=ids)
+            print(depp, "------------------------------")
+            return HttpResponse(depp)
+        return render(request, 'employee-team.html')
 
     def post(self, request, id):
-        name = request.POST.get("department_name")
-        department = Department.objects.get(id=id)
-        department.department_name = name
-        department.save()
-        messages.success(request, "Department updated successful.")
+        if self.request.is_ajax():
+            print("i am here")
+            print(request.POST["emp_id"], "-------------------------------------------------------->>>")
+
+            idss = request.POST["emp_id"]
+            name = request.POST["name"]
+            department = Department.objects.get(id=idss)
+            department.department_name = name
+            department.save()
+            return HttpResponse("Department updated successful.")
+        # messages.success(request, "Department updated successful.")
         return redirect("department")
+
+    # def partial_update(self, request,id):
+    #     print('here', "------------")
+    #     name = request.POST.get("department_name")
+    #     depp = Department.objects.get(id=id)
+    #     depp.department_name = name
+    #     depp.save()
+    #     messages.success(request, "Department updated successful.")
+    #     return redirect("department")
 
 
 class DeleteDepartment(LoginRequiredMixin, View):
@@ -161,7 +183,9 @@ class EmployeeView(LoginRequiredMixin, View):
         total_employee = user.count()
         role = Role.objects.all()
         department = Department.objects.all()
-        return render(request, 'employee.html', {"user": user, "total_employee": total_employee, "current_user":current_user, "role": role, "department": department})
+        return render(request, 'employee.html',
+                      {"user": user, "total_employee": total_employee, "current_user": current_user, "role": role,
+                       "department": department})
 
     def post(self, request):
         print("post---------------")
@@ -191,25 +215,26 @@ class EmployeeView(LoginRequiredMixin, View):
             joined_date = form.cleaned_data['joined_date']
             image = form.cleaned_data['image']
 
-
             roles = Role.objects.get(role_name=role)
             dep = Department.objects.get(department_name=department)
             print(roles, "---------------------")
             obj = CustomUser.objects.create_user(email=email, password=password, role=roles, first_name=first_name,
-                                           last_name=last_name, personal_email=personal_email
-                                           , gender=gender, temporary_address=temporary_address,
-                                           permanent_address=permanent_address, phone_number=phone_number,
-                                           alternate_phone_number=alternate_phone_number, department=dep,
-                                           joined_date=joined_date, image=image)
+                                                 last_name=last_name, personal_email=personal_email
+                                                 , gender=gender, temporary_address=temporary_address,
+                                                 permanent_address=permanent_address, phone_number=phone_number,
+                                                 alternate_phone_number=alternate_phone_number, department=dep,
+                                                 joined_date=joined_date, image=image)
 
             obj.save()
             messages.success(request, "Registration successful.")
             print("successful")
 
-            return redirect("/employee" )
+            return redirect("/employee")
         else:
             print("not")
-            return render(request, "employee.html", {'form': form, "user": user, "total_employee": total_employee, "current_user":current_user, "role": role, "department": department})
+            return render(request, "employee.html",
+                          {'form': form, "user": user, "total_employee": total_employee, "current_user": current_user,
+                           "role": role, "department": department})
 
 
 def logout_view(request):
