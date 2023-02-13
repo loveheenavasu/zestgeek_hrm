@@ -130,14 +130,14 @@ class DepartmentView(LoginRequiredMixin, View):
 
 class UpdateDepartment(LoginRequiredMixin, View):
     def get(self, request,id):
-        if self.request.is_ajax():
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             ids = request.GET['id']
             depp = Department.objects.get(id=ids)
             return HttpResponse(depp)
         return render(request, 'employee-team.html')
 
     def post(self, request, id):
-        if self.request.is_ajax():
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             idss = request.POST["emp_id"]
             name = request.POST["name"]
             department = Department.objects.get(id=idss)
