@@ -124,8 +124,6 @@ $(document).ready(function(){
     $(".edit_employee").click(function(event){
       var value = this.id;
       var url = $(".edit_employee").attr("href");
-      console.log(value,"-===")
-      console.log(url, "-----------------")
          $.ajax({
             type: "GET",
             data: { id: value },

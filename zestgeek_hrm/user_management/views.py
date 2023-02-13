@@ -16,7 +16,6 @@ class Register(LoginRequiredMixin, View):
         return render(request, "register.html", {"role": role, "department": department})
 
     def post(self, request):
-        print("abc")
         email = request.POST.get('email')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
@@ -44,7 +43,6 @@ class Register(LoginRequiredMixin, View):
         else:
             roles = Role.objects.get(role_name=role)
             dep = Department.objects.get(department_name=department)
-            print(roles, "---------------------")
             CustomUser.objects.create_user(email=email, password=password, role=roles, first_name=first_name,
                                            last_name=last_name, personal_email=personal_email
                                            , gender=gender, temporary_address=temporary_address,
@@ -116,15 +114,11 @@ class DeleteRole(LoginRequiredMixin, View):
 
 class DepartmentView(LoginRequiredMixin, View):
     def get(self, request):
-        # if self.request.is_ajax():
-        #     department = Department.objects.get(id=request.GET.get("id"))
-        # else:
         department = Department.objects.all()
         return render(request, 'employee-team.html', {"department": department})
 
     def post(self, request):
         department_name = request.POST.get('department_name')
-        print(department_name, "---------------------------------")
         if Department.objects.filter(department_name=department_name).exists():
             messages.error(request, "Department already exists.")
             return redirect("department")
@@ -138,17 +132,12 @@ class UpdateDepartment(LoginRequiredMixin, View):
     def get(self, request,id):
         if self.request.is_ajax():
             ids = request.GET['id']
-            print("here", "-----", ids, request.user)
             depp = Department.objects.get(id=ids)
-            print(depp, "------------------------------")
             return HttpResponse(depp)
         return render(request, 'employee-team.html')
 
     def post(self, request, id):
         if self.request.is_ajax():
-            print("i am here")
-            print(request.POST["emp_id"], "-------------------------------------------------------->>>")
-
             idss = request.POST["emp_id"]
             name = request.POST["name"]
             department = Department.objects.get(id=idss)
@@ -157,16 +146,6 @@ class UpdateDepartment(LoginRequiredMixin, View):
             return HttpResponse("Department updated successful.")
         # messages.success(request, "Department updated successful.")
         return redirect("department")
-
-    # def partial_update(self, request,id):
-    #     print('here', "------------")
-    #     name = request.POST.get("department_name")
-    #     depp = Department.objects.get(id=id)
-    #     depp.department_name = name
-    #     depp.save()
-    #     messages.success(request, "Department updated successful.")
-    #     return redirect("department")
-
 
 class DeleteDepartment(LoginRequiredMixin, View):
     def get(self, request, id):
@@ -188,16 +167,13 @@ class EmployeeView(LoginRequiredMixin, View):
                        "department": department})
 
     def post(self, request):
-        print("post---------------")
         current_user = request.user.first_name
         user = CustomUser.objects.all()
         total_employee = user.count()
         role = Role.objects.all()
         department = Department.objects.all()
         form = RegisterForm(request.POST, request.FILES)
-        print(form, "dvdfhfvfdhh-------------------")
         if form.is_valid():
-            print("valid--------------------------")
 
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
@@ -217,7 +193,6 @@ class EmployeeView(LoginRequiredMixin, View):
 
             roles = Role.objects.get(role_name=role)
             dep = Department.objects.get(department_name=department)
-            print(roles, "---------------------")
             obj = CustomUser.objects.create_user(email=email, password=password, role=roles, first_name=first_name,
                                                  last_name=last_name, personal_email=personal_email
                                                  , gender=gender, temporary_address=temporary_address,
@@ -231,7 +206,6 @@ class EmployeeView(LoginRequiredMixin, View):
 
             return redirect("/employee")
         else:
-            print("not")
             return render(request, "employee.html",
                           {'form': form, "user": user, "total_employee": total_employee, "current_user": current_user,
                            "role": role, "department": department})
