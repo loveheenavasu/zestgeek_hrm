@@ -59,7 +59,7 @@
                            <div class="col-xl-6 col-sm-12 col-12 ">
                               <div class="form-group">
                                  <label  class="form-control-label">Title:</label>
-                                 <input type="text" placeholder="Title" name="title">
+                                 <input type="text" placeholder="Title" name="title" value="{% if employee.inventory != 'None' %}{{employee.inventory.title}}{%else%}{%endif%}">
                               </div>
                            </div>
 <!--                        </div>-->
@@ -103,7 +103,7 @@
                            <div class="col-xl-6 col-sm-12 col-12 ">
                               <div class="form-group">
                                  <label  class="form-control-label">Remarks:</label>
-                                 <input type="text" placeholder="Remarks" name="remarks">
+                                 <input type="text" placeholder="Remarks" name="remarks" value="{% if employee.inventory != 'None' %}{{employee.inventory.remarks}}{%else%}{%endif%}">
                               </div>
                            </div>
                         </div>

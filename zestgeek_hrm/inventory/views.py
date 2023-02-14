@@ -34,3 +34,8 @@ class ListingInventory(LoginRequiredMixin, View):
     def get(self, request):
         user_inventory = CustomUser.objects.all()
         return render(request, "inventory.html", {"data": user_inventory})
+
+class ShowInventory(LoginRequiredMixin, View):
+    def get(self, request):
+        user_inventory = CustomUser.objects.filter(id=id)
+        return render(request, "inventory.html", {"data": user_inventory})

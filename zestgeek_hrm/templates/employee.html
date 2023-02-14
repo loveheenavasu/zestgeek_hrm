@@ -60,7 +60,7 @@
                            <td>
                               <div class="table-img">
                                  <a href="profile.html">
-                                 <img src="{% static 'assets/img/profiles/avatar-13.jpg' %}" alt="profile" class="img-table" />
+                                 <img src="" alt="profile" class="img-table" />
                                  </a>
                               </div>
                            </td>
@@ -156,16 +156,16 @@
                   </div>
                   <div class="form-group col-md-6">
                      <label for="image" class="form-control-label">Profile Picture</label>
-                     <input type="file" class="form-control" name="image" placeholder="Select Image">
+                     <input type="file" class="form-control" name="image" id="image" placeholder="Select Image">
                   </div>
                </div>
                <div class="form-group">
                   <label for="temporary_address" class="form-control-label">Temporary Address</label>
-                  <textarea  class="form-control" name="temporary_address"  rows="1" placeholder="Enter temporary address"></textarea>
+                  <textarea  class="form-control" name="temporary_address" id="temporary_address" rows="1" placeholder="Enter temporary address"></textarea>
                </div>
                <div class="form-group">
                   <label for="permanent_address" class="form-control-label">Permanent Address</label>
-                  <textarea class="form-control" rows="1" name="permanent_address" placeholder="Enter permanent address"></textarea>
+                  <textarea class="form-control" rows="1" name="permanent_address" id="permanent_address" placeholder="Enter permanent address"></textarea>
                </div>
                <div class="form-row">
                   <div class="form-group col-md-6">
@@ -204,12 +204,12 @@
                   </div>
                   <div class="form-group col-md-6">
                      <label class="form-control-label">Confirm Password</label>
-                     <input class="form-control" type="password" name="confirm_password" placeholder="Enter confirm-password">
+                     <input class="form-control" type="password" id="confirm_password" name="confirm_password" placeholder="Enter confirm-password">
                   </div>
                </div>
                <div class="form-group">
                   <label for="joined_date" class="form-control-label">Joined Date</label>
-                  <input type="date" class="form-control" name="joined_date" placeholder="Select joined date">
+                  <input type="date" class="form-control" name="joined_date" id="joined_date" placeholder="Select joined date">
                </div>
                <!--<div class="modal-footer">-->
                <button type="submit" value="submit" class="btn btn-primary">Submit</button>
@@ -227,61 +227,87 @@
 $(document).ready(function() {
 
   $('#first_form').submit(function(e) {
-  alert("hello")
     e.preventDefault();
     var first_name = $('#first_name').val();
     var last_name = $('#last_name').val();
     var email = $('#email').val();
     var password = $('#password').val();
+    var confirm_password = $('#confirm_password').val();
     var personal_email = $('#personal_email').val();
     var phone_number = $('#phone_number').val();
     var alternate_phone_number = $('#alternate_phone_number').val();
-
+    var joined_date = $('#joined_date').val();
+    var department = $('#department').val();
+    var role = $('#role').val();
+    var permanent_address = $('#permanent_address').val();
+    var temporary_address = $('#temporary_address').val();
+    var image = $('#image').val();
+<!--    var image = new FormData(document.getElementById("image"));-->
+    var gender = $('#gender').val();
     $(".error").remove();
-
+   var err = false;
     if (first_name.length < 1) {
       $('#first_name').after('<span class="error">This field is required</span>');
+      err = true
     }
     if (last_name.length < 1) {
       $('#last_name').after('<span class="error">This field is required</span>');
+      err = true
     }
+    if (password.length < 8) {
+      $('#password').after('<span class="error">Password must be at least 8 characters long</span>');
+      err = true
+    }
+    if (personal_email.length < 1) {
+      $('#personal_email').after('<span class="error">This field is required</span>');
+      err = true
+    }
+    if (phone_number.length < 1) {
+      $('#phone_number').after('<span class="error">This field is required</span>');
+      err = true
+    }
+    if (alternate_phone_number.length < 1) {
+      $('#alternate_phone_number').after('<span class="error">This field is required</span>');
+      err = true
+
+    }
+
     if (email.length < 1) {
       $('#email').after('<span class="error">This field is required</span>');
-    }else{
-   var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
-         console.log(email, "----------")
-         email=email
-         console.log(email)
+      err = true
+
+    }
+      if(!err){
+         console.log("Okay validations")
+         var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
          url = "/employee"
          $.ajax({
             type: "POST",
-            data: { email: email},
+            enctype: 'multipart/form-data',
+            data: { email: email, password:password, confirm_password:confirm_password, first_name:first_name, last_name:last_name, role:role,
+            permanent_address:permanent_address,temporary_address:temporary_address, image:image,department:department,gender:gender,joined_date:joined_date,
+            alternate_phone_number:alternate_phone_number,phone_number:phone_number,personal_email:personal_email},
             url:url,
             beforeSend: function (xhr){
               xhr.setRequestHeader('X-CSRFToken', csrftoken);
             },
             success: (data) => {
                 console.log(data);
-            console.log(data)
-            $('#email').after('<span class="error">Email already exists</span>');
+               if(data == 'Email already exists'){
+                $('#email').after('<span class="error">'+data+'</span>');
+                     }else if(data == "Password doesn't not matched"){
+                     $('#password').after('<span class="error">'+data+'</span>');
+                     }else {
+                        window.location.replace("/employee");
+                     }
+
               },
               error: (error) => {
                 console.log(error);
               }
         });
-    }
-    if (password.length < 8) {
-      $('#password').after('<span class="error">Password must be at least 8 characters long</span>');
-    }
-    if (personal_email.length < 1) {
-      $('#personal_email').after('<span class="error">This field is required</span>');
-    }
-    if (phone_number.length < 1) {
-      $('#phone_number').after('<span class="error">This field is required</span>');
-    }
-    if (alternate_phone_number.length < 1) {
-      $('#alternate_phone_number').after('<span class="error">This field is required</span>');
-    }
+      }
+
   });
 
 });

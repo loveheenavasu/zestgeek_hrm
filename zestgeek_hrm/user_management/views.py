@@ -173,29 +173,31 @@ class EmployeeView(LoginRequiredMixin, View):
         role = Role.objects.all()
         department = Department.objects.all()
         form = RegisterForm(request.POST, request.FILES)
-        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-            email = request.POST['email']
+        # if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.POST:
+        if request.is_ajax() and request.method == "POST":
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            confirm_password = request.POST.get('confirm_password')
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            role = request.POST.get('role')
+            personal_email = request.POST.get('personal_email')
+            gender = request.POST.get('gender')
+            temporary_address = request.POST.get('temporary_address')
+            permanent_address = request.POST.get('permanent_address')
+            phone_number = request.POST.get('phone_number')
+            alternate_phone_number = request.POST.get('alternate_phone_number')
+            department = request.POST.get('department')
+            joined_date = request.POST.get('joined_date')
+            image = request.POST.get('image')
+            # imagess = request.FILES.get('image')
             print("email","-----")
+            # print(image, "imageimageimageimageimageimageimageimageimageimageimage")
+
             if CustomUser.objects.filter(email=email).exists():
-                return HttpResponse("Email already exists.")
-        if form.is_valid():
-
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            confirm_password = form.cleaned_data['confirm_password']
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
-            role = form.cleaned_data['role']
-            personal_email = form.cleaned_data['personal_email']
-            gender = form.cleaned_data['gender']
-            temporary_address = form.cleaned_data['temporary_address']
-            permanent_address = form.cleaned_data['permanent_address']
-            phone_number = form.cleaned_data['phone_number']
-            alternate_phone_number = form.cleaned_data['alternate_phone_number']
-            department = form.cleaned_data['department']
-            joined_date = form.cleaned_data['joined_date']
-            image = form.cleaned_data['image']
-
+                return HttpResponse("Email already exists")
+            if password != confirm_password:
+                return HttpResponse("Password doesn't not matched")
             roles = Role.objects.get(role_name=role)
             dep = Department.objects.get(department_name=department)
             obj = CustomUser.objects.create_user(email=email, password=password, role=roles, first_name=first_name,
@@ -206,10 +208,10 @@ class EmployeeView(LoginRequiredMixin, View):
                                                  joined_date=joined_date, image=image)
 
             obj.save()
-            messages.success(request, "Registration successful.")
+            messages.success(request, "Employee created successfully")
             print("successful")
+            return HttpResponse("Employee created successfully")
 
-            return redirect("/employee")
         else:
             return render(request, "employee.html",
                           {'form': form, "user": user, "total_employee": total_employee, "current_user": current_user,
