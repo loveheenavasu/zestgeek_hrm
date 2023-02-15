@@ -20,7 +20,7 @@
                   <!--<li><a href="employee-office.html">Offices</a></li>-->
                </ul>
                {% if request.user.is_admin or request.user.is_superuser %}
-               <a class="btn-add " data-toggle="modal" data-target="#addteam"><i data-feather="plus"></i>Add Employee</a>
+               <button class="btn-add " data-toggle="modal" data-target="#addteam"><i data-feather="plus"></i>Add Employee</button>
                {% endif %}
             </div>
          </div>
@@ -59,9 +59,8 @@
                         <tr>
                            <td>
                               <div class="table-img">
-                                 <a href="profile.html">
-                                 <img src="" alt="profile" class="img-table" />
-                                 </a>
+                                 <img src="{{i.image.url}}" alt="profile" class="img-table" />
+
                               </div>
                            </td>
                            <td>
@@ -89,7 +88,7 @@
                            </td>
                            <td>
                               <div class="change_delete_color">
-                                 <a href="#">Delete</a>
+                                 <a href="{% url 'delete_employee' i.id %}">Delete</a>
                               </div>
 
                            </td>
@@ -156,7 +155,7 @@
                   </div>
                   <div class="form-group col-md-6">
                      <label for="image" class="form-control-label">Profile Picture</label>
-                     <input type="file" class="form-control" name="image" id="image" placeholder="Select Image">
+                     <input type="file" class="form-control" name="image" id="image" placeholder="Select Image" src="imaege.png">
                   </div>
                </div>
                <div class="form-group">
@@ -192,7 +191,8 @@
                      <!--<input class="form-control" name="department" placeholder="Select department">-->
                      <select id="department" name="department" class="form-control">
                         {% for dep in department%}
-                        <option value="{{dep.department_name}}">{{dep.department_name}}</option>
+                         <option value="{{dep.department_name}}">{{dep.department_name}}</option>
+
                         {% endfor %}
                      </select>
                   </div>
@@ -220,96 +220,167 @@
       </div>
    </div>
 </div>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 
 <script>
 
-$(document).ready(function() {
 
-  $('#first_form').submit(function(e) {
-    e.preventDefault();
-    var first_name = $('#first_name').val();
-    var last_name = $('#last_name').val();
-    var email = $('#email').val();
-    var password = $('#password').val();
-    var confirm_password = $('#confirm_password').val();
-    var personal_email = $('#personal_email').val();
-    var phone_number = $('#phone_number').val();
-    var alternate_phone_number = $('#alternate_phone_number').val();
-    var joined_date = $('#joined_date').val();
-    var department = $('#department').val();
-    var role = $('#role').val();
-    var permanent_address = $('#permanent_address').val();
-    var temporary_address = $('#temporary_address').val();
-    var image = $('#image').val();
-<!--    var image = new FormData(document.getElementById("image"));-->
-    var gender = $('#gender').val();
-    $(".error").remove();
-   var err = false;
-    if (first_name.length < 1) {
-      $('#first_name').after('<span class="error">This field is required</span>');
-      err = true
-    }
-    if (last_name.length < 1) {
-      $('#last_name').after('<span class="error">This field is required</span>');
-      err = true
-    }
-    if (password.length < 8) {
-      $('#password').after('<span class="error">Password must be at least 8 characters long</span>');
-      err = true
-    }
-    if (personal_email.length < 1) {
-      $('#personal_email').after('<span class="error">This field is required</span>');
-      err = true
-    }
-    if (phone_number.length < 1) {
-      $('#phone_number').after('<span class="error">This field is required</span>');
-      err = true
-    }
-    if (alternate_phone_number.length < 1) {
-      $('#alternate_phone_number').after('<span class="error">This field is required</span>');
-      err = true
-
-    }
-
-    if (email.length < 1) {
-      $('#email').after('<span class="error">This field is required</span>');
-      err = true
-
-    }
-      if(!err){
-         console.log("Okay validations")
-         var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
-         url = "/employee"
+$(document).on('click', 'a', function(){
+value = $(this).attr('id');
+var url = "update_employee/" + value
          $.ajax({
-            type: "POST",
-            enctype: 'multipart/form-data',
-            data: { email: email, password:password, confirm_password:confirm_password, first_name:first_name, last_name:last_name, role:role,
-            permanent_address:permanent_address,temporary_address:temporary_address, image:image,department:department,gender:gender,joined_date:joined_date,
-            alternate_phone_number:alternate_phone_number,phone_number:phone_number,personal_email:personal_email},
+            type: "GET",
+            data: { id: value },
             url:url,
-            beforeSend: function (xhr){
-              xhr.setRequestHeader('X-CSRFToken', csrftoken);
-            },
             success: (data) => {
                 console.log(data);
-               if(data == 'Email already exists'){
-                $('#email').after('<span class="error">'+data+'</span>');
-                     }else if(data == "Password doesn't not matched"){
-                     $('#password').after('<span class="error">'+data+'</span>');
-                     }else {
-                        window.location.replace("/employee");
-                     }
-
+                console.log(data.email);
+                openModal(data);
               },
               error: (error) => {
                 console.log(error);
               }
         });
-      }
-
-  });
-
 });
+function openModal(product_data){
+          $('#first_name').val(product_data.first_name);
+          $('#last_name').val(product_data.last_name);
+          $('#email').val(product_data.email);
+          $('#role').val(product_data.role);
+          $('#gender').val(product_data.gender);
+          $('#personal_email').val(product_data.personal_email);
+          $('#image').text(product_data.image);
+          $('#temporary_address').val(product_data.temporary_address);
+          $('#permanent_address').val(product_data.permanent_address);
+          $('#phone_number').val(product_data.phone_number);
+          $('#alternate_phone_number').val(product_data.alternate_phone_number);
+          $('#department').val(product_data.department);
+          $('#joined_date').val(product_data.joined_date);
+          console.log(product_data.image);
+            console.log($('#image').html(product_data.image))
+
+
+          $('#first_form').modal('show');
+        };
+
+$(document).on('click', 'a', function(){
+id = $(this).attr('id');
+console.log(id)
+});
+   jQuery(document).ready(function() {
+
+
+      <!-- image change added in form data-->
+      formdata = new FormData();
+      $("#image").on("change", function() {
+          var file = this.files[0];
+           formdata.append("image", file)
+       })
+
+
+      <!-- When form submit and ajax call-->
+      $('#first_form').submit(function(e) {
+          e.preventDefault();
+           var first_name = $('#first_name').val();
+          var last_name = $('#last_name').val();
+          var email = $('#email').val();
+          var password = $('#password').val();
+          var confirm_password = $('#confirm_password').val();
+          var personal_email = $('#personal_email').val();
+          var phone_number = $('#phone_number').val();
+          var alternate_phone_number = $('#alternate_phone_number').val();
+          var joined_date = $('#joined_date').val();
+          var department = $('#department').val();
+          var role = $('#role').val();
+          var permanent_address = $('#permanent_address').val();
+          var temporary_address = $('#temporary_address').val();
+          var gender = $('#gender').val();
+          var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+          formdata.append("first_name", first_name)
+          formdata.append("last_name", last_name)
+          formdata.append("email", email)
+          formdata.append("personal_email", personal_email)
+          formdata.append("gender", gender)
+          formdata.append("permanent_address", permanent_address)
+          formdata.append("temporary_address", temporary_address)
+          formdata.append("role", role)
+          formdata.append("department", department)
+          formdata.append("joined_date", joined_date)
+          formdata.append("alternate_phone_number", alternate_phone_number)
+          formdata.append("phone_number", phone_number)
+          formdata.append("confirm_password", confirm_password)
+          formdata.append("password", password)
+          if (value){
+          formdata.append("id", id)
+          }
+
+           $(".error").remove();
+      var err = false;
+       if (first_name.length < 1) {
+         $('#first_name').after('<span class="error">This field is required</span>');
+         err = true
+       }
+       if (last_name.length < 1) {
+         $('#last_name').after('<span class="error">This field is required</span>');
+         err = true
+       }
+       if (password.length < 8) {
+         $('#password').after('<span class="error">Password must be at least 8 characters long</span>');
+         err = true
+       }
+       if (personal_email.length < 1) {
+         $('#personal_email').after('<span class="error">This field is required</span>');
+         err = true
+       }
+       if (phone_number.length < 1) {
+         $('#phone_number').after('<span class="error">This field is required</span>');
+         err = true
+       }
+       if (alternate_phone_number.length < 1) {
+         $('#alternate_phone_number').after('<span class="error">This field is required</span>');
+         err = true
+
+       }
+
+       if (email.length < 1) {
+         $('#email').after('<span class="error">This field is required</span>');
+         err = true
+
+       }
+       console.log(value)
+       if (!id){
+       url = "/employee"
+       }else{
+       url = "/update_employee/" + id
+       }
+
+         $.ajax({
+            type: "POST",
+            data: formdata,
+            dataType: "json",
+            url:url,
+            processData: false,
+            contentType: false,
+            beforeSend: function (xhr){
+              xhr.setRequestHeader('X-CSRFToken', csrftoken);
+            },
+            success: (data) => {
+                 console.log(data);
+                 if(data == 'Email already exists'){
+                   $('#ema il').after('<span class="error">'+data+'</span>');
+                     }else if(data == "Password doesn't not matched"){
+                        $('#password').after('<span class="error">'+data+'</span>');
+                     }else {
+                           window.location.replace("/employee");
+                        }
+              },
+              error: (error) => {
+                console.log(error);
+              }
+           });
+
+      })
+   });
 </script>
 {% endblock %}

@@ -9,15 +9,15 @@ class Inventory(BaseModel):
     Items inventory model
     """
     ITEM_CHOICE = (
-        ("Laptop", "LAPTOP"), ("Mobile", "MOBILE")
+        ("Laptop", "Laptop"), ("Mobile", "Mobile")
     )
     item = MultiSelectField(choices=ITEM_CHOICE, max_choices=3, max_length=20)
     LAPTOP_CHOICE = (
-        ("Mac", "MAC"), ("Window", "WINDOW")
+        ("Mac", "Mac"), ("Window", "Window")
     )
     is_laptop = models.CharField(max_length=12, choices=LAPTOP_CHOICE, default="WINDOW")
     MOBILE_CHOICE = (
-        ("IPhone", "IPHONE"), ("Android", "ANDROID")
+        ("IPhone", "IPhone"), ("Android", "Android")
     )
     is_mobile = models.CharField(max_length=12, choices=MOBILE_CHOICE, null=True, blank=True)
     title = models.CharField(max_length=100)

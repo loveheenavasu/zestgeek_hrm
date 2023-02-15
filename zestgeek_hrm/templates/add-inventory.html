@@ -68,9 +68,10 @@
                               <div class="form-group">
                                  <!--<input type="text" placeholder="Item">-->
                                  <label for="item" class="form-control-label">Select Item:</label>
-                                 <select id="item" name="item" multiple>
-                                    <option value="Laptop">Laptop</option>
-                                    <option value="Mobile">Mobile</option>
+                                 <select class="js-example-basic-multiple" name="item[]" multiple="multiple">
+                                    <option>Select item</option>
+                                    <option value="Laptop" {% if "Laptop" in employee.inventory.item %}selected{% endif %}>Laptop</option>
+                                    <option value="Mobile" {% if "Mobile" in employee.inventory.item %}selected{% endif %}>Mobile</option>
                                  </select>
                               </div>
                            </div>
@@ -81,8 +82,9 @@
                                  <!--<input type="text" placeholder="Laptop">-->
                                  <label for="is_laptop" class="form-control-label">Select Laptop:</label>
                                  <select id="laptop" name="is_laptop">
-                                    <option value="Windows">Windows</option>
-                                    <option value="Mac">Mac</option>
+                                    <option>Select Laptop</option>
+                                    <option value="Windows" {% if "Windows" in employee.inventory.is_laptop %}selected{% endif %}>Windows</option>
+                                    <option value="Mac" {% if "Mac" in employee.inventory.is_laptop %}selected{% endif %}>Mac</option>
                                  </select>
                               </div>
                            </div>
@@ -93,8 +95,9 @@
                                  <!--<input type="text" placeholder="Mobile">-->
                                  <label for="mobile" class="form-control-label">Select Mobile:</label>
                                  <select id="mobile" name="is_mobile">
-                                    <option value="Android">Android</option>
-                                    <option value="IPhone">IPhone</option>
+                                    <option>Select Mobile</option>
+                                    <option value="Android" {% if "Android" in employee.inventory.is_mobile %}selected{% endif %}>Android</option>
+                                    <option value="IPhone" {% if "IPhone" in employee.inventory.is_mobile %}selected{% endif %}>IPhone</option>
                                  </select>
                               </div>
                            </div>
@@ -125,4 +128,7 @@
          </form>
       </div>
    </div>
+<script>
+
+</script>
 {% endblock %}

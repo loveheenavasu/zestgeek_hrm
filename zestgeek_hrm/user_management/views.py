@@ -6,7 +6,9 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import RegisterForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-
+from django.http import JsonResponse
+from django.core import serializers
+import json
 
 # Create your views here.
 class Register(LoginRequiredMixin, View):
@@ -157,24 +159,24 @@ class DeleteDepartment(LoginRequiredMixin, View):
 
 class EmployeeView(LoginRequiredMixin, View):
     def get(self, request):
-        current_user = request.user.first_name
         user = CustomUser.objects.all()
         total_employee = user.count()
         role = Role.objects.all()
         department = Department.objects.all()
         return render(request, 'employee.html',
-                      {"user": user, "total_employee": total_employee, "current_user": current_user, "role": role,
+                      {"user": user, "total_employee": total_employee, "role": role,
                        "department": department})
 
     def post(self, request):
+        print("In function")
         current_user = request.user.first_name
         user = CustomUser.objects.all()
         total_employee = user.count()
         role = Role.objects.all()
         department = Department.objects.all()
         form = RegisterForm(request.POST, request.FILES)
-        # if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.POST:
-        if request.is_ajax() and request.method == "POST":
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.POST:
+        # if request.is_ajax() and request.method == "POST":
             email = request.POST.get('email')
             password = request.POST.get('password')
             confirm_password = request.POST.get('confirm_password')
@@ -189,15 +191,11 @@ class EmployeeView(LoginRequiredMixin, View):
             alternate_phone_number = request.POST.get('alternate_phone_number')
             department = request.POST.get('department')
             joined_date = request.POST.get('joined_date')
-            image = request.POST.get('image')
-            # imagess = request.FILES.get('image')
-            print("email","-----")
-            # print(image, "imageimageimageimageimageimageimageimageimageimageimage")
-
+            image = request.FILES.get('image')
             if CustomUser.objects.filter(email=email).exists():
-                return HttpResponse("Email already exists")
+                return JsonResponse({'status': 'Error', 'message': "Email already exists"})
             if password != confirm_password:
-                return HttpResponse("Password doesn't not matched")
+                return JsonResponse({'status': 'Error', 'message': "Password doesn't not matched"})
             roles = Role.objects.get(role_name=role)
             dep = Department.objects.get(department_name=department)
             obj = CustomUser.objects.create_user(email=email, password=password, role=roles, first_name=first_name,
@@ -210,19 +208,73 @@ class EmployeeView(LoginRequiredMixin, View):
             obj.save()
             messages.success(request, "Employee created successfully")
             print("successful")
-            return HttpResponse("Employee created successfully")
+            return JsonResponse({'status': 'Success', 'message': "Employee created successfully"})
 
         else:
             return render(request, "employee.html",
                           {'form': form, "user": user, "total_employee": total_employee, "current_user": current_user,
                            "role": role, "department": department})
 
-class Delete_employee(View):
+class UpdateEmployee(View):
     def get(self, request, id):
-        department = CustomUser.objects.get(id=id)
-        department.delete()
-        messages.success(request, "Employee deleted successful.")
-        return redirect("employee")
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            ids = request.GET['id']
+            user = CustomUser.objects.get(id=ids)
+
+            return JsonResponse({"first_name":user.first_name,"email":user.email, "password":user.password, "role":user.role.role_name,
+                                                 "last_name":user.last_name, "personal_email":user.personal_email
+                                                 , "gender":user.gender, "temporary_address":user.temporary_address,
+                                                 "permanent_address":user.permanent_address, "phone_number":user.phone_number,
+                                                 "alternate_phone_number":user.alternate_phone_number, "department":user.department.department_name,
+                                                 "joined_date":user.joined_date, "image":user.image.path})
+        return render(request, 'employee-team.html')
+
+    def post(self, request, id):
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            idss = request.POST["id"]
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            confirm_password = request.POST.get('confirm_password')
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            role = request.POST.get('role')
+            personal_email = request.POST.get('personal_email')
+            gender = request.POST.get('gender')
+            temporary_address = request.POST.get('temporary_address')
+            permanent_address = request.POST.get('permanent_address')
+            phone_number = request.POST.get('phone_number')
+            alternate_phone_number = request.POST.get('alternate_phone_number')
+            department = request.POST.get('department')
+            joined_date = request.POST.get('joined_date')
+            image = request.FILES.get('image')
+            roles = Role.objects.get(role_name=role)
+            dep = Department.objects.get(department_name=department)
+            user = CustomUser.objects.get(id=idss)
+            user.image = image
+            user.joined_date = joined_date
+            user.department = dep
+            user.alternate_phone_number = alternate_phone_number
+            user.phone_number = phone_number
+            user.permanent_address = permanent_address
+            user.temporary_address = temporary_address
+            user.gender = gender
+            user.personal_email = personal_email
+            user.role = roles
+            user.last_name = last_name
+            user.first_name = first_name
+            user.email = email
+            user.password = password
+            user.save()
+            return JsonResponse({'message':"Department updated successful."})
+        # messages.success(requestmessage, "Department updated successful.")
+        return redirect("department")
+
+class DeleteEmployee(LoginRequiredMixin, View):
+    def get(self, request, id):
+        user = CustomUser.objects.get(id=id)
+        user.delete()
+        messages.success(request, "User deleted successful.")
+        return redirect("/employee")
 def logout_view(request):
     logout(request)
     return redirect('/')

@@ -5,6 +5,7 @@ from .models import *
 from user_management.models import CustomUser
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+
 # Create your views here.
 class InventoryView(LoginRequiredMixin, View):
     def get(self, request, id):
@@ -22,7 +23,8 @@ class InventoryView(LoginRequiredMixin, View):
             is_mobile = None
         title = request.POST.get('title')
         remarks = request.POST.get('remarks')
-        create_inventory = Inventory.objects.create(item=item, is_laptop=is_laptop, is_mobile=is_mobile, title=title, remarks=remarks)
+        create_inventory = Inventory.objects.create(item=item, is_laptop=is_laptop, is_mobile=is_mobile, title=title,
+                                                    remarks=remarks)
         userr = CustomUser.objects.get(id=id)
         userr.inventory = create_inventory
         userr.save()
@@ -30,10 +32,12 @@ class InventoryView(LoginRequiredMixin, View):
         print("successful")
         return redirect("/employee")
 
+
 class ListingInventory(LoginRequiredMixin, View):
     def get(self, request):
         user_inventory = CustomUser.objects.all()
         return render(request, "inventory.html", {"data": user_inventory})
+
 
 class ShowInventory(LoginRequiredMixin, View):
     def get(self, request):
