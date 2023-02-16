@@ -123,7 +123,16 @@ class DeleteRole(LoginRequiredMixin, View):
 class DepartmentView(LoginRequiredMixin, View):
     def get(self, request):
         department = Department.objects.all()
-        return render(request, 'employee-team.html', {"department": department})
+        department_details = {}
+        result = {}
+        user_depart = CustomUser.objects.select_related('department').filter(is_admin=False)
+        for user in user_depart:
+            if user.department.department_name not in result:
+                result[user.department.department_name] = [user.image.url]
+            else:
+                result[user.department.department_name].append(user.image.url)
+        print(result,'-----ssss')
+        return render(request, 'employee-team.html', {'result': result, 'department': department})
 
     def post(self, request):
         department_name = request.POST.get('department_name')
