@@ -68,7 +68,7 @@
                               <div class="form-group">
                                  <!--<input type="text" placeholder="Item">-->
                                  <label for="item" class="form-control-label">Select Item:</label>
-                                 <select class="js-example-basic-multiple" name="item[]" multiple="multiple">
+                                 <select class="js-example-basic-multiple" name="item" multiple="multiple">
                                     <option>Select item</option>
                                     <option value="Laptop" {% if "Laptop" in employee.inventory.item %}selected{% endif %}>Laptop</option>
                                     <option value="Mobile" {% if "Mobile" in employee.inventory.item %}selected{% endif %}>Mobile</option>
@@ -128,7 +128,5 @@
          </form>
       </div>
    </div>
-<script>
 
-</script>
 {% endblock %}
