@@ -131,7 +131,6 @@ class DepartmentView(LoginRequiredMixin, View):
                 result[user.department.department_name] = [user.image.url]
             else:
                 result[user.department.department_name].append(user.image.url)
-        print(result,'-----ssss')
         return render(request, 'employee-team.html', {'result': result, 'department': department})
 
     def post(self, request):
