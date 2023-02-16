@@ -79,30 +79,36 @@ class LoginView(View):
 class Roles(LoginRequiredMixin, View):
     def get(self, request):
         role = Role.objects.all()
-        return render(request, 'roles.html', {"role": role})
+        return render(request, 'role.html', {"roles": role})
 
     def post(self, request):
         role_name = request.POST.get('role_name')
         if Role.objects.filter(role_name=role_name).exists():
             messages.error(request, "Role already exists.")
-            return redirect("roles")
+            return redirect("/roles")
         else:
             Role.objects.create(role_name=role_name)
             messages.success(request, "Role created successful.")
-            return redirect("roles")
+            return redirect("/roles")
 
 
 class UpdateRole(LoginRequiredMixin, View):
     def get(self, request, id):
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            ids = request.GET['id']
+            role = Role.objects.get(id=ids)
+            return HttpResponse(role)
         role = Role.objects.get(id=id)
-        return render(request, 'roles.html', {"role": role})
+        return render(request, 'role.html', {"role": role})
 
     def post(self, request, id):
-        name = request.POST.get("role_name")
-        role = Role.objects.get(id=id)
-        role.role_name = name
-        role.save()
-        messages.success(request, "Role updated successful.")
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            idss = request.POST["emp_id"]
+            name = request.POST["name"]
+            role = Role.objects.get(id=idss)
+            role.role_name = name
+            role.save()
+            return HttpResponse("Role updated successful.")
         return redirect("roles")
 
 
@@ -136,7 +142,8 @@ class UpdateDepartment(LoginRequiredMixin, View):
             ids = request.GET['id']
             depp = Department.objects.get(id=ids)
             return HttpResponse(depp)
-        return render(request, 'employee-team.html')
+        depp = Department.objects.get(id=id)
+        return render(request, 'employee-team.html', {'depp':depp})
 
     def post(self, request, id):
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':

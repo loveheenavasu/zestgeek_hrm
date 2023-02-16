@@ -80,7 +80,7 @@
                            {% if request.user.is_admin or request.user.is_superuser %}
                            <td>
                               <div class="change_edit_color">
-                                 <a href="#" id={{i.id}} data-toggle="modal" data-target="#addteam">Edit</a>
+                                 <a href="#" id={{i.id}} class="edit_idd" data-toggle="modal" data-target="#addteam">Edit</a>
                               </div>
 <!--                              <div class="btn btn-info change_link_color">-->
 <!--                                 <a href="#">Edit</a>-->
@@ -226,7 +226,7 @@
 
 
 
-   $(document).on('click', 'a', function(){
+   $(document).on('click', '.edit_idd', function(){
 value = $(this).attr('id');
 console.log(value)
 var url = "update_employee/" + value
