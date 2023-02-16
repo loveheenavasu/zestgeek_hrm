@@ -225,8 +225,10 @@
 <script>
 
 
-$(document).on('click', 'a', function(){
+
+   $(document).on('click', 'a', function(){
 value = $(this).attr('id');
+console.log(value)
 var url = "update_employee/" + value
          $.ajax({
             type: "GET",
@@ -256,20 +258,13 @@ function openModal(product_data){
           $('#alternate_phone_number').val(product_data.alternate_phone_number);
           $('#department').val(product_data.department);
           $('#joined_date').val(product_data.joined_date);
-          console.log(product_data.id)
-
-
           $('#first_form').modal('show');
         };
 
-$(document).on('click', 'a', function(){
-id = $(this).attr('id');
-console.log(id)
-});
+
+        
    jQuery(document).ready(function() {
-
-
-      <!-- image change added in form data-->
+   
       formdata = new FormData();
       $("#image").on("change", function() {
           var file = this.files[0];
@@ -277,7 +272,7 @@ console.log(id)
        })
 
 
-      <!-- When form submit and ajax call-->
+  
       $('#first_form').submit(function(e) {
           e.preventDefault();
            var first_name = $('#first_name').val();
@@ -310,11 +305,7 @@ console.log(id)
           formdata.append("phone_number", phone_number)
           formdata.append("confirm_password", confirm_password)
           formdata.append("password", password)
-          if (value){
-          formdata.append("id", id)
-          }
-
-           $(".error").remove();
+     
       var err = false;
        if (first_name.length < 1) {
          $('#first_name').after('<span class="error">This field is required</span>');
@@ -347,12 +338,8 @@ console.log(id)
          err = true
 
        }
-       console.log(value)
-       if (!id){
        url = "/employee"
-       }else{
-       url = "/update_employee/" + id
-       }
+
 
          $.ajax({
             type: "POST",
@@ -381,5 +368,102 @@ console.log(id)
 
       })
    });
+
+   $(document).on('click', 'a', function(){
+    id = $(this).attr('id');
+    console.log(id)
+    $("#image").on("change", function() {
+        var file = this.files[0];
+         formdata.append("image", file)
+     })
+     $('#first_form').submit(function(e) {
+        e.preventDefault();
+         var first_name = $('#first_name').val();
+        var last_name = $('#last_name').val();
+        var email = $('#email').val();
+        var personal_email = $('#personal_email').val();
+        var phone_number = $('#phone_number').val();
+        var alternate_phone_number = $('#alternate_phone_number').val();
+        var joined_date = $('#joined_date').val();
+        var department = $('#department').val();
+        var role = $('#role').val();
+        var permanent_address = $('#permanent_address').val();
+        var temporary_address = $('#temporary_address').val();
+        var gender = $('#gender').val();
+        var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+        formdata.append("first_name", first_name)
+        formdata.append("last_name", last_name)
+        formdata.append("email", email)
+        formdata.append("personal_email", personal_email)
+        formdata.append("gender", gender)
+        formdata.append("permanent_address", permanent_address)
+        formdata.append("temporary_address", temporary_address)
+        formdata.append("role", role)
+        formdata.append("department", department)
+        formdata.append("joined_date", joined_date)
+        formdata.append("alternate_phone_number", alternate_phone_number)
+        formdata.append("phone_number", phone_number)
+        if (id){
+        formdata.append("id", id)
+        }
+        $(".error").remove();
+      var err = false;
+       if (first_name.length < 1) {
+         $('#first_name').after('<span class="error">This field is required</span>');
+         err = true
+       }
+       if (last_name.length < 1) {
+         $('#last_name').after('<span class="error">This field is required</span>');
+         err = true
+       }
+       if (personal_email.length < 1) {
+         $('#personal_email').after('<span class="error">This field is required</span>');
+         err = true
+       }
+       if (phone_number.length < 1) {
+         $('#phone_number').after('<span class="error">This field is required</span>');
+         err = true
+       }
+       if (alternate_phone_number.length < 1) {
+         $('#alternate_phone_number').after('<span class="error">This field is required</span>');
+         err = true
+
+       }
+
+       if (email.length < 1) {
+         $('#email').after('<span class="error">This field is required</span>');
+         err = true
+
+       }
+       url = "/update_employee/" + id
+       $.ajax({
+        type: "POST",
+        data: formdata,
+        dataType: "json",
+        url:url,
+        processData: false,
+        contentType: false,
+        beforeSend: function (xhr){
+          xhr.setRequestHeader('X-CSRFToken', csrftoken);
+        },
+        success: (data) => {
+             console.log(data);
+             if(data == 'Email already exists'){
+               $('#email').after('<span class="error">'+data+'</span>');
+                 }else if(data == "Password doesn't not matched"){
+                    $('#password').after('<span class="error">'+data+'</span>');
+                 }else {
+                       window.location.replace("/employee");
+                    }
+          },
+          error: (error) => {
+            console.log(error);
+          }
+       });
+
+  });
+});
+
 </script>
 {% endblock %}

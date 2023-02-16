@@ -174,8 +174,9 @@ class EmployeeView(LoginRequiredMixin, View):
         total_employee = user.count()
         role = Role.objects.all()
         department = Department.objects.all()
-        form = RegisterForm(request.POST, request.FILES)
-        if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.POST:
+        # form = RegisterForm(request.POST, request.FILES)
+        if request.is_ajax() and request.POST:
+            print("request.post", request.POST)
         # if request.is_ajax() and request.method == "POST":
             email = request.POST.get('email')
             password = request.POST.get('password')
@@ -212,7 +213,7 @@ class EmployeeView(LoginRequiredMixin, View):
 
         else:
             return render(request, "employee.html",
-                          {'form': form, "user": user, "total_employee": total_employee, "current_user": current_user,
+                          {"user": user, "total_employee": total_employee, "current_user": current_user,
                            "role": role, "department": department})
 
 class UpdateEmployee(View):
