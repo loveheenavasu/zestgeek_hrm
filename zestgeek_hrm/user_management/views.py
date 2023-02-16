@@ -233,8 +233,6 @@ class UpdateEmployee(View):
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             idss = request.POST["id"]
             email = request.POST.get('email')
-            password = request.POST.get('password')
-            confirm_password = request.POST.get('confirm_password')
             first_name = request.POST.get('first_name')
             last_name = request.POST.get('last_name')
             role = request.POST.get('role')
@@ -246,11 +244,13 @@ class UpdateEmployee(View):
             alternate_phone_number = request.POST.get('alternate_phone_number')
             department = request.POST.get('department')
             joined_date = request.POST.get('joined_date')
-            image = request.FILES.get('image')
             roles = Role.objects.get(role_name=role)
             dep = Department.objects.get(department_name=department)
             user = CustomUser.objects.get(id=idss)
-            user.image = image
+            if request.FILES.get('image'):
+                user.image= request.FILES.get('image')
+            else:
+                user.image=user.image
             user.joined_date = joined_date
             user.department = dep
             user.alternate_phone_number = alternate_phone_number
@@ -263,7 +263,7 @@ class UpdateEmployee(View):
             user.last_name = last_name
             user.first_name = first_name
             user.email = email
-            user.password = password
+            user.password= user.password
             user.save()
             return JsonResponse({'message':"Department updated successful."})
         # messages.success(requestmessage, "Department updated successful.")
