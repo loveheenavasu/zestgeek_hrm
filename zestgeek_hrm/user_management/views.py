@@ -109,7 +109,7 @@ class UpdateRole(LoginRequiredMixin, View):
             role.role_name = name
             role.save()
             return HttpResponse("Role updated successful.")
-        return redirect("roles")
+        return redirect("/roles")
 
 
 class DeleteRole(LoginRequiredMixin, View):
@@ -117,7 +117,7 @@ class DeleteRole(LoginRequiredMixin, View):
         role = Role.objects.get(id=id)
         role.delete()
         messages.success(request, "role deleted successful.")
-        return redirect("roles")
+        return redirect("/roles")
 
 
 class DepartmentView(LoginRequiredMixin, View):
