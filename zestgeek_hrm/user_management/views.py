@@ -182,7 +182,7 @@ class EmployeeView(LoginRequiredMixin, View):
         role = Role.objects.all()
         department = Department.objects.all()
         # form = RegisterForm(request.POST, request.FILES)
-        if request.is_ajax() and request.POST:
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.POST:
             print("request.post", request.POST)
         # if request.is_ajax() and request.method == "POST":
             email = request.POST.get('email')
