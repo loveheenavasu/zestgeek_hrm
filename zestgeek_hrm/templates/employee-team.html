@@ -71,7 +71,7 @@
                            <img class="avatar-img rounded-circle" alt="User Image" src="{{link}}">
                         </div>
                          {% endfor %}
-                        {%if image|length >= 3%}
+                        {%if image|length > 3%}
                         <p>+ {{image|length|add:"-3" }} more  </p>
                         {% endif %}
                         {%endfor%}
