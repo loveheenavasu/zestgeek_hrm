@@ -124,6 +124,7 @@ class DeleteRole(LoginRequiredMixin, View):
 
 class DepartmentView(LoginRequiredMixin, View):
     def get(self, request):
+        departments = Department.objects.all()
         result = {}
         user_depart = CustomUser.objects.select_related('department').filter(is_admin=False)
         for user in user_depart:
@@ -131,21 +132,25 @@ class DepartmentView(LoginRequiredMixin, View):
                 result[user.department.department_name] = {user.department_id: [user.image.url]}
             else:
                 result[user.department.department_name][user.department_id].append(user.image.url)
-        # for key, value in result.items():
-        #     for id, image_links in value.items():
-        #         if len(image_links) > 3:
-        #             result[key][id] = result[key][id][:3]
+        for department in departments:
+            if department.department_name not in result:
+                result[department.department_name] = {department.id: [None]}
         return render(request, 'employee-team.html', {'result': result})
 
     def post(self, request):
-        department_name = request.POST.get('department_name')
-        if Department.objects.filter(department_name=department_name).exists():
-            messages.error(request, "Department already exists.")
-            return redirect("department")
-        else:
-            Department.objects.create(department_name=department_name)
-            messages.success(request, "Department created successful.")
-            return redirect("department")
+            department_name = request.POST.get('department_name')
+            if not Department.objects.filter(department_name=department_name).exists():
+                Department.objects.create(department_name=department_name)
+                messages.success(request, "Department created successful.")
+                return redirect("/department")
+            else:
+                messages.error(request, "Department already exists.")
+                return redirect("/department")
+
+        # else:
+        #     Department.objects.create(department_name=department_name)
+        #     messages.success(request, "Department created successful.")
+        #     return redirect("department")
 
 
 class UpdateDepartment(LoginRequiredMixin, View):
@@ -161,12 +166,13 @@ class UpdateDepartment(LoginRequiredMixin, View):
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             idss = request.POST["emp_id"]
             name = request.POST["name"]
-            department = Department.objects.get(id=idss)
-            department.department_name = name
-            department.save()
-            messages.success(request, "Department updated successful.")
-            return HttpResponse("Department updated successful.")
-        
+            if not Department.objects.filter(department_name=name).exists():
+                Department.objects.filter(id=idss).update(department_name=name)
+                messages.success(request, "Department updated successful.")
+                return HttpResponse("Department updated successful.")
+            else:
+                messages.error(request, "Department already exists.")
+                return redirect("/department")
         return redirect("department")
 
 class DeleteDepartment(LoginRequiredMixin, View):
@@ -299,7 +305,7 @@ class DeleteEmployee(LoginRequiredMixin, View):
         user.delete()
         messages.success(request, "Employee deleted successful.")
         return JsonResponse({'message':"Employee deleted successful."})
-    
+
 
 def logout_view(request):
     logout(request)
