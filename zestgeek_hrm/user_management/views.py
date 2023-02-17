@@ -166,9 +166,13 @@ class UpdateDepartment(LoginRequiredMixin, View):
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             idss = request.POST["emp_id"]
             name = request.POST["name"]
-            Department.objects.filter(id=idss).update(department_name=name)
-            messages.success(request, "Department updated successful.")
-            return HttpResponse("Department updated successful.")
+            if not Department.objects.filter(department_name=name).exists():
+                Department.objects.filter(id=idss).update(department_name=name)
+                messages.success(request, "Department updated successful.")
+                return HttpResponse("Department updated successful.")
+            else:
+                messages.error(request, "Department already exists.")
+                return redirect("/department")
         return redirect("department")
 
 class DeleteDepartment(LoginRequiredMixin, View):
