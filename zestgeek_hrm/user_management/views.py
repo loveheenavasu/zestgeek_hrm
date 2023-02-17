@@ -70,6 +70,7 @@ class LoginView(View):
         user = authenticate(email=email, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request, "Login successfully")
             return redirect('/home')
         else:
             messages.info(request, 'Invalid Username or Password')
@@ -108,6 +109,7 @@ class UpdateRole(LoginRequiredMixin, View):
             role = Role.objects.get(id=idss)
             role.role_name = name
             role.save()
+            messages.success(request, "Role updated successful.")
             return HttpResponse("Role updated successful.")
         return redirect("/roles")
 
@@ -159,8 +161,9 @@ class UpdateDepartment(LoginRequiredMixin, View):
             department = Department.objects.get(id=idss)
             department.department_name = name
             department.save()
+            messages.success(request, "Department updated successful.")
             return HttpResponse("Department updated successful.")
-        # messages.success(request, "Department updated successful.")
+        
         return redirect("department")
 
 class DeleteDepartment(LoginRequiredMixin, View):
@@ -282,15 +285,16 @@ class UpdateEmployee(View):
             user.email = email
             user.password= user.password
             user.save()
-            return JsonResponse({'message':"Department updated successful."})
-        # messages.success(requestmessage, "Department updated successful.")
+            messages.success(request, "Employee updated successful.")
+            return JsonResponse({'message':"Employee updated successful."})
+        
         return redirect("department")
 
 class DeleteEmployee(LoginRequiredMixin, View):
     def get(self, request, id):
         user = CustomUser.objects.get(id=id)
         user.delete()
-        messages.success(request, "User deleted successful.")
+        messages.success(request, "Employee deleted successful.")
         return redirect("/employee")
 def logout_view(request):
     logout(request)

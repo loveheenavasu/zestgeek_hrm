@@ -10,6 +10,7 @@
       <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}">
       <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}">
       <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/jquery.toast.css' %}">
       <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <!--[if lt IE 9]>
@@ -353,16 +354,13 @@ label.error {
          </div>
       </div>
       {% block content %}
+      
       {% endblock %}
-      <div class="position-fixed top-0 end-0 p-3" style="z-index: 5; right: 0; bottom: 0;">
-         <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
-           <div id="toast-body" class="toast-body">
-           </div>
-         </div>
-       </div>
+      
          <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
       <script src="{% static 'assets/js/popper.min.js' %}"></script>
       <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'assets/js/jquery.toast.js' %}"></script>
       <script src="{% static 'assets/js/feather.min.js' %}"></script>
       <script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
       <script src="{% static 'assets/js/script.js' %}"></script>
