@@ -129,9 +129,13 @@ class DepartmentView(LoginRequiredMixin, View):
         user_depart = CustomUser.objects.select_related('department').filter(is_admin=False)
         for user in user_depart:
             if user.department.department_name not in result:
-                result[user.department.department_name] = [user.image.url]
+                result[user.department.department_name] = {user.department_id: [user.image.url]}
             else:
-                result[user.department.department_name].append(user.image.url)
+                result[user.department.department_name][user.department_id].append(user.image.url)
+        # for key, value in result.items():
+        #     for id, image_links in value.items():
+        #         if len(image_links) > 3:
+        #             result[key][id] = result[key][id][:3]
         return render(request, 'employee-team.html', {'result': result, 'department': department})
 
     def post(self, request):
