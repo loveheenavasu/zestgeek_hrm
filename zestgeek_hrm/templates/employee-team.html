@@ -28,14 +28,14 @@
    <div class="row">
 
       {% for key, value in result.items %}
-
       <div class="col-xl-4">
          <div class="card">
             <div class="card-header">
                <div class="employee-head">
-<!--                  <h2>{{dept.department_name}}</h2>-->
                   <h2>{{key}}</h2>
                   <ul>
+                     <li><a href="{% url 'update_department' dept.id %}" id="{{dept.id}}" class="edit_employee" data-toggle="modal" data-target="#edit"><i data-feather="edit"></i></a></li>
+                     <li><a href="{% url 'delete_department' dept.id %}"><i data-feather="trash-2"></i></a></li>
                   </ul>
                </div>
             </div>

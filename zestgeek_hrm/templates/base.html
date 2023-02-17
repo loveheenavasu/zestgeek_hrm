@@ -239,6 +239,13 @@ label.error {
 .head-link-set li {
     min-width: 90px;
 }
+.change_edit_color {
+    width: fit-content;
+    }
+
+    .change_delete_color {
+    width: fit-content;
+    }
       </style>
    </head>
    <body>
@@ -323,7 +330,7 @@ label.error {
                      </li>
                      <li>
                         <li>
-                           <a href="/roles"><img src="{% static 'assets/img/calendar.svg' %}" alt="sidebar_img"> <span>Roles</span></a>
+                           <a href="/roles"><img src="{% static 'assets/img/calendar.svg' %}" alt="sidebar_img"> <span>Designation</span></a>
                         </li>
                         <li>
                         <a href="#"><img src="{% static 'assets/img/leave.svg' %}" alt="sidebar_img"> <span>Leave</span></a>
@@ -347,7 +354,12 @@ label.error {
       </div>
       {% block content %}
       {% endblock %}
-
+      <div class="position-fixed top-0 end-0 p-3" style="z-index: 5; right: 0; bottom: 0;">
+         <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+           <div id="toast-body" class="toast-body">
+           </div>
+         </div>
+       </div>
          <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
       <script src="{% static 'assets/js/popper.min.js' %}"></script>
       <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>

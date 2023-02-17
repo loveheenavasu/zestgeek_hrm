@@ -123,7 +123,6 @@ class DeleteRole(LoginRequiredMixin, View):
 class DepartmentView(LoginRequiredMixin, View):
     def get(self, request):
         department = Department.objects.all()
-        department_details = {}
         result = {}
         user_depart = CustomUser.objects.select_related('department').filter(is_admin=False)
         for user in user_depart:
@@ -210,6 +209,8 @@ class EmployeeView(LoginRequiredMixin, View):
             image = request.FILES.get('image')
             if CustomUser.objects.filter(email=email).exists():
                 return JsonResponse({'status': 'Error', 'message': "Email already exists"})
+            if CustomUser.objects.filter(personal_email=personal_email).exists():
+                return JsonResponse({'status': 'Error', 'message': "Personal email already exists"})
             if password != confirm_password:
                 return JsonResponse({'status': 'Error', 'message': "Password doesn't not matched"})
             roles = Role.objects.get(role_name=role)

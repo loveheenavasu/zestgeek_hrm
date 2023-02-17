@@ -352,17 +352,22 @@ function openModal(product_data){
               xhr.setRequestHeader('X-CSRFToken', csrftoken);
             },
             success: (data) => {
-                 console.log(data);
-                 if(data == 'Email already exists'){
-                   $('#ema il').after('<span class="error">'+data+'</span>');
-                     }else if(data == "Password doesn't not matched"){
-                        $('#password').after('<span class="error">'+data+'</span>');
-                     }else {
-                           window.location.replace("/employee");
+                 console.log(data.message);
+                 if(data.message == 'Email already exists'){
+                   $('#email').after('<span class="error">'+data.message+'</span>');
+                     }else if(data.message == "Password doesn't not matched"){
+                        $('#password').after('<span class="error">'+data.message+'</span>');
+                     }else if(data.message == "Personal email already exists"){
+                        $('#personal_email').after('<span class="error">'+data.message+'</span>');
+                     }else if (data.message== "Employee created successfully"){
+                            window.location.replace("/employee");
+                        }else{
+                         e.preventDefault();
                         }
               },
               error: (error) => {
                 console.log(error);
+                e.preventDefault();
               }
            });
 
