@@ -124,7 +124,6 @@ class DeleteRole(LoginRequiredMixin, View):
 
 class DepartmentView(LoginRequiredMixin, View):
     def get(self, request):
-        department = Department.objects.all()
         result = {}
         user_depart = CustomUser.objects.select_related('department').filter(is_admin=False)
         for user in user_depart:
@@ -136,7 +135,7 @@ class DepartmentView(LoginRequiredMixin, View):
         #     for id, image_links in value.items():
         #         if len(image_links) > 3:
         #             result[key][id] = result[key][id][:3]
-        return render(request, 'employee-team.html', {'result': result, 'department': department})
+        return render(request, 'employee-team.html', {'result': result})
 
     def post(self, request):
         department_name = request.POST.get('department_name')
@@ -299,7 +298,9 @@ class DeleteEmployee(LoginRequiredMixin, View):
         user = CustomUser.objects.get(id=id)
         user.delete()
         messages.success(request, "Employee deleted successful.")
-        return redirect("/employee")
+        return JsonResponse({'message':"Employee deleted successful."})
+    
+
 def logout_view(request):
     logout(request)
     return redirect('/')
