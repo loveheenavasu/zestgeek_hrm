@@ -39,7 +39,7 @@
    <div class="breadcrumb-path ">
       <ul class="breadcrumb">
          <li class="breadcrumb-item"><a href="/home"><img src="{% static 'assets/img/dash.png' %}" class="mr-2" alt="breadcrumb" />Home</a></li>
-         <li class="breadcrumb-item active"> Employees</li>
+         <li class="breadcrumb-item active"> Designation</li>
       </ul>
    </div>
 </div>
@@ -47,10 +47,10 @@
    <div class="head-link-set">
       <ul>
          <li><a href="/employee">All</a></li>
-         <li><a class="active" href="#">Roles</a></li>
+         <li><a class="active" href="#">Designation</a></li>
          <!--<li><a href="employee-office.html">Offices</a></li>-->
       </ul>
-      <a class="btn-add" data-toggle="modal" data-target="#addteam"><i data-feather="plus"></i> Add Roles</a>
+      <a class="btn-add" data-toggle="modal" data-target="#addteam"><i data-feather="plus"></i> Add Designation</a>
    </div>
 </div>
 <div class="col-xl-12 col-sm-12 col-12 ">
@@ -81,7 +81,7 @@
                            {% if request.user.is_admin or request.user.is_superuser %}
                            <td>
                               <div class="change_edit_color">
-                                <a href="{% url 'update_role' role.id %}" id="{{role.id}}" class="edit_employee" data-toggle="modal" data-target="#edit"><i data-feather="edit"></i></a>
+                                <a href="{% url 'update_role' role.id %}" id="{{role.id}}" class="edit_employee" data-toggle="modal" data-target="#edit">Edit</a>
                               </div>
 <!--                              <div class="btn btn-info change_link_color">-->
 <!--                                 <a href="#">Edit</a>-->
@@ -89,7 +89,7 @@
                            </td>
                            <td>
                               <div class="change_delete_color">
-                               <a href="" id="{{role.id}}" class="delete_employee" data-toggle="modal" data-target="#delete_modal"><i data-feather="trash-2"></i></a>
+                               <a href="" id="{{role.id}}" class="delete_employee" data-toggle="modal" data-target="#delete_modal">Delete</a>
                               </div>
 
                            </td>
@@ -150,7 +150,7 @@
          <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLabela">Create New Role</h5>
+                  <h5 class="modal-title" id="staticBackdropLabela">Create New Designation</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
                   </button>
@@ -178,7 +178,7 @@
          <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLa">Edit Role</h5>
+                  <h5 class="modal-title" id="staticBackdropLa">Edit Designation</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
                   </button>

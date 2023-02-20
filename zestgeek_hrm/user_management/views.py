@@ -260,6 +260,7 @@ class UpdateEmployee(View):
 
     def post(self, request, id):
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            print("i am in")
             idss = request.POST["id"]
             email = request.POST.get('email')
             first_name = request.POST.get('first_name')
@@ -294,8 +295,8 @@ class UpdateEmployee(View):
             user.email = email
             user.password= user.password
             user.save()
-            messages.success(request, "Employee updated successful.")
-            return JsonResponse({'message':"Employee updated successful."})
+            messages.success(request, "Employee updated successfully")
+            return JsonResponse({'message':"Employee updated successfully"})
         
         return redirect("department")
 
