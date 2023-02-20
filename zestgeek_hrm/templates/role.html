@@ -82,17 +82,13 @@
                            </td>
                            {% if request.user.is_admin or request.user.is_superuser %}
                            <td>
-                              <div class="change_edit_color">
-                                <a href="{% url 'update_role' role.id %}" id="{{role.id}}" class="edit_employee" data-toggle="modal" data-target="#edit">Edit</a>
-                              </div>
+                                <a href="{% url 'update_role' role.id %}" id="{{role.id}}" class="edit_employee" data-toggle="modal" data-target="#edit"><img class="svg-icon" src="{% static 'assets/img/edit.png' %}"></a>
 <!--                              <div class="btn btn-info change_link_color">-->
 <!--                                 <a href="#">Edit</a>-->
 <!--                              </div>-->
                            </td>
                            <td>
-                              <div class="change_delete_color">
-                               <a href="" id="{{role.id}}" class="delete_employee" data-toggle="modal" data-target="#delete_modal">Delete</a>
-                              </div>
+                               <a href="" id="{{role.id}}" class="delete_employee" data-toggle="modal" data-target="#delete_modal"><img class="svg-icon" src="{% static 'assets/img/delete.png' %}"></a>
 
                            </td>
                            {% endif %}
