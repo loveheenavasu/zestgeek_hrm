@@ -1961,10 +1961,7 @@ button.bg-danger:hover {
 	margin-right: 3px;
 	position: relative;
 }
-.user-img img{
-	width: 48px;
-    border-radius: 50%;
-}
+
 .dropdown-item img{
 	margin-right: 5px;
 }

@@ -50,7 +50,9 @@
          <li><a class="active" href="#">Designation</a></li>
          <!--<li><a href="employee-office.html">Offices</a></li>-->
       </ul>
+      {% if request.user.is_admin or request.user.is_superuser %}
       <a class="btn-add" data-toggle="modal" data-target="#addteam"><i data-feather="plus"></i> Add Designation</a>
+      {% endif %}
    </div>
 </div>
 <div class="col-xl-12 col-sm-12 col-12 ">
