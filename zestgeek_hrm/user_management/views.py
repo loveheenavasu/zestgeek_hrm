@@ -185,7 +185,7 @@ class DeleteDepartment(LoginRequiredMixin, View):
 
 class EmployeeView(LoginRequiredMixin, View):
     def get(self, request):
-        user = CustomUser.objects.filter(is_admin=False)
+        user = CustomUser.objects.filter(is_admin=False).order_by("-created_at")
         total_employee = user.count()
         role = Role.objects.all()
         department = Department.objects.all()
