@@ -232,12 +232,6 @@ label.error {
     .change_delete_color {
     width: fit-content;
     }
-    .btn-primary {
-
-    padding: 7px 0;
-    width: 75px;
-}
-
 .table {
     width: 100%;
     margin: auto;
@@ -288,6 +282,7 @@ td {
     font-weight: 545;
 }
 
+
 .svg-icon{
  height:25px;
  float: right;
@@ -304,10 +299,5 @@ td {
 .btn-primary {
     padding: 7px 0;
     width: 75px;
-    background-color:#FF8D07;
-}
-.btn-primary {
-    padding: 7px 0;
-    width: 75px;
-    background-color:#FF8D07;
+    background-color:#00882e;
 }

@@ -1,6 +1,37 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+{% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          {% if message.tags == 'success' %}
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+          <script src="{% static 'assets/js/jquery.toast.js' %}"></script>
+            <script>
+               var myToast =$.toast({
+                  heading: 'Success',
+                  text: '{{message}}',
+                  showHideTransition: 'slide',
+                  icon: 'success',
+                  position:'top-right'
+               })
+            </script>
+          {% else %}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+          <script src="{% static 'assets/js/jquery.toast.js' %}"></script>
+            <script>
+               var myToast =$.toast({
+                  heading: 'Error',
+                  text: '{{message}}',
+                  showHideTransition: 'slide',
+                  icon: 'error',
+                  position:'top-right'
+               })
+            </script>
+          {% endif %}
+          {% endfor %}
+      </ul>
+      {% endif %}
    <div class="page-wrapper">
       <div class="content container-fluid">
          <div class="row">
@@ -36,7 +67,7 @@
                         <div class="col-xl-6 col-sm-6 col-12 ">
                            <div class="form-group">
                               <label>Remaining Leaves</label>
-                              <input type="text" value="10" disabled>
+                              <input type="text" value="10" name="remaining_leaves" disabled>
                            </div>
                         </div>
                      </div>
@@ -44,13 +75,13 @@
                         <div class="col-xl-6 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>From </label>
-                              <input type="date">
+                              <input type="date" name="start_date">
                            </div>
                         </div>
                         <div class="col-xl-6 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>To</label>
-                              <input type="date">
+                              <input type="date" name="end_date">
                            </div>
                         </div>
                      </div>
@@ -58,13 +89,13 @@
                         <div class="col-xl-6 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>Comment </label>
-                              <input type="text">
+                              <input type="text" name="comment">
                            </div>
                         </div>
                         <div class="col-xl-6 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>Attachments</label>
-                              <input type="file">
+                              <input type="file" name="attachement">
                            </div>
                         </div>
                      </div>
@@ -73,15 +104,15 @@
                         <div class="col-xl-12 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>Reason </label>
-                              <textarea rows="4" cols="50">	</textarea>
+                              <textarea rows="4" cols="50" name="reason">	</textarea>
                            </div>
                         </div>
                      </div>
                      <div class="row">
                         <div class="col-xl-12 col-sm-12 col-12 ">
                            <div class="form-btn">
-                              <a href="#" class="btn btn-apply">Apply</a>
-                              <a href="#" class="btn btn-secondary">Cancel</a>
+                              <button type="submit" value="submit" class="btn btn-primary">Apply</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                            </div>
                         </div>
                      </div>

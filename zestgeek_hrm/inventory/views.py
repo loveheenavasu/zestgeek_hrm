@@ -35,7 +35,7 @@ class InventoryView(LoginRequiredMixin, View):
 
 class ListingInventory(LoginRequiredMixin, View):
     def get(self, request):
-        user_inventory = CustomUser.objects.all()
+        user_inventory = CustomUser.objects.filter(is_active=True, is_admin=False).all()
         return render(request, "inventory.html", {"data": user_inventory})
 
 

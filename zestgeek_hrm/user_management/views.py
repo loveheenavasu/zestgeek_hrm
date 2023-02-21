@@ -85,11 +85,11 @@ class Roles(LoginRequiredMixin, View):
     def post(self, request):
         role_name = request.POST.get('role_name')
         if Role.objects.filter(role_name=role_name).exists():
-            messages.error(request, "Role already exists.")
+            messages.error(request, "Designation already exists.")
             return redirect("/roles")
         else:
             Role.objects.create(role_name=role_name)
-            messages.success(request, "Role created successful.")
+            messages.success(request, "Designation created successful.")
             return redirect("/roles")
 
 
