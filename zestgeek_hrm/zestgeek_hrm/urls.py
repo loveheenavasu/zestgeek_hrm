@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('user_management.urls')),
     path('', include('inventory.urls')),
-    # path('', include('leaves.urls')),
+    path('', include('leaves.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

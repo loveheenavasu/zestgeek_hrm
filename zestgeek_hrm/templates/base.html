@@ -11,7 +11,6 @@
       <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}">
       <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
       <link rel="stylesheet" href="{% static 'assets/css/jquery.toast.css' %}">
-      <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <!--[if lt IE 9]>
       <script src="{% static 'assets/js/html5shiv.min.js' %}"></script>
@@ -288,6 +287,25 @@ text-align: left;
     border-radius: 50%;
     object-fit: fill;
 }
+.d-flex {
+    padding-left: 300px;
+}
+
+element.style {
+}
+.member-info ul li label {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 400;
+}
+label {
+    color: blue;
+}
+.member-info ul li span {
+    color: #0c0c0b;
+    font-weight: 545;
+}
+
 .svg-icon{
  height:30px;
 }
@@ -396,7 +414,7 @@ text-align: left;
                         <a href="#"><img src="{% static 'assets/img/settings.svg' %}" alt="sidebar_img"><span>Settings</span></a>
                      </li>
                      <li>
-                        <a href="#"><img src="{% static 'assets/img/profile.svg' %}" alt="sidebar_img"> <span>Profile</span></a>
+                        <a href="/employee_profile"><img src="{% static 'assets/img/profile.svg' %}" alt="sidebar_img"> <span>Profile</span></a>
                      </li>
                   </ul>
                   <ul class="logout">
