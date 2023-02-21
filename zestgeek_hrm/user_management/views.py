@@ -73,7 +73,7 @@ class LoginView(View):
             messages.success(request, "Login successfully")
             return redirect('/home')
         else:
-            messages.info(request, 'Invalid Username or Password')
+            messages.error(request, 'Invalid Username or Password')
             return redirect('/')
 
 

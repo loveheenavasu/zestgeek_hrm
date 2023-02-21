@@ -45,8 +45,10 @@
                                 <div class="top-nav-search"> </div>
                             </div>
                         </div>
+                        {% if request.user.is_admin or request.user.is_superuser %}
                         <ul>
                             <li class="active"> <a href="/home"><img src="{% static 'assets/img/home.svg' %}" alt="sidebar_img"> <span>Dashboard</span></a> </li>
+                            <li> <a href="/employee_profile"><img src="{% static 'assets/img/profile.svg' %}" alt="sidebar_img"> <span>Profile</span></a> </li>
                             <li> <a href="/employee"><img src="{% static 'assets/img/employee.svg' %}" alt="sidebar_img"><span> Employees</span></a> </li>
                             <li> <a href="/listing_inventory"><img src="{% static 'assets/img/company.svg' %}" alt="sidebar_img"> <span> Inventory</span></a> </li>
                             <li> <a href="/department"><img src="{% static 'assets/img/calendar.svg' %}" alt="sidebar_img"> <span>Department</span></a> </li>
@@ -54,11 +56,19 @@
                             <li> <a href="/roles"><img src="{% static 'assets/img/calendar.svg' %}" alt="sidebar_img"> <span>Designation</span></a> </li>
                             <li> <a href="/employee_leaves"><img src="{% static 'assets/img/leave.svg' %}" alt="sidebar_img"> <span>Leave</span></a> </li>
                             <li> <a href="#"><img src="{% static 'assets/img/settings.svg' %}" alt="sidebar_img"><span>Settings</span></a> </li>
-                            <li> <a href="/employee_profile"><img src="{% static 'assets/img/profile.svg' %}" alt="sidebar_img"> <span>Profile</span></a> </li>
                         </ul>
                         <ul class="logout">
                             <li> <a href="/logout"><img src="{% static 'assets/img/logout.svg' %}" alt="sidebar_img"><span>Log out</span></a> </li>
                         </ul>
+                        {% else %}
+                        <ul>
+                            <li> <a href="/employee_profile"><img src="{% static 'assets/img/profile.svg' %}" alt="sidebar_img"> <span>Profile</span></a> </li>
+                            <li> <a href="/employee_leaves"><img src="{% static 'assets/img/leave.svg' %}" alt="sidebar_img"> <span>Leave</span></a> </li>
+                        </ul>
+                        <ul class="logout">
+                            <li> <a href="/logout"><img src="{% static 'assets/img/logout.svg' %}" alt="sidebar_img"><span>Log out</span></a> </li>
+                        </ul>
+                        {% endif%}
                     </div>
                 </div>
             </div>
