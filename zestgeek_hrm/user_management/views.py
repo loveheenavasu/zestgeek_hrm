@@ -124,10 +124,13 @@ class DeleteRole(LoginRequiredMixin, View):
 
 class DepartmentView(LoginRequiredMixin, View):
     def get(self, request):
-        departments = Department.objects.all()
+        departments = Department.objects.filter(is_active=True)
         result = {}
-        user_depart = CustomUser.objects.select_related('department').filter(is_admin=False)
+        user_depart = CustomUser.objects.select_related('department').filter(is_admin=False, is_active=True)
         for user in user_depart:
+            # if user.department is None:
+
+
             if user.department.department_name not in result:
                 result[user.department.department_name] = {user.department_id: [user.image.url]}
             else:
@@ -177,18 +180,19 @@ class UpdateDepartment(LoginRequiredMixin, View):
 
 class DeleteDepartment(LoginRequiredMixin, View):
     def get(self, request, id):
-        department = Department.objects.get(id=id)
-        department.delete()
+        department = Department.objects.filter(id=id).update(is_active=False)
+        # department.delete()
+        CustomUser.objects.filter(department=id).update(is_active=False)
         messages.success(request, "Department deleted successful.")
         return redirect("department")
 
 
 class EmployeeView(LoginRequiredMixin, View):
     def get(self, request):
-        user = CustomUser.objects.filter(is_admin=False).order_by("-created_at")
+        user = CustomUser.objects.filter(is_admin=False, is_active=True).order_by("-created_at")
         total_employee = user.count()
         role = Role.objects.all()
-        department = Department.objects.all()
+        department = Department.objects.filter(is_active=True)
         return render(request, 'employee.html',
                       {"user": user, "total_employee": total_employee, "role": role,
                        "department": department})
@@ -302,8 +306,8 @@ class UpdateEmployee(View):
 
 class DeleteEmployee(LoginRequiredMixin, View):
     def get(self, request, id):
-        user = CustomUser.objects.get(id=id)
-        user.delete()
+        user = CustomUser.objects.filter(id=id).update(is_active=False)
+        # user.delete()
         messages.success(request, "Employee deleted successful.")
         return JsonResponse({'message':"Employee deleted successful."})
 

@@ -63,6 +63,7 @@ class Department(BaseModel):
     #     ('SEO', 'SEO')
     # )
     department_name = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.department_name
@@ -95,6 +96,8 @@ class CustomUser(AbstractBaseUser, BaseModel):
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+
     # last_login = None  (Uncomment this if you dont want last_login in the db table)
     USERNAME_FIELD = "email"  # make the user login with the email
     REQUIRED_FIELDS = []
