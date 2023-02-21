@@ -99,6 +99,7 @@
          a.btn-add {
          background: #8dc43d;
          font-size: 15px;
+         padding-right:8px;
          }
          .head-link-set li a {
          padding: 8px;
@@ -256,6 +257,30 @@ label.error {
     width: 75px;
 }
 
+.table {
+    width: 100%;
+    margin: auto;
+    border-collapse: collapse;
+}
+.custom-table th:nth-child(2), .custom-table th:nth-child(3) {
+    text-align: right;
+}
+.change_edit_color{
+    width: 60px;
+    margin-left: auto;
+}
+.custom-table th:nth-child(2)  {
+    padding-right: 20px;
+    text-align: right;
+}
+
+.change_delete_color  {
+ margin-right: auto;
+}
+.custom-table th:nth-child(3) {
+text-align: left;
+}
+
 .user-img img {
     width: 48px;
     height: 48px;
@@ -281,6 +306,20 @@ label {
     font-weight: 545;
 }
 
+.svg-icon{
+ height:30px;
+}
+.btn-primary {
+    padding: 7px 0;
+    width: 75px;
+    background-color:#FF8D07;
+}
+.btn-primary {
+    padding: 7px 0;
+    width: 75px;
+    background-color:#FF8D07;
+}
+
       </style>
    </head>
    <body>
@@ -291,7 +330,7 @@ label {
             <img src="{% static 'assets/img/logo.png' %}" alt="Logo">
             </a> &nbsp;&nbsp;&nbsp;&nbsp;
             <a href="/home" class="logo logo-small">
-            <img src="{% static 'assets/img/logo-small.png' %}" alt="Logo" width="30" height="30">
+            <h1 style="margin-top:10px">ZG</h1>
             </a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="javascript:void(0);" id="toggle_btn">
             <span class="bar-icon">
@@ -391,6 +430,7 @@ label {
       
       {% endblock %}
       
+         <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
       <script src="{% static 'assets/js/popper.min.js' %}"></script>
       <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
       <script src="{% static 'assets/js/jquery.toast.js' %}"></script>

@@ -73,14 +73,14 @@
                      <thead>
                         <tr>
                            <th>Image</th>
-                           <th>Employee Name</th>
+                           <th>Name</th>
                            <th>Email</th>
                            <th>Designation</th>
                            <th>Department</th>
                            <th>Phone Number</th>
                            <th>Inventory</th>
                            {% if request.user.is_admin or request.user.is_superuser %}
-                           <th>Edit</th>
+                           <th class="text-right">Edit</th>
                            <th>Delete</th>
                            {% endif %}
                         </tr>
@@ -91,7 +91,6 @@
                            <td>
                               <div class="table-img">
                                  <img src="{{i.image.url}}" alt="profile" class="img-table" />
-
                               </div>
                            </td>
                            <td>

@@ -6328,8 +6328,9 @@ label.logo-upload {
 	.mini-sidebar .header .header-left .logo {
 		display: none;
 	}
-	.mini-sidebar .header-left .logo.logo-small {
-		display: block;
+
+
+
 	}
 	.mini-sidebar .header .header-left {
 		padding: 0 5px;

@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 {% if messages %}
+
       <ul class="messages">
           {% for message in messages %}
           {% if message.tags == 'success' %}
@@ -71,8 +72,8 @@
 
                   {% if request.user.is_admin or request.user.is_superuser %}
                   <ul>
-                     <li><a href="{% url 'update_department' id %}" id="{{id}}" class="edit_employee" data-toggle="modal" data-target="#edit"><i data-feather="edit"></i></a></li>
-                     <li><a href="" id="{{id}}" class="delete_employee" data-toggle="modal" data-target="#delete_modal"><i data-feather="trash-2"></i></a></li>
+                     <li><a href="{% url 'update_department' id %}" id="{{id}}" class="edit_employee" data-toggle="modal" data-target="#edit"><img class="svg-icon" src="{% static 'assets/img/edit.png' %}"></a></li>
+                     <li><a href="" id="{{id}}" class="delete_employee" data-toggle="modal" data-target="#delete_modal"><img class="svg-icon" src="{% static 'assets/img/delete.png' %}"></a></li>
                   </ul>
                   {% endif %}
 
