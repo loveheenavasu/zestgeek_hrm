@@ -83,6 +83,7 @@
                            <th class="text-right">Edit</th>
                            <th>Delete</th>
                            {% endif %}
+                           <th>Active/Inactive</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -123,6 +124,10 @@
 
                            </td>
                            {% endif %}
+                           <td><label class="toggle-btn">
+  <input type="checkbox">
+  <span class="slider"></span>
+</label></td>
                         </tr>
                         {%endfor%}
                      </tbody>
