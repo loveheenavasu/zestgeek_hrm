@@ -326,5 +326,3 @@ def home(request):
 # def employee_index(request):
 #     return render(request, 'index-employee.html')
 
-def restricted(request):
-    return render(request, 'restricted.html')

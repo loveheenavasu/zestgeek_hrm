@@ -17,5 +17,4 @@ urlpatterns = [
     path('delete_department/<id>', DeleteDepartment.as_view(), name="delete_department"),
     path('employee', EmployeeView.as_view()),
     path('logout', views.logout_view),
-    path('restricted/', views.restricted, name='restricted'),
 ]

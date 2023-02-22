@@ -7,7 +7,7 @@ import uuid
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, email, password=None, is_superuser=False, **extra_fields):
         """
         Creates and saves a User with the given email and password.
         """
@@ -15,7 +15,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Users must have an email address')
 
         user = self.model(
-            email=self.normalize_email(email), **extra_fields
+            email=self.normalize_email(email),is_superuser=is_superuser, **extra_fields
         )
         user.set_password(password)
         user.save(using=self._db)
@@ -93,7 +93,7 @@ class CustomUser(AbstractBaseUser, BaseModel):
     phone_number = models.CharField(max_length=100, null=True, blank=True)
     alternate_phone_number = models.CharField(max_length=100, null=True, blank=True)
     joined_date = models.DateField(null=True, blank=True)
-    is_superuser = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -110,54 +110,9 @@ class CustomUser(AbstractBaseUser, BaseModel):
     def has_module_perms(self, app_label):
         return self.is_admin
 
-    def is_staff(self):
-        "Is the user a member of staff?"
-        return self.is_staff
+    # def is_staff(self):
+    #     "Is the user a member of staff?"
+    #     return self.is_staff
 
     def __str__(self):
         return self.email
-
-
-
-# class BankDetails(models.Model):
-#     bank_name = models.CharField(max_length=100, null=True, blank=True)
-#     iifc_code = models.CharField(max_length=100, null=True, blank=True)
-#     account_number = models.BigIntegerField(null=True, blank=True)
-#     salary = models.IntegerField(null=True, blank=True)
-#     is_active = models.BooleanField(default=True, null=True, blank=True)
-#     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-#     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
-
-
-# class ContactDetails(models.Model):
-#     address = models.CharField(max_length=100, null=True, blank=True)
-#     phone_number = models.CharField(max_length=100, null=True, blank=True)
-#     is_active = models.BooleanField(default=True, null=True, blank=True)
-#     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-#     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
-
-
-# class Profile(models.Model):
-#     GENDER_CHOICES = (
-#         ('MALE', 'MALE'),
-#         ('FEMALE', 'FEMALE'),
-#         ('UNSPECIFIED', 'UNSPECIFIED'),
-#     )
-#     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
-#     gender = models.CharField(max_length=100, choices=GENDER_CHOICES)
-#     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-#     image = models.CharField(max_length=100, null=True, blank=True)
-#     contact = models.ManyToManyField(ContactDetails)
-#     temperory_address = models.CharField(max_length=100, null=True, blank=True)
-#     permanent_address = models.CharField(max_length=100, null=True, blank=True)
-#     phone_number = models.CharField(max_length=100, null=True, blank=True)
-#     alternate_phone_number = models.CharField(max_length=100, null=True, blank=True)
-#     department = models.ForeignKey(Department, on_delete=models.CASCADE)
-#     joined_date = models.DateField()
-    # is_active = models.BooleanField(default=True, null=True, blank=True)
-    # bank = models.ForeignKey(BankDetails, on_delete=models.CASCADE)
-    # created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    # updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
-
-    # def __str__(self):
-    #     return self.user.first_name
