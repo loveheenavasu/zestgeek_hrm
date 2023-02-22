@@ -53,10 +53,10 @@
                   </div>
                   <div class="form-creation">
                      <div class="row">
-                        <div class="col-xl-6 col-sm-6 col-12 ">
+                        <div class="col-xl-2 col-sm-6 col-12 ">
                            <div class="form-group">
                               <label>Leave Type <span class="mandatory">*</span> </label>
-                              <select class="select">
+                              <select class="select" name="leave_type" id="leave-type">
                                  <option value="Select leave">Select leave</option>
                                  <option value="Fullday">Fullday</option>
                                  <option value="Halfday">Halfday</option>
@@ -64,35 +64,56 @@
                               </select>
                            </div>
                         </div>
-                        <div class="col-xl-6 col-sm-6 col-12 ">
-                           <div class="form-group">
-                              <label>Remaining Leaves</label>
-                              <input type="text" value="10" name="remaining_leaves" disabled>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-xl-6 col-sm-12 col-12 ">
+
+
+                        <div class="col-xl-2 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>From </label>
                               <input type="date" name="start_date">
                            </div>
                         </div>
-                        <div class="col-xl-6 col-sm-12 col-12 ">
+                        <div class="col-xl-2 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>To</label>
                               <input type="date" name="end_date">
                            </div>
                         </div>
+                        <div class="col-xl-2 col-sm-6 col-12 " id="time-input">
+                           <div class="form-group">
+                              <label>Time-From</label>
+                              <input type="time" name="time" >
+                           </div>
+                        </div>
+                        <div class="col-xl-2 col-sm-6 col-12 " id="time-inputs">
+                           <div class="form-group">
+                              <label>Time-To</label>
+                              <input type="time" name="time" >
+                           </div>
+                        </div>
+                        <div class="col-xl-2 col-sm-6 col-12 ">
+                           <div class="form-group">
+                              <label></label>
+                                <button id="add">add</button>
+
+                           </div>
+                        </div>
+
                      </div>
+                     <div class="new_class"></div>
                      <div class="row">
-                        <div class="col-xl-6 col-sm-12 col-12 ">
+                          <div class="col-xl-4 col-sm-6 col-12 ">
+                           <div class="form-group">
+                              <label>Remaining Leaves</label>
+                              <input type="text" value="10" name="remaining_leaves" disabled>
+                           </div>
+                        </div>
+                        <div class="col-xl-4 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>Comment </label>
                               <input type="text" name="comment">
                            </div>
                         </div>
-                        <div class="col-xl-6 col-sm-12 col-12 ">
+                        <div class="col-xl-4 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>Attachments</label>
                               <input type="file" name="attachement">
@@ -328,4 +349,86 @@
       </div>
    </div>
 </div>
+<script>
+$(document).ready(function() {
+  // hide the time input field on page load
+  $('#time-input').hide();
+  $('#time-inputs').hide();
+
+  // listen for changes to the leave type field using event delegation
+$('body').on('change', '#leave-type', function() {
+    if ($(this).val() === 'Fullday') {
+      // if the leave type is 'Fullday', hide the time input field
+      $(this).closest('.row').find('#time-input').hide();
+      $(this).closest('.row').find('#time-inputs').hide();
+    } else {
+      // otherwise, show the time input field
+      $(this).closest('.row').find('#time-input').show();
+      $(this).closest('.row').find('#time-inputs').show();
+    }
+  });
+
+  $("#add").click(function(e) {
+    console.log('hello');
+    var newId = $('.row').length + 1;
+    var newRow = '<div class="row">' +
+                 '<div class="col-xl-2 col-sm-6 col-12 ">' +
+                   '<div class="form-group">' +
+                     '<label>Leave Type <span class="mandatory">*</span></label>' +
+                     '<select class="select" name="leave_type" id="leave-type">' +
+                       '<option value="Select leave">Select leave</option>' +
+                       '<option value="Fullday">Fullday</option>' +
+                       '<option value="Halfday">Halfday</option>' +
+                       '<option value="Shortleave">Shortleave</option>' +
+                     '</select>' +
+                   '</div>' +
+                 '</div>' +
+                 '<div class="col-xl-2 col-sm-12 col-12 ">' +
+                   '<div class="form-group">' +
+                     '<label>From</label>' +
+                     '<input type="date" name="start_date">' +
+                   '</div>' +
+                 '</div>' +
+                 '<div class="col-xl-2 col-sm-12 col-12 ">' +
+                   '<div class="form-group">' +
+                     '<label>To</label>' +
+                     '<input type="date" name="end_date">' +
+                   '</div>' +
+                 '</div>' +
+                 '<div class="col-xl-2 col-sm-6 col-12" id="time-input">' +
+                   '<div class="form-group">' +
+                     '<label>Time-From</label>' +
+                     '<input type="time" name="time">' +
+                   '</div>' +
+                 '</div>' +
+                 '<div class="col-xl-2 col-sm-6 col-12" id="time-inputs">' +
+                   '<div class="form-group">' +
+                     '<label>Time-To</label>' +
+                     '<input type="time" name="time">' +
+                   '</div>' +
+                 '</div>' +
+                 '<div class="col-xl-2 col-sm-6 col-12 ">' +
+                   '<div class="form-group">' +
+                     '<label></label>' +
+                       '<input type="button" name="deleteRow" value="x" class="deleteRow" style="color:red; font-size:16px;">' +
+                     '</div>' +
+                   '</div>' +
+                 '</div>';
+    $(".new_class").append(newRow);
+    $('.new_class .row:last-child #time-input').hide();
+    $('.new_class .row:last-child #time-inputs').hide();
+  });
+
+  // Delete the row when the "x" button is clicked
+  $(document).on("click", ".deleteRow", function() {
+    $(this).closest(".row").remove();
+  });
+});
+
+
+
+
+</script>
+
+
 {% endblock %}

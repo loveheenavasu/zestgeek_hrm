@@ -2,10 +2,9 @@ from django.urls import path
 from user_management.views import *
 from . import views
 urlpatterns = [
-    path('add-employee', Register.as_view()),
+
     path("home", views.home, name="home"),
     # path("employee_index", views.employee_index, name="home"),
-    path('register', Register.as_view()),
     path('roles', Roles.as_view()),
     path('update_role/<id>', UpdateRole.as_view(), name="update_role"),
     path('delete_role/<id>', DeleteRole.as_view(), name="delete_role"),

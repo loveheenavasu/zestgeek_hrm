@@ -19,8 +19,10 @@ class EmployeeLeaves(LoginRequiredMixin,View):
         attachments = request.FILES.get('attachments')
         comments = request.POST.get('comments')
         leave_type = request.POST.get('leave_type')
+        user_id = request.user.id
+        userr = CustomUser.objects.get(id=user_id)
         name_dept = Department.objects.get(dept_name=dept_name)
-        emp_leave = Leaves.objects.create(dept_name=name_dept, start_date=start_date, end_date=end_date, reason=reason, remaining_leaves=remaining_leaves,
+        emp_leave = Leaves.objects.create(user=userr,dept_name=name_dept, start_date=start_date, end_date=end_date, reason=reason, remaining_leaves=remaining_leaves,
                                           attachments=attachments, comments=comments)
         LeavesDetails.objects.create(leave=emp_leave, leave_type=leave_type)
         messages.success(request, "Leave applied successfully.")
