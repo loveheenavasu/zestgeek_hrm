@@ -1,11 +1,12 @@
 from django.db import models
-from user_management.models import Department
+from user_management.models import Department,CustomUser
 from user_management.base import BaseModel
 
 # Create your models here.
 
 
 class Leaves(BaseModel):
+    user = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     dept_name = models.ForeignKey(Department, on_delete=models.DO_NOTHING)
 
     STATUS_CHOICE = (

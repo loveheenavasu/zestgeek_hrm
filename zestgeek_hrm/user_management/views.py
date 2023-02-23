@@ -11,53 +11,6 @@ from django.core import serializers
 import json
 
 # Create your views here.
-class Register(LoginRequiredMixin, View):
-    def get(self, request):
-        role = Role.objects.all()
-        department = Department.objects.all()
-        return render(request, "register.html", {"role": role, "department": department})
-
-    def post(self, request):
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        confirm_password = request.POST.get('confirm_password')
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        role = request.POST.get('role')
-        personal_email = request.POST.get('personal_email')
-        gender = request.POST.get('gender')
-        temporary_address = request.POST.get('temporary_address')
-        permanent_address = request.POST.get('permanent_address')
-        phone_number = request.POST.get('phone_number')
-        alternate_phone_number = request.POST.get('alternate_phone_number')
-        department = request.POST.get('department')
-        joined_date = request.POST.get('joined_date')
-        image = request.FILES.get("image")
-
-        if CustomUser.objects.filter(email=email).exists():
-            print("already exists")
-            messages.error(request, "Email already exists")
-            return redirect('/register')
-
-        elif password != confirm_password:
-            messages.error(request, "Passwords do not match.")
-            return redirect('/register')
-        else:
-            roles = Role.objects.get(role_name=role)
-            dep = Department.objects.get(department_name=department)
-            CustomUser.objects.create_user(email=email, password=password, role=roles, first_name=first_name,
-                                           last_name=last_name, personal_email=personal_email
-                                           , gender=gender, temporary_address=temporary_address,
-                                           permanent_address=permanent_address, phone_number=phone_number,
-                                           alternate_phone_number=alternate_phone_number, department=dep,
-                                           joined_date=joined_date, image=image)
-
-            messages.success(request, "Registration successful.")
-            print("successful")
-
-            return redirect("/home")
-
-
 class LoginView(View):
     def get(self, request):
         if request.user.is_authenticated:
