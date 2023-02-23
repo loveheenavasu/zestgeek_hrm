@@ -10,17 +10,18 @@ class Leaves(BaseModel):
     dept_name = models.ForeignKey(Department, on_delete=models.DO_NOTHING)
 
     STATUS_CHOICE = (
-        ("Accepted", "Accepted"), ("Pending", "Pending"), ("Cancelled", "Cancelled"), ("Partialaccepted", "Partialaccepted")
+        ("Accepted", "Accepted"), ("Pending", "Pending"), ("Cancelled", "Cancelled"), ("Partiall Accepted", "Partially Accepted")
     )
     status = models.CharField(max_length=20, choices=STATUS_CHOICE, default="Pending")
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
-    start_time = models.TimeField(blank=True, null=True, default=None)
-    end_time = models.TimeField(blank=True, null=True, default=None)
+    # start_time = models.TimeField(blank=True, null=True, default=None)
+    # end_time = models.TimeField(blank=True, null=True, default=None)
     reason = models.CharField(max_length=200)
     remaining_leaves = models.IntegerField()
     attachments = models.FileField(upload_to='attachments/', null=True, blank=True)
     comments = models.CharField(max_length=200, null=True, blank=True)
+    days = models.IntegerField()
     approval_by = models.CharField(max_length=200, null=True, blank=True)
     approval_date = models.DateTimeField(null=True, blank=True)
 
@@ -35,8 +36,9 @@ class LeavesDetails(BaseModel):
         ("Accepted", "Accepted"), ("Pending", "Pending"), ("Cancelled", "Cancelled")
     )
     status = models.CharField(max_length=12, choices=STATUS_CHOICE, default="PENDING")
-    start_date = models.DateField(auto_now=False)
-    end_date = models.DateField(auto_now=False)
-    days = models.IntegerField()
+    start_date = models.DateField(auto_now=False, null=True, blank=True)
+    end_date = models.DateField(auto_now=False, null=True, blank=True)
+    start_time = models.TimeField(blank=True, null=True, default=None)
+    end_time = models.TimeField(blank=True, null=True, default=None)
 
 
