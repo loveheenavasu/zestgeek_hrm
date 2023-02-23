@@ -60,7 +60,6 @@
                            <div class="form-group">
                               <label>Leave Type <span class="mandatory">*</span> </label>
                               <select class="select" name="leave_type" id="leave-type">
-                                 <option value="Select leave">Select leave</option>
                                  <option value="Fullday">Fullday</option>
                                  <option value="Halfday">Halfday</option>
                                  <option value="Shortleave">Shortleave</option>
@@ -136,9 +135,7 @@
                                <label for="department" class="form-control-label">Department</label>
                         <!--<input class="form-control" name="department" placeholder="Select department">-->
                         <select id="department" name="department" class="form-control">
-                           {% for dep in dept%}
-                           <option value="{{dep.department_name}}">{{dep.department_name}}</option>
-                           {% endfor %}
+                           <option value="{{dep.department_name}}">{{request.user.department.department_name}}</option>
                         </select>
                            </div>
                         </div>
