@@ -51,7 +51,10 @@
                   <div class="card-header">
                      <h2 class="card-titles">Apply Leaves</h2>
                   </div>
+
                   <div class="form-creation">
+                      <form method="post" action="">
+                          {% csrf_token %}
                      <div class="row">
                         <div class="col-xl-2 col-sm-6 col-12 ">
                            <div class="form-group">
@@ -81,13 +84,13 @@
                         <div class="col-xl-2 col-sm-6 col-12 " id="time-input">
                            <div class="form-group">
                               <label>Time-From</label>
-                              <input type="time" name="time" >
+                              <input type="time" name="start_time" >
                            </div>
                         </div>
                         <div class="col-xl-2 col-sm-6 col-12 " id="time-inputs">
                            <div class="form-group">
                               <label>Time-To</label>
-                              <input type="time" name="time" >
+                              <input type="time" name="end_time" >
                            </div>
                         </div>
                         <div class="col-xl-2 col-sm-6 col-12 ">
@@ -122,10 +125,21 @@
                      </div>
 
                      <div class="row">
-                        <div class="col-xl-12 col-sm-12 col-12 ">
+                        <div class="col-xl-6 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>Reason </label>
-                              <textarea rows="4" cols="50" name="reason">	</textarea>
+                              <textarea rows="2" cols="50" name="reason">	</textarea>
+                           </div>
+                        </div>
+                        <div class="col-xl-6 col-sm-12 col-12 ">
+                           <div class="form-group">
+                               <label for="department" class="form-control-label">Department</label>
+                        <!--<input class="form-control" name="department" placeholder="Select department">-->
+                        <select id="department" name="department" class="form-control">
+                           {% for dep in dept%}
+                           <option value="{{dep.department_name}}">{{dep.department_name}}</option>
+                           {% endfor %}
+                        </select>
                            </div>
                         </div>
                      </div>
@@ -137,7 +151,9 @@
                            </div>
                         </div>
                      </div>
+                                </form>
                   </div>
+
                </div>
             </div>
          </div>
@@ -398,13 +414,13 @@ $('body').on('change', '#leave-type', function() {
                  '<div class="col-xl-2 col-sm-6 col-12" id="time-input">' +
                    '<div class="form-group">' +
                      '<label>Time-From</label>' +
-                     '<input type="time" name="time">' +
+                     '<input type="time" name="start_time">' +
                    '</div>' +
                  '</div>' +
                  '<div class="col-xl-2 col-sm-6 col-12" id="time-inputs">' +
                    '<div class="form-group">' +
                      '<label>Time-To</label>' +
-                     '<input type="time" name="time">' +
+                     '<input type="time" name="end_time">' +
                    '</div>' +
                  '</div>' +
                  '<div class="col-xl-2 col-sm-6 col-12 ">' +

@@ -13,8 +13,10 @@ class Leaves(BaseModel):
         ("Accepted", "Accepted"), ("Pending", "Pending"), ("Cancelled", "Cancelled"), ("Partialaccepted", "Partialaccepted")
     )
     status = models.CharField(max_length=20, choices=STATUS_CHOICE, default="Pending")
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
+    start_time = models.TimeField(blank=True, null=True)
+    end_time = models.TimeField(blank=True, null=True)
     reason = models.CharField(max_length=200)
     remaining_leaves = models.IntegerField()
     attachments = models.FileField(upload_to='attachments/', null=True, blank=True)
@@ -33,8 +35,8 @@ class LeavesDetails(BaseModel):
         ("Accepted", "Accepted"), ("Pending", "Pending"), ("Cancelled", "Cancelled")
     )
     status = models.CharField(max_length=12, choices=STATUS_CHOICE, default="PENDING")
-    from_date = models.DateField(auto_now=False)
-    to_date = models.DateField(auto_now=False)
+    start_date = models.DateField(auto_now=False)
+    end_date = models.DateField(auto_now=False)
     days = models.IntegerField()
 
 
