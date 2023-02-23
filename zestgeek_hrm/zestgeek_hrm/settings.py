@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'zestgeek_hrm.wsgi.application'
 
 AUTH_USER_MODEL = 'user_management.CustomUser'
 
-
+DATE_INPUT_FORMATS = ['%Y-%m-%d']
 #
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -134,7 +134,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 

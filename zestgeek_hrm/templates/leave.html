@@ -72,13 +72,13 @@
                         <div class="col-xl-2 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>From </label>
-                              <input type="date" name="start_date">
+                              <input type="date" name="start_date" required>
                            </div>
                         </div>
                         <div class="col-xl-2 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>To</label>
-                              <input type="date" name="end_date">
+                              <input type="date" name="end_date" required>
                            </div>
                         </div>
                         <div class="col-xl-2 col-sm-6 col-12 " id="time-input">
@@ -402,13 +402,13 @@ $('body').on('change', '#leave-type', function() {
                  '<div class="col-xl-2 col-sm-12 col-12 ">' +
                    '<div class="form-group">' +
                      '<label>From</label>' +
-                     '<input type="date" name="start_date">' +
+                     '<input type="date" name="start_date" required>' +
                    '</div>' +
                  '</div>' +
                  '<div class="col-xl-2 col-sm-12 col-12 ">' +
                    '<div class="form-group">' +
                      '<label>To</label>' +
-                     '<input type="date" name="end_date">' +
+                     '<input type="date" name="end_date" required>' +
                    '</div>' +
                  '</div>' +
                  '<div class="col-xl-2 col-sm-6 col-12" id="time-input">' +
@@ -441,6 +441,25 @@ $('body').on('change', '#leave-type', function() {
   });
 });
 
+// add event listener to form submit event
+$('form').on('submit', function(e) {
+    e.preventDefault(); // prevent default form submission behavior
+    var form_data = $(this).serialize(); // serialize form data
+    alert(form_data)
+    // send AJAX request to Django view
+    $.ajax({
+        type: 'POST',
+        url: '/employee_leaves',
+        data: form_data,
+        success: function(response) {
+            // handle successful response
+           window.location.reload();
+        },
+        error: function(response) {
+            // handle error response
+        }
+    });
+});
 
 
 
