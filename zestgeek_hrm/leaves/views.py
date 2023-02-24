@@ -35,6 +35,7 @@ class EmployeeLeaves(LoginRequiredMixin,View):
                 user_id = request.user.id
                 userr = CustomUser.objects.get(id=user_id)
                 dept_name = request.POST.get('department')
+                print(request.POST.get('department'),"-----dept_namedept_namedept_namedept_namedept_namedept_name")
                 name_dept = Department.objects.get(department_name=dept_name)
                 emp_leave = Leaves.objects.create(user=userr,dept_name=name_dept, start_date=change_date(start_date[0]), end_date=change_date(end_date[-1]), reason=reason, remaining_leaves=remaining_leaves,
                                                   attachments=attachments, comments=comments, days=(change_date(end_date[-1])-change_date(start_date[0])).days)
@@ -62,7 +63,8 @@ class EmployeeLeaves(LoginRequiredMixin,View):
                 return JsonResponse({'message':"successfully"})
             return redirect("/employee_leaves")
         except Exception as e:
-            print(e)
+            print(e),"lllllllllllll"
+            return redirect("/employee_leaves")
 class EmployeeProfile(LoginRequiredMixin,View):
     def get(self, request):
         user_id = request.user.id
