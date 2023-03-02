@@ -56,69 +56,39 @@
                       <form method="post" action="">
                           {% csrf_token %}
                      <div class="row">
-                        <div class="col-xl-2 col-sm-6 col-12 ">
-                           <div class="form-group">
-                              <label>Leave Type <span class="mandatory">*</span> </label>
-                              <select class="select" name="leave_type" id="leave-type">
-                                 <option value="Fullday">Fullday</option>
-                                 <option value="Halfday">Halfday</option>
-                                 <option value="Shortleave">Shortleave</option>
-                              </select>
-                           </div>
-                        </div>
 
-
-                        <div class="col-xl-2 col-sm-12 col-12 ">
+                        <div class="col-xl-6 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>From </label>
                               <input type="date" name="start_date" required>
                            </div>
                         </div>
-                        <div class="col-xl-2 col-sm-12 col-12 ">
+                        <div class="col-xl-6 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>To</label>
-                              <input type="date" name="end_date" required>
+                              <input type="date" name="end_date" required> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                               <button id="add">add</button>
                            </div>
                         </div>
-                        <div class="col-xl-2 col-sm-6 col-12 " id="time-input">
-                           <div class="form-group">
-                              <label>Time-From</label>
-                              <input type="time" name="start_time" >
-                           </div>
-                        </div>
-                        <div class="col-xl-2 col-sm-6 col-12 " id="time-inputs">
-                           <div class="form-group">
-                              <label>Time-To</label>
-                              <input type="time" name="end_time" >
-                           </div>
-                        </div>
-                        <div class="col-xl-2 col-sm-6 col-12 ">
-                           <div class="form-group">
-                              <label></label>
-                                <button id="add">add</button>
-
-                           </div>
-                        </div>
-
                      </div>
                      <div class="new_class"></div>
                      <div class="row">
                           <div class="col-xl-4 col-sm-6 col-12 ">
                            <div class="form-group">
                               <label>Remaining Leaves</label>
-                              <input type="text" value="10" name="remaining_leaves" disabled>
+                              <input type="text" value="10" name="remaining_leaves" class="remaining_leaves" disabled>
                            </div>
                         </div>
                         <div class="col-xl-4 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>Comment </label>
-                              <input type="text" name="comment">
+                              <input type="text" name="comment" class="comment">
                            </div>
                         </div>
                         <div class="col-xl-4 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>Attachments</label>
-                              <input type="file" name="attachement">
+                              <input type="file" name="attachement" class="attachement">
                            </div>
                         </div>
                      </div>
@@ -127,14 +97,14 @@
                         <div class="col-xl-6 col-sm-12 col-12 ">
                            <div class="form-group">
                               <label>Reason </label>
-                              <textarea rows="2" cols="50" name="reason">	</textarea>
+                              <textarea rows="2" cols="50" name="reason" class="reason">	</textarea>
                            </div>
                         </div>
                         <div class="col-xl-6 col-sm-12 col-12 ">
                            <div class="form-group">
                                <label for="department" class="form-control-label">Department</label>
                         <!--<input class="form-control" name="department" placeholder="Select department">-->
-                        <select id="department" name="department" class="form-control">
+                        <select id="department" name="department" class="form-control department">
                            <option value="{{request.user.department.department_name}}">{{request.user.department.department_name}}</option>
                         </select>
                            </div>
@@ -295,173 +265,117 @@
          </div>
       </div>
    </div>
-   <div class="customize_popup">
-      <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLabel">Edit Office</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                  </button>
-               </div>
-               <div class="modal-body">
-                  <div class=" col-md-12 p-0">
-                     <div class=" form-popup">
-                        <label>Office Name</label>
-                        <input type="text">
-                     </div>
-                  </div>
-               </div>
-               <div class="modal-footer">
-                  <button type="button" class="btn btn-apply">Apply</button>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <div class="customize_popup">
-      <div class="modal fade" id="editmember" tabindex="-1" aria-labelledby="staticBackdropLabels" aria-hidden="true">
-         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLabels">Edit Member</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-                  </button>
-               </div>
-               <div class="modal-body">
-                  <div class=" col-md-12 p-0">
-                     <div class=" form-popup">
-                        <input type="text" placeholder="Member Name">
-                     </div>
-                  </div>
-               </div>
-               <div class="modal-footer">
-                  <button type="button" class="btn btn-primary">Save</button>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <div class="customize_popup">
-      <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="staticBackdropLabels1" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-               <div class="modal-header text-centers border-0">
-                  <h5 class="modal-title text-center" id="staticBackdropLabels1">Are You Sure Want to Delete?</h5>
-               </div>
-               <div class="modal-footer text-centers">
-                  <button type="button" class="btn btn-primary">Delete</button>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
+
 </div>
+
 <script>
 $(document).ready(function() {
-  // hide the time input field on page load
-  $('#time-input').hide();
-  $('#time-inputs').hide();
-
-  // listen for changes to the leave type field using event delegation
-$('body').on('change', '#leave-type', function() {
-    if ($(this).val() === 'Fullday') {
-      // if the leave type is 'Fullday', hide the time input field
-      $(this).closest('.row').find('#time-input').hide();
-      $(this).closest('.row').find('#time-inputs').hide();
-    } else {
-      // otherwise, show the time input field
-      $(this).closest('.row').find('#time-input').show();
-      $(this).closest('.row').find('#time-inputs').show();
+  $('#add').click(function() {
+    var start_date = $('input[name="start_date"]').val();
+    var end_date = $('input[name="end_date"]').val();
+    var date1 = new Date(start_date);
+    var date2 = new Date(end_date);
+    var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    var html = '';
+    for (var i = 0; i <= diffDays; i++) {
+      html += '<div class="row">';
+      html += '<div class="col-xl-2 col-sm-6 col-12">';
+      html += '<div class="form-group">';
+      html += '<label>Leave Type <span class="mandatory">*</span> </label>';
+      html += '<select class="select leave_type" name="leave_type[]" id="leave-type">';
+      html += '<option value="Select">Select</option>';
+      html += '<option value="Fullday">Fullday</option>';
+      html += '<option value="Halfday">Halfday</option>';
+      html += '<option value="Shortleave">Shortleave</option>';
+      html += '</select>';
+      html += '<div class="error-message" style="display:none; color:red;">Please select Leave type</div>';
+      html += '</div>';
+      html += '</div>';
+      html += '<div class="col-xl-2 col-sm-12 col-12">';
+      html += '<div class="form-group">';
+      html += '<label>Date </label>';
+      html += '<input type="date" class="start_date" name="start_date[]" required>';
+      html += '</div>';
+      html += '</div>';
+      html += '<div class="col-xl-2 col-sm-6 col-12 time-input" id="time-input">';
+      html += '<div class="form-group">';
+      html += '<label>Time-From</label>';
+      html += '<input type="time" class="start_time" name="start_time[]">';
+      html += '</div>';
+      html += '</div>';
+      html += '<div class="col-xl-2 col-sm-6 col-12 time-inputs" id="time-inputs">';
+      html += '<div class="form-group">';
+      html += '<label>Time-To</label>';
+      html += '<input type="time" class="end_time" name="end_time[]">';
+      html += '</div>';
+      html += '</div>';
+      html += '</div>';
     }
-  });
+    $('.new_class').html(html);
 
-  $("#add").click(function(e) {
-    console.log('hello');
-    var newId = $('.row').length + 1;
-    var newRow = '<div class="row">' +
-                 '<div class="col-xl-2 col-sm-6 col-12 ">' +
-                   '<div class="form-group">' +
-                     '<label>Leave Type <span class="mandatory">*</span></label>' +
-                     '<select class="select" name="leave_type" id="leave-type">' +
-                       '<option value="Fullday">Fullday</option>' +
-                       '<option value="Halfday">Halfday</option>' +
-                       '<option value="Shortleave">Shortleave</option>' +
-                     '</select>' +
-                   '</div>' +
-                 '</div>' +
-                 '<div class="col-xl-2 col-sm-12 col-12 ">' +
-                   '<div class="form-group">' +
-                     '<label>From</label>' +
-                     '<input type="date" name="start_date" required>' +
-                   '</div>' +
-                 '</div>' +
-                 '<div class="col-xl-2 col-sm-12 col-12 ">' +
-                   '<div class="form-group">' +
-                     '<label>To</label>' +
-                     '<input type="date" name="end_date" required>' +
-                   '</div>' +
-                 '</div>' +
-                 '<div class="col-xl-2 col-sm-6 col-12" id="time-input">' +
-                   '<div class="form-group">' +
-                     '<label>Time-From</label>' +
-                     '<input type="time" name="start_time">' +
-                   '</div>' +
-                 '</div>' +
-                 '<div class="col-xl-2 col-sm-6 col-12" id="time-inputs">' +
-                   '<div class="form-group">' +
-                     '<label>Time-To</label>' +
-                     '<input type="time" name="end_time">' +
-                   '</div>' +
-                 '</div>' +
-                 '<div class="col-xl-2 col-sm-6 col-12 ">' +
-                   '<div class="form-group">' +
-                     '<label></label>' +
-                       '<input type="button" name="deleteRow" value="x" class="deleteRow" style="color:red; font-size:16px;">' +
-                     '</div>' +
-                   '</div>' +
-                 '</div>';
-    $(".new_class").append(newRow);
-    $('.new_class .row:last-child #time-input').hide();
-    $('.new_class .row:last-child #time-inputs').hide();
-  });
+    // Hide the time inputs by default for all rows
+    $(".time-input, .time-inputs").hide();
 
-  // Delete the row when the "x" button is clicked
-  $(document).on("click", ".deleteRow", function() {
-    $(this).closest(".row").remove();
-  });
-});
+    // Apply changes to each row individually
+    $(".new_class .row").each(function() {
+      var row = $(this);
 
-// add event listener to form submit event
-$('form').on('submit', function(e) {
-    e.preventDefault(); // prevent default form submission behavior
-    var form_data = $(this).serialize(); // serialize form data
-    alert(form_data)
-    // send AJAX request to Django view
-    $.ajax({
-        type: 'POST',
-        url: '/employee_leaves',
-        data: form_data,
-        success: function(response) {
-            // handle successful response
-           window.location.reload();
-        },
-        error: function(response) {
-            // handle error response
+      // Show/hide the time inputs based on the leave type selection for this row
+      row.find(".leave_type").on("change", function() {
+        if ($(this).val() == "Fullday") {
+          row.find(".time-input, .time-inputs").hide();
+        } else {
+          row.find(".time-input, .time-inputs").show();
         }
+      });
     });
+  });
+ $('form').on('submit', function(e) {
+    e.preventDefault(); // Prevent default form submit behavior
+   var data = [];
+    var department = $('.department').val();
+    var reason = $('.reason').val();
+    var comment = $('.comment').val()
+    console.log(department,"department")
+   var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+    $('.new_class .row').each(function() {
+      var row = {};
+      row.leave_type = $(this).find('.leave_type').val();
+      row.start_date = $(this).find('.start_date').val();
+      row.start_time = $(this).find('.start_time').val();
+      row.end_time = $(this).find('.end_time').val();
+      data.push(row);
+
+
+    });
+      get_data= {'leaves': [data],
+                  'department':department,
+                  'comment':comment,
+                  'reason':reason}
+
+      console.log(get_data, "form_data")
+      // Send AJAX request to the server with the form data
+      $.ajax({
+        url: '/employee_leaves', // Replace with your server-side script URL
+        type: 'POST',
+        data: get_data,
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('X-CSRFToken', csrftoken);
+        },
+        success: function(response) {
+          // Handle success response from
+          console.log("succ")
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          // Handle error response from server
+          console.log("error")
+        }
+      });
+
+  });
 });
 
- window.onload=function(){
-var today = new Date().toISOString().split('T')[0];
-document.getElementsByName("start_date")[0].setAttribute('min', today);
-document.getElementsByName("end_date")[0].setAttribute('min', today);
-    }
 
 </script>
 
