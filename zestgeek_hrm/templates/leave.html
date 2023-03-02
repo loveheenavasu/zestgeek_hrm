@@ -333,33 +333,34 @@ $(document).ready(function() {
   });
  $('form').on('submit', function(e) {
     e.preventDefault(); // Prevent default form submit behavior
-   var data = [];
+   var leaveData = [];
     var department = $('.department').val();
     var reason = $('.reason').val();
     var comment = $('.comment').val()
     console.log(department,"department")
    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
-    $('.new_class .row').each(function() {
-      var row = {};
-      row.leave_type = $(this).find('.leave_type').val();
-      row.start_date = $(this).find('.start_date').val();
-      row.start_time = $(this).find('.start_time').val();
-      row.end_time = $(this).find('.end_time').val();
-      data.push(row);
 
+  $(".new_class .row").each(function() {
+    var leaveRow = {};
+    leaveRow.leaveType = $(this).find(".leave_type").val();
+    leaveRow.startDate = $(this).find(".start_date").val();
+    leaveRow.startTime = $(this).find(".start_time").val();
+    leaveRow.endTime = $(this).find(".end_time").val();
+    leaveData.push(leaveRow);
+  });
 
-    });
-      get_data= {'leaves': [data],
+      get_data= {'leaves': leaveData,
                   'department':department,
                   'comment':comment,
                   'reason':reason}
+      var jsonData = JSON.stringify(get_data);
 
-      console.log(get_data, "form_data")
+      console.log(jsonData, "form_data")
       // Send AJAX request to the server with the form data
       $.ajax({
         url: '/employee_leaves', // Replace with your server-side script URL
         type: 'POST',
-        data: get_data,
+        data: jsonData,
         beforeSend: function(xhr) {
           xhr.setRequestHeader('X-CSRFToken', csrftoken);
         },
