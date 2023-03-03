@@ -32,6 +32,9 @@ def validate_leaves(leaves_list, remaining_leaves):
     half_day_hrs = 4
     short_leave_hrs = 2
     dates_list = []
+    start_time_list = []
+    end_time_list = []
+    check = list(zip(dates_list, start_time_list, end_time_list))
     total_days_of_leave = 0
     try:
         for i in leaves_list:
@@ -43,6 +46,8 @@ def validate_leaves(leaves_list, remaining_leaves):
                 print(f"End time: {end_time}")
                 start_time = convert_time_to_hrs_minute(start_time)
                 end_time = convert_time_to_hrs_minute(end_time)
+                if (date, start_time, end_time) in check:
+                    return False, "You have already selected leave for the same."
                 total_days_of_leave += convert_into_days(2)
 
             elif i.get("leaveType").lower() == "halfday":
@@ -55,6 +60,8 @@ def validate_leaves(leaves_list, remaining_leaves):
                 end_time = convert_time_to_hrs_minute(end_time)
                 hour = end_time.hour - start_time.hour
                 minute = end_time.minute - start_time.minute
+                if (date, start_time, end_time) in check:
+                    return False, "You have already selected leave for the same."
                 total_days_of_leave += convert_into_days(half_day_hrs)
             else:
                 print("This is full-day.")

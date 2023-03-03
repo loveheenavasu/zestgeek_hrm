@@ -16,7 +16,7 @@ class EmployeeLeaves(LoginRequiredMixin, View):
     def get(self, request):
         leave_obj = Leaves.objects.filter(user=request.user.id)
         if leave_obj:
-            remaining_leaves = sum([obj.remaining_leaves for obj in leave_obj])
+            remaining_leaves = 18 - sum([obj.days for obj in leave_obj])
         else:
             remaining_leaves = 18
         show_data = Leaves.objects.all()
@@ -37,7 +37,7 @@ class EmployeeLeaves(LoginRequiredMixin, View):
                 reason = data.get("reason")
                 user_obj = CustomUser.objects.get(id=request.user.id)
                 dept_obj = Department.objects.get(department_name=department)
-                remaining_leaves = data.get("remaining_leaves")
+                remaining_leaves = int(data.get("remaining_leaves"))
                 attachments = data.get("attachments")
 
                 leaves_date_list = []
@@ -72,7 +72,9 @@ class EmployeeLeaves(LoginRequiredMixin, View):
                 else:
                     return JsonResponse({'message': data_or_message})
         except Exception as e:
-            print(e)
+            print(e, "--------")
+            messages.error(request, e)
+            return render(request, 'leave.html')
 class EmployeeProfile(LoginRequiredMixin, View):
     def get(self, request):
         user_id = request.user.id
