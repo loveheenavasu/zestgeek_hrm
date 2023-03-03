@@ -7,65 +7,67 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import datetime
 from django.http import JsonResponse
 from utils import change_date, change_time
+import json
+from .leaves_validation import format_time, format_date, convert_time_to_hrs_minute, get_total_hours, convert_into_days,\
+    validate_leaves
 # Create your views here.
 
-# def change_date(date):
-#     changed_date = datetime.strptime(date, '%Y-%m-%d').date()
-#     return changed_date
-
-class EmployeeLeaves(LoginRequiredMixin,View):
+class EmployeeLeaves(LoginRequiredMixin, View):
     def get(self, request):
         show_data = Leaves.objects.all()
         dept = Department.objects.all()
         return render(request, 'leave.html', {'show_data': show_data, 'dept': dept})
     def post(self, request):
         try:
-            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            # if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            if request.method == 'POST':
                 print(request.POST, "-----------------------------------------")
+                data = json.loads(request.body)
                 start_date = request.POST.getlist('start_date')
-                end_date = request.POST.getlist('end_date')
-                print(start_date, "-----------------")
-                reason = request.POST.get('reason')
-                remaining_leaves = 11
-                attachments = request.FILES.get('attachments')
-                comments = request.POST.get('comments')
-                leave_type = request.POST.getlist('leave_type')
-                start_time = request.POST.getlist('start_time')
-                end_time = request.POST.getlist('end_time')
-                user_id = request.user.id
-                userr = CustomUser.objects.get(id=user_id)
-                dept_name = request.POST.get('department')
-                print(request.POST.get('department'),"-----dept_namedept_namedept_namedept_namedept_namedept_name")
-                name_dept = Department.objects.get(department_name=dept_name)
-                emp_leave = Leaves.objects.create(user=userr,dept_name=name_dept, start_date=change_date(start_date[0]), end_date=change_date(end_date[-1]), reason=reason, remaining_leaves=remaining_leaves,
-                                                  attachments=attachments, comments=comments, days=(change_date(end_date[-1])-change_date(start_date[0])).days)
+                leaves_list = data.get("leaves")
+                department = data.get("department")
+                comments = data.get("comments")
+                reason = data.get("reason")
+                user_obj = CustomUser.objects.get(id=request.user.id)
+                dept_obj = Department.objects.get(department_name=department)
+                # remaining_leaves = data.get("remaining_leaves")  # todo: This has to be dynamic
+                remaining_leaves = 10
+                attachments = data.get("attachments")
 
-                result = []
-                for i in range(len(start_date)):
-                    if start_date[i] == '':
-                        start_date[i] = None
-                    elif end_date[i] == '':
-                        end_date[i] = None
-                    elif start_time[i] == '':
-                        start_time[i] = None
-                    elif end_time[i] == '':
-                        end_time[i] = None
-                    leave_details = LeavesDetails(
-                        leave=emp_leave,
-                        leave_type=leave_type[i],
-                        start_date=change_date(start_date[i]) if start_date[i] else start_date[i],
-                        end_date=change_date(end_date[i]) if end_date[i] else end_date[i],
-                        start_time=change_time(start_time[i]) if start_time[i] else start_time[i],
-                        end_time=change_time(start_time[i]) if start_time[i] else start_time[i])
-                    result.append(leave_details)
-                LeavesDetails.objects.bulk_create(result)
-                messages.success(request, "Leave applied successfully.")
-                return JsonResponse({'message':"successfully"})
-            return redirect("/employee_leaves")
+                leaves_date_list = []
+                leave_details = []
+                for obj in leaves_list:
+                    leaves_date_list.append(format_date(obj.get("startDate")))
+                    leave_details.append({"leave_type": obj.get("leaveType"),
+                                          "start_date": format_date(obj.get("startDate")),
+                                          "start_time": format_time(obj.get("startTime")),
+                                          "end_time": format_time(obj.get("endTime"))
+                                          })
+                start_date = min(leaves_date_list)
+                end_date = max(leaves_date_list)
+
+                check, data_or_message = validate_leaves(leaves_list)
+                if check:
+                    emp_leave = Leaves.objects.create(user=user_obj, dept_name=dept_obj,
+                                                      start_date=start_date,
+                                                      end_date=end_date,
+                                                      reason=reason,
+                                                      remaining_leaves=remaining_leaves,
+                                                      attachments=attachments,
+                                                      comments=comments,
+                                                      days=len(leaves_date_list))
+
+                    leave_details = [LeavesDetails(**obj, leave=emp_leave) for obj in leave_details]
+                    LeavesDetails.objects.bulk_create(leave_details)
+
+                    messages.success(request, "Leave applied successfully.")
+                    return JsonResponse({'message': "successfully"})
+                    # return redirect("/employee_leaves")
+                else:
+                    return JsonResponse({'message': data_or_message})
         except Exception as e:
-            print(e),"lllllllllllll"
-            return redirect("/employee_leaves")
-class EmployeeProfile(LoginRequiredMixin,View):
+            print(e)
+class EmployeeProfile(LoginRequiredMixin, View):
     def get(self, request):
         user_id = request.user.id
         print(user_id, "user_id")

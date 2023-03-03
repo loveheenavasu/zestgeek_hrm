@@ -361,6 +361,9 @@ $(document).ready(function() {
         url: '/employee_leaves', // Replace with your server-side script URL
         type: 'POST',
         data: jsonData,
+        headers: {
+    'Content-Type': 'application/json'
+  },
         beforeSend: function(xhr) {
           xhr.setRequestHeader('X-CSRFToken', csrftoken);
         },
