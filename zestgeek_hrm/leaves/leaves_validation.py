@@ -13,19 +13,22 @@ def format_date(date):
     formatted_date = datetime.strptime(date, "%Y-%m-%d")
     return formatted_date.date()
 
+
 def convert_time_to_hrs_minute(time):
     converted_time = datetime.strptime(time, '%H:%M').time()
     return converted_time
+
 
 def get_total_hours(hour):
     total_hours = hour
     return total_hours
 
-def convert_into_days(hours):
-    return hours/8
 
-def validate_leaves(leaves_list):
-    remaining_leaves = 10  # todo: This will be dynamic
+def convert_into_days(hours):
+    return hours / 8
+
+
+def validate_leaves(leaves_list, remaining_leaves):
     half_day_hrs = 4
     short_leave_hrs = 2
     dates_list = []

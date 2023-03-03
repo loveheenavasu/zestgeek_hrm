@@ -76,7 +76,7 @@
                           <div class="col-xl-4 col-sm-6 col-12 ">
                            <div class="form-group">
                               <label>Remaining Leaves</label>
-                              <input type="text" value="10" name="remaining_leaves" class="remaining_leaves" disabled>
+                              <input type="text" value="{{remaining_leave}}" name="remaining_leaves" class="remaining_leaves" disabled>
                            </div>
                         </div>
                         <div class="col-xl-4 col-sm-12 col-12 ">
@@ -337,6 +337,7 @@ $(document).ready(function() {
     var department = $('.department').val();
     var reason = $('.reason').val();
     var comment = $('.comment').val()
+    var remaining_leaves = $('.remaining_leaves').val()
     console.log(department,"department")
    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
 
@@ -352,7 +353,8 @@ $(document).ready(function() {
       get_data= {'leaves': leaveData,
                   'department':department,
                   'comment':comment,
-                  'reason':reason}
+                  'reason':reason,
+                  'remaining_leaves':remaining_leaves}
       var jsonData = JSON.stringify(get_data);
 
       console.log(jsonData, "form_data")
@@ -369,11 +371,14 @@ $(document).ready(function() {
         },
         success: function(response) {
           // Handle success response from
-          console.log("succ")
+            $('.remaining_leaves').val(response.message);
+          console.log("succ", response.message)
+          window.location.reload();
         },
         error: function(jqXHR, textStatus, errorThrown) {
           // Handle error response from server
           console.log("error")
+          e.preventDefault();
         }
       });
 

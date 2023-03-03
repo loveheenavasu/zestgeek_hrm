@@ -14,15 +14,22 @@ from .leaves_validation import format_time, format_date, convert_time_to_hrs_min
 
 class EmployeeLeaves(LoginRequiredMixin, View):
     def get(self, request):
+        leave_obj = Leaves.objects.filter(user=request.user.id)
+        if leave_obj:
+            remaining_leaves = sum([obj.remaining_leaves for obj in leave_obj])
+        else:
+            remaining_leaves = 18
         show_data = Leaves.objects.all()
         dept = Department.objects.all()
-        return render(request, 'leave.html', {'show_data': show_data, 'dept': dept})
+        print(remaining_leaves, "remaining_leave--------")
+        return render(request, 'leave.html', {'show_data': show_data, 'dept': dept, "remaining_leave":remaining_leaves})
     def post(self, request):
         try:
             # if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             if request.method == 'POST':
                 print(request.POST, "-----------------------------------------")
                 data = json.loads(request.body)
+                print(data, "====")
                 start_date = request.POST.getlist('start_date')
                 leaves_list = data.get("leaves")
                 department = data.get("department")
@@ -30,8 +37,7 @@ class EmployeeLeaves(LoginRequiredMixin, View):
                 reason = data.get("reason")
                 user_obj = CustomUser.objects.get(id=request.user.id)
                 dept_obj = Department.objects.get(department_name=department)
-                # remaining_leaves = data.get("remaining_leaves")  # todo: This has to be dynamic
-                remaining_leaves = 10
+                remaining_leaves = data.get("remaining_leaves")
                 attachments = data.get("attachments")
 
                 leaves_date_list = []
@@ -46,13 +52,13 @@ class EmployeeLeaves(LoginRequiredMixin, View):
                 start_date = min(leaves_date_list)
                 end_date = max(leaves_date_list)
 
-                check, data_or_message = validate_leaves(leaves_list)
+                check, data_or_message = validate_leaves(leaves_list, remaining_leaves)
                 if check:
                     emp_leave = Leaves.objects.create(user=user_obj, dept_name=dept_obj,
                                                       start_date=start_date,
                                                       end_date=end_date,
                                                       reason=reason,
-                                                      remaining_leaves=remaining_leaves,
+                                                      remaining_leaves=data_or_message,
                                                       attachments=attachments,
                                                       comments=comments,
                                                       days=len(leaves_date_list))
@@ -61,7 +67,7 @@ class EmployeeLeaves(LoginRequiredMixin, View):
                     LeavesDetails.objects.bulk_create(leave_details)
 
                     messages.success(request, "Leave applied successfully.")
-                    return JsonResponse({'message': "successfully"})
+                    return JsonResponse({'message': data_or_message})
                     # return redirect("/employee_leaves")
                 else:
                     return JsonResponse({'message': data_or_message})
