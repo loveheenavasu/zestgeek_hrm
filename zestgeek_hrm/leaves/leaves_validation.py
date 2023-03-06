@@ -39,6 +39,7 @@ def validate_leaves(leaves_list, remaining_leaves):
     try:
         for i in leaves_list:
             if i.get("leaveType").lower() == "shortday":
+                date = format_date(i.get("startDate"))
                 print("This is short-day.")
                 start_time = i.get("startTime")
                 print(f"Start Time:{start_time}")
@@ -51,13 +52,15 @@ def validate_leaves(leaves_list, remaining_leaves):
                 total_days_of_leave += convert_into_days(2)
 
             elif i.get("leaveType").lower() == "halfday":
+                date = format_date(i.get("startDate"))
                 print("This is half-day.")
                 start_time = format_time(i.get("startTime"))
                 end_time = format_time(i.get("endTime"))
                 print(f"Start time- {start_time}")
                 print(f"End time- {end_time}")
-                start_time = convert_time_to_hrs_minute(start_time)
-                end_time = convert_time_to_hrs_minute(end_time)
+                # start_time = convert_time_to_hrs_minute(start_time)
+                start_time = convert_time_to_hrs_minute(i.get("startTime"))
+                end_time = convert_time_to_hrs_minute(i.get("endTime"))
                 hour = end_time.hour - start_time.hour
                 minute = end_time.minute - start_time.minute
                 if (date, start_time, end_time) in check:
