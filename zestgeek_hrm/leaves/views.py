@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import datetime
 from django.http import JsonResponse
 from utils import change_date, change_time
+from django.db.models import Q
 import json
 from .leaves_validation import format_time, format_date, convert_time_to_hrs_minute, get_total_hours, convert_into_days,\
     validate_leaves
@@ -19,13 +20,18 @@ class EmployeeLeaves(LoginRequiredMixin, View):
             remaining_leaves = 18 - sum([obj.days for obj in leave_obj])
         else:
             remaining_leaves = 18
-        show_data = Leaves.objects.all()
-        today_data = Leaves.objects.filter(start_date=datetime.now().date())
-        counts = LeavesDetails.objects.filter(start_date=datetime.now().date()).count()
-        print(today_data,"today_data")
+        show_data = LeavesDetails.objects.filter(start_date__gte= datetime.now().date())
+        today_date = datetime.now().date()
+        fullday_leave = LeavesDetails.objects.filter(Q(leave_type="Fullday") & Q(start_date=datetime.now().date())).count()
+        short_leave = LeavesDetails.objects.filter(Q(leave_type="Shortleave") & Q(start_date=datetime.now().date())).count()
+        counts = Leaves.objects.filter(start_date=datetime.now().date()).count()
+        first_half = LeavesDetails.objects.filter(Q(leave_type="Halfday") & Q(end_time="13:30:00") & Q(start_date=datetime.now().date())).count()
+        print(first_half,"today_data   short_leave   first_half")
+        second_half = LeavesDetails.objects.filter(Q(leave_type="Halfday") & Q(start_time__gte="14:30:00") & Q(start_date=datetime.now().date())).count()
+        print(second_half, "today_data   short_leave   first_half")
         dept = Department.objects.all()
         print(remaining_leaves, "remaining_leave--------")
-        return render(request, 'leave.html', {'show_data': show_data,'counts':counts, 'today_data': today_data, 'dept': dept, "remaining_leave": remaining_leaves})
+        return render(request, 'leave.html', {'show_data': show_data,'counts':counts,'short_leave':short_leave, 'fullday_leave':fullday_leave, 'today_date': today_date,'first_half':first_half,'second_half':second_half, 'dept': dept, "remaining_leave": remaining_leaves})
     def post(self, request):
         try:
             # if request.headers.get('x-requested-with') == 'XMLHttpRequest':

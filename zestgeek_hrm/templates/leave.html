@@ -128,7 +128,7 @@
             <div class="col-xl-12 col-sm-12 col-12 ">
                <div class="card">
                   <div class="card-header">
-                     <h2 class="card-titles">Leave Details</h2>
+                     <h2 class="card-titles">Leave Summary</h2>
                   </div>
                   <div class="card-body p-0">
                      <div class="table-responsive">
@@ -136,26 +136,22 @@
                            <thead>
                               <tr>
                                  <th>Date</th>
-                                 <th>Total Employees	</th>
-                                 <th>Leave</th>
+                                 <th>Total Employees</th>
+                                 <th>Full day Leave</th>
                                  <th>First Half	</th>
                                  <th>Second Half </th>
                                  <th>Short Leave</th>
-                                 <th>Working From Home	</th>
                               </tr>
                            </thead>
                            <tbody>
-                           {% for data in today_data %}
                               <tr>
-                                 <td><label>{{data.start_date}}</label></td>
+                                 <td><label>{{today_date}}</label></td>
                                  <td><label>{{counts}} </label></td>
-                                 <td><label>6 </label></td>
-                                 <td><label>6 </label></td>
-                                 <td><label>1 </label></td>
-                                 <td><label>0 </label></td>
-                                 <td><label>1 </label></td>
+                                 <td><label>{{fullday_leave}} </label></td>
+                                 <td><label>{{first_half}}</label></td>
+                                 <td><label>{{second_half}}</label></td>
+                                 <td><label>{{short_leave}} </label></td>
                               </tr>
-                           {%endfor%}
                            </tbody>
                         </table>
                      </div>
@@ -176,10 +172,8 @@
                               <tr>
                                  <th>Employee</th>
                                  <th>Leave Type </th>
-                                 <th>From	</th>
-                                 <th>To</th>
-                                 <th>Days</th>
-                                 <th>Remaining Days	</th>
+                                 <th>Date</th>
+                                 <th>Time</th>
                                  <th>Notes</th>
                                  <th>Status</th>
                                  <th>Action</th>
@@ -190,20 +184,21 @@
                               <tr>
                                  <td>
                                     <div class="table-img">
-                                       <a href="profile.html"><img src="{% static 'assets/img/profiles/avatar-13.jpg' %}" alt="profile" class="img-table"></a>
-                                       <label>{{s_data.user.first_name}}</label>
+                                       <a href="profile.html"><img src="{{s_data.leave.user.image.url}}" alt="profile" class="img-table"></a>
+                                       <label>{{s_data.leave.user.first_name}}</label>
                                     </div>
                                  </td>
                                  <td>
                                     <label>{{s_data.leave_type}} </label>
                                  </td>
                                  <td>
-                                    <label>05 Dec 2019 </label>
+                                    <label>{{s_data.start_date}} </label>
                                  </td>
-                                 <td><label>07 Dec 2019	</label></td>
-                                 <td><label>3</label></td>
-                                 <td><label>9</label></td>
-                                 <td><label>Parenting Leave</label></td>
+
+                                 <td>
+                                    <label>{% if s_data.start_time != None%}{{s_data.start_time}}-{{s_data.end_time}}{%else%}Fullday{%endif%}</label>
+                                 </td>
+                                 <td><label>{{s_data.leave.reason}}</label></td>
                                  <td>
                                     <label><a class="action_label3">Approved</a></label>
                                  </td>
