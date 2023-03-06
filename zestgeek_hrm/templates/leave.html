@@ -137,23 +137,25 @@
                               <tr>
                                  <th>Date</th>
                                  <th>Total Employees	</th>
+                                 <th>Leave</th>
                                  <th>First Half	</th>
                                  <th>Second Half </th>
+                                 <th>Short Leave</th>
                                  <th>Working From Home	</th>
-                                 <th>Absent</th>
-                                 <th>Today Aways</th>
                               </tr>
                            </thead>
                            <tbody>
+                           {% for data in today_data %}
                               <tr>
-                                 <td><label>05 May 2019 </label></td>
-                                 <td><label>7 </label></td>
+                                 <td><label>{{data.start_date}}</label></td>
+                                 <td><label>{{counts}} </label></td>
                                  <td><label>6 </label></td>
                                  <td><label>6 </label></td>
                                  <td><label>1 </label></td>
                                  <td><label>0 </label></td>
                                  <td><label>1 </label></td>
                               </tr>
+                           {%endfor%}
                            </tbody>
                         </table>
                      </div>
@@ -184,15 +186,16 @@
                               </tr>
                            </thead>
                            <tbody>
+                           {% for s_data in show_data %}
                               <tr>
                                  <td>
                                     <div class="table-img">
                                        <a href="profile.html"><img src="{% static 'assets/img/profiles/avatar-13.jpg' %}" alt="profile" class="img-table"></a>
-                                       <label>Sean Black</label>
+                                       <label>{{s_data.user.first_name}}</label>
                                     </div>
                                  </td>
                                  <td>
-                                    <label>Parental Leave </label>
+                                    <label>{{s_data.leave_type}} </label>
                                  </td>
                                  <td>
                                     <label>05 Dec 2019 </label>
@@ -208,54 +211,7 @@
                                     <label><a class="action_label4" data-toggle="modal" data-target="#delete">Delete <i data-feather="trash-2"></i> </a></label>
                                  </td>
                               </tr>
-                              <tr>
-                                 <td>
-                                    <div class="table-img">
-                                       <a href="profile.html"><img src="{% static 'assets/img/profiles/avatar-16.jpg' %}" alt="profile" class="img-table"></a>
-                                       <label>Linda Craver</label>
-                                    </div>
-                                 </td>
-                                 <td>
-                                    <label>Parental Leave </label>
-                                 </td>
-                                 <td>
-                                    <label>05 Dec 2019 </label>
-                                 </td>
-                                 <td><label>07 Dec 2019	</label></td>
-                                 <td><label>3</label></td>
-                                 <td><label>9</label></td>
-                                 <td><label>Going to Hospital</label></td>
-                                 <td>
-                                    <label><a class="action_label3">Approved</a></label>
-                                 </td>
-                                 <td>
-                                    <label><a class="action_label4" data-toggle="modal" data-target="#delete">Delete <i data-feather="trash-2"></i> </a></label>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>
-                                    <div class="table-img">
-                                       <a href="profile.html"><img src="{% static 'assets/img/profiles/avatar-17.jpg' %}" alt="profile" class="img-table"></a>
-                                       <label>Jenni Sims</label>
-                                    </div>
-                                 </td>
-                                 <td>
-                                    <label>Parental Leave </label>
-                                 </td>
-                                 <td>
-                                    <label>05 Dec 2019 </label>
-                                 </td>
-                                 <td><label>07 Dec 2019	</label></td>
-                                 <td><label>3</label></td>
-                                 <td><label>9</label></td>
-                                 <td><label>Raining</label></td>
-                                 <td>
-                                    <label><a class="action_label3">Approved</a></label>
-                                 </td>
-                                 <td>
-                                    <label><a class="action_label4" data-toggle="modal" data-target="#delete">Delete <i data-feather="trash-2"></i> </a></label>
-                                 </td>
-                              </tr>
+                           {%endfor%}
                            </tbody>
                         </table>
                      </div>

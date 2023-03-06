@@ -20,9 +20,12 @@ class EmployeeLeaves(LoginRequiredMixin, View):
         else:
             remaining_leaves = 18
         show_data = Leaves.objects.all()
+        today_data = Leaves.objects.filter(start_date=datetime.now().date())
+        counts = LeavesDetails.objects.filter(start_date=datetime.now().date()).count()
+        print(today_data,"today_data")
         dept = Department.objects.all()
         print(remaining_leaves, "remaining_leave--------")
-        return render(request, 'leave.html', {'show_data': show_data, 'dept': dept, "remaining_leave":remaining_leaves})
+        return render(request, 'leave.html', {'show_data': show_data,'counts':counts, 'today_data': today_data, 'dept': dept, "remaining_leave": remaining_leaves})
     def post(self, request):
         try:
             # if request.headers.get('x-requested-with') == 'XMLHttpRequest':
